@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_happiness_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="0dp"
+    android:weightSum="1"
+    tools:context="dm.sime.com.kharetati.fragment.HappinessFragment">
+
+  <TextView
+      android:id="@+id/title_about_us"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:height="40dp"
+      android:background="?attr/colorPrimary"
+      android:gravity="center_vertical"
+      android:text="@string/menu_happiness"
+      android:textAlignment="center"
+      android:textColor="@color/white"
+      android:textSize="16sp" />
+
+  <WebView
+      android:id="@+id/view_happiness_meter"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+</LinearLayout>

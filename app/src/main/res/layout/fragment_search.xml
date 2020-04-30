@@ -1,0 +1,201 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:mask="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+    android:background="#7eb98f"
+    android:id="@+id/parentLayout"
+    android:orientation="vertical"
+    android:gravity="center"
+  tools:context="dm.sime.com.kharetati.fragment.SearchFragment">
+
+    <!--<android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/new_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:tabIndicatorColor="@color/white"
+            app:tabSelectedTextColor="#ffffff">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="one" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="two" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="three" />
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+-->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="-15dp">
+    <TextView
+        android:id="@+id/lbl_search_plot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/enter_parcelid"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.191"
+        tools:layout_conversion_absoluteHeight="34dp"
+        tools:layout_conversion_absoluteWidth="283dp"
+        tools:layout_conversion_absoluteX="84dp"
+        tools:layout_conversion_absoluteY="0dp" />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/drawable_info"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="15dp"
+            android:id="@+id/infoplot_img"
+            android:layout_marginLeft="5dp" />
+
+    </LinearLayout>
+
+
+  <!--<br.com.sapereaude.maskedEditText.MaskedEditText-->
+      <!--android:id="@+id/txtPlotNumber"-->
+      <!--android:layout_width="275dp"-->
+      <!--android:layout_height="40dp"-->
+      <!--android:inputType="number"-->
+      <!--android:typeface="monospace"-->
+      <!--mask:allowed_chars="1234567890"-->
+      <!--mask:mask="# # # # # # #"-->
+      <!--android:hint="________"-->
+      <!--app:keep_hint="true"-->
+      <!--android:textAlignment="center"-->
+      <!--android:background="@drawable/rounded_edittext"-->
+      <!--app:layout_constraintTop_toTopOf="parent"-->
+      <!--android:layout_marginTop="8dp"-->
+      <!--android:layout_marginRight="8dp"-->
+      <!--app:layout_constraintRight_toRightOf="parent"-->
+      <!--android:layout_marginLeft="8dp"-->
+      <!--app:layout_constraintLeft_toLeftOf="parent"-->
+      <!--app:layout_constraintBottom_toBottomOf="parent"-->
+      <!--android:layout_marginBottom="8dp"-->
+      <!--app:layout_constraintVertical_bias="0.345"-->
+      <!--app:layout_constraintHorizontal_bias="0.502"-->
+      <!--android:drawableLeft="@android:drawable/ic_menu_search"-->
+      <!--android:paddingLeft="10dp"-->
+      <!--android:layoutDirection="ltr"/>-->
+    <EditText
+        android:id="@+id/fragment_search_txtPlotnumber"
+        android:layout_width="275dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:gravity="center_vertical|center_horizontal"
+        android:inputType="number"
+        android:maxLength="20"
+        android:textSize="16sp"
+        android:textDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
+    <!--<EditText
+        android:id="@+id/ptStatus"
+        android:layout_width="275dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/edittext_background"
+        android:ems="10"
+        android:gravity="center_vertical|center_horizontal"
+        android:inputType="number"
+        android:maxLength="20"
+        android:textSize="16sp"
+        android:hint="Please set payment status"
+        android:textDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.315" />
+    <Button
+        android:id="@+id/btnPtStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="submit"/>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="10dp"
+        android:gravity="right"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.451">
+
+        <ImageView
+            android:layout_width="210dp"
+            android:layout_height="260dp"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:src="@drawable/plot_bg" />
+    </LinearLayout>
+
+  <!--<Button
+      android:id="@+id/btnFindPlot"
+      android:layout_width="281dp"
+      android:layout_height="40dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="8dp"
+      android:layout_marginRight="8dp"
+      android:layout_marginTop="8dp"
+      android:background="@drawable/rounded_edittext_gradient"
+      android:contentDescription="@string/menu_search"
+      android:text="Done"
+      android:textStyle="bold"
+      android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+      android:textAllCaps="false"
+      android:textColor="#fff"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintHorizontal_bias="0.505"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.476"
+      tools:layout_conversion_absoluteHeight="48dp"
+      tools:layout_conversion_absoluteWidth="281dp"
+      tools:layout_conversion_absoluteX="84dp"
+      tools:layout_conversion_absoluteY="0dp"
+      />-->
+
+</LinearLayout>

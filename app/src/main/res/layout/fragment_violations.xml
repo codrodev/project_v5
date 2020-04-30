@@ -1,0 +1,74 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout_violations"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/ll2"
+
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fragment_violations_txtPlotNoLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_weight="1"
+                android:text="@string/plotno2"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/fragment_violations_txtPlotNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="TextView"
+                android:textDirection="ltr"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/fragment_violations_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="18dp"
+            android:layout_marginTop="10dp"
+            android:height="40dp"
+            android:visibility="gone"
+            android:background="#6cb26f"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/lbl_building_violations"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fragment_violations_lstViolations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#3bb471"
+            android:dividerHeight="2dp"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</LinearLayout>
+
+

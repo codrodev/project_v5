@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--<color name="colorPrimary">#2D8655</color>-->
+  <color name="colorPrimary">#2A8354</color>
+  <color name="colorPrimaryDark">#177EAB</color>
+  <!--<color name="colorPrimaryDark">#25aae1</color>-->
+  <color name="colorAccent">#fcb040</color>
+  <color name="colorCustomGray">#bdc2ae</color>
+  <color name="colorCustomloginbg">#323b4c</color>
+  <color name="black">#000000</color>
+  <color name="gray">#a7a6a6</color>
+  <color name="gray_color">#555555</color>
+  <color name="gray_text_color">#6f7179</color>
+  <color name="purple">#9932CC</color>
+  <color name="white">#ffffff</color>
+  <color name="snackBarColor">#802D8655</color>
+  <color name="edittextColor">#9dabc3</color>
+
+  <color name="background_dark">#fcb040</color>
+  <color name="background_light">#bdc2ae</color>
+  <color name="transparent">#00b8860b</color>
+
+  <color name="bg_slider_screen1">#2D8655</color>
+  <color name="bg_slider_screen2">#2D8655</color>
+  <color name="bg_slider_screen3">#2D8655</color>
+  <color name="header_label_background">#f7f5f7</color>
+  <color name="dim_gray">#696969</color>
+  <color name="land_dialog_color">#33a6dd</color>
+  <color name="land_dialog_msg_color">#868686</color>
+
+
+
+
+  <color name="dot_inactive_screen1">#f9c772</color>
+  <color name="dot_inactive_screen2">#f9c772</color>
+  <color name="dot_inactive_screen3">#f9c772</color>
+  <color name="dot_inactive_screen4">#f9c772</color>
+  <color name="dot_inactive_screen5">#f9c772</color>
+  <!-- dots active colors -->
+  <color name="dot_active_screen1">#ffa000</color>
+  <color name="dot_active_screen2">#ffa000</color>
+  <color name="dot_active_screen3">#ffa000</color>
+  <color name="dot_active_screen4">#ffa000</color>
+  <color name="dot_active_screen5">#ffa000</color>
+  <color name="dark_grey">#c3c4c5</color>
+  <color name="textColorPrimary">#FFFFFF</color>
+  <color name="textColorSecondary">#FFFFFF</color>
+  <color name="colorHeader">#008577</color>
+  <color name="accent">#D81B60</color>
+  <array name="array_dot_active">
+    <item>@color/dot_active_screen1</item>
+    <item>@color/dot_active_screen2</item>
+    <item>@color/dot_active_screen3</item>
+    <item>@color/dot_active_screen4</item>
+    <item>@color/dot_active_screen5</item>
+  </array>
+  <array name="array_dot_inactive">
+    <item>@color/dot_inactive_screen1</item>
+    <item>@color/dot_inactive_screen2</item>
+    <item>@color/dot_inactive_screen3</item>
+    <item>@color/dot_inactive_screen4</item>
+    <item>@color/dot_inactive_screen5</item>
+  </array>
+
+</resources>

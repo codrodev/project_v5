@@ -1,0 +1,96 @@
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+    android:orientation="vertical"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <LinearLayout
+      android:id="@+id/fragment_zone_reg_layout_network_connection"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="30dp"
+      android:orientation="vertical"
+      android:visibility="gone">
+
+    <ImageView
+        android:id="@+id/imageView6"
+        mask:srcCompat="@drawable/nointernet"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/internet_connection_problem"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/fragment_zone_reg_btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_edittext_gradient"
+        android:text="@string/retry" />
+  </LinearLayout>
+
+  <ScrollView
+      android:id="@+id/fragment_zone_reg_scrollview"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:context="dm.sime.com.kharetati.fragment.ZoneRegulationFragment">
+
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_gravity="center_horizontal"
+          android:layout_marginTop="20dp"
+          android:layout_weight="0.70"
+          android:id="@+id/ll1"
+          android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/fragment_zonereg_txtPlotNoLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:text="@string/plotno2"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fragment_zonereg_txtPlotNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textDirection="ltr"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textSize="16sp" />
+      </LinearLayout>
+
+    </LinearLayout>
+  </ScrollView>
+</LinearLayout>
+
+

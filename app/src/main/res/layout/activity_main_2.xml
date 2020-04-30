@@ -1,0 +1,108 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <include
+        layout="@layout/app_bar_main_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layoutDirection="locale"
+        android:id="@+id/appbar">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/new_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabSelectedTextColor="#ffffff">
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="one" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="two" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tabItem3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="three" />
+        </android.support.design.widget.TabLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layoutDirection="locale"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start">
+
+        <!-- Main layout -->
+        <FrameLayout
+            android:id="@+id/mainFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+        </FrameLayout>
+
+        <!-- Nav drawer -->
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:layoutDirection="locale"
+
+            android:background="@color/white"
+            app:itemIconTint="@color/white"
+            app:itemTextColor="#616163"
+            app:menu="@menu/activity_main_drawer"
+            android:theme="@style/NavigationDrawerStyle"
+
+            >
+
+            <include layout="@layout/nav_header_main" />
+
+        </android.support.design.widget.NavigationView>
+
+        <LinearLayout
+            android:id="@+id/mainactivity_notifications_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <ListView
+                android:id="@+id/mainactivity_notifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp" />
+        </LinearLayout>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</LinearLayout>

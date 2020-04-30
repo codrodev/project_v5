@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="2dp"
+    android:orientation="vertical"
+    android:paddingTop="10dp"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:id="@+id/violation_start_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layoutDirection="locale"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="none">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_followupno"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_start_building_violations_followupno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold"
+                    />
+
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="none">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/lbl_building_violations_violationType"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_start_building_violations_violatontype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:layout_marginEnd="40dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:layout_marginRight="40dp"
+                    android:gravity="start" />
+
+
+            </LinearLayout>
+        <ImageView
+            android:id="@+id/plus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/plus"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginTop="-54dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/violation_expand_layout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:id="@+id/expand_buildingviolation_lbl"
+        android:background="#3bb471"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="5dp"
+            android:text="@string/lbl_building_violations"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textSize="@dimen/fontSize"
+            android:textStyle="bold"
+            android:textColor="#fff" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="3dp"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="3dp"
+            android:layout_marginBottom="3dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_followupno"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_followupno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="#3bb471"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/sourceselection_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="2dp"
+            app:cardElevation="1dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:background="#daecdb"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:padding="10dp"
+                    android:text="@string/lbl_building_violations_sourceSection"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_sourcesection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/violatorType_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violatorType"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violatortype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+       <!-- <android.support.v7.widget.CardView
+            android:id="@+id/violatorName_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:background="#daecdb"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violatorName"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violatorname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>-->
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/violationCode_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:background="#daecdb"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violationCode"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violatoncode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/violationType_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:background="#daecdb"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violationType"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violatontype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+        
+
+        <!--<android.support.v7.widget.CardView
+            android:id="@+id/violationRemarks_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:background="#daecdb"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violationRemarks"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violationRemarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/violationDate_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violationDate"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violatondate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/lastNotice_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_lastNoticeNumber"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_lastnoticenumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/noOfNotices_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:background="#daecdb"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_numberOfNotices"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_numberOfNotices"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/hasFine_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_hasFine"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_hasFine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/violationAmount_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:background="#daecdb"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violationAmount"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violation_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/paymentStatus_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_paymentStatus"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_paymentStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/payment_VoucherNumber_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:background="#daecdb"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_payment_voucherNumber"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_payment_voucher_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:textColor="@color/black"
+                    android:text=""
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/violationStatus_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_violationStatus"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_violationStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:textColor="@color/black"
+                    android:gravity="start"
+                    android:text=""
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
+            android:id="@+id/fine_warning_msg_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:background="#daecdb"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:text="@string/lbl_building_violations_fine_warning_msg"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:gravity="start" />
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/repeatedTimes_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardCornerRadius="1dp"
+            app:cardElevation="1dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.00"
+                android:divider="@drawable/vertical"
+                android:background="#daecdb"
+                android:orientation="horizontal"
+                android:showDividers="middle">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="@dimen/violation_row_start_width"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="@string/lbl_building_violations_repeatedTime"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/violation_row_lbl_building_violations_repeatedTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:textAlignment="viewStart"
+                    android:textDirection="locale"
+                    android:gravity="start"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/fontSize" />
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
+
+

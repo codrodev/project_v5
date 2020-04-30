@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#7eb98f"
+    android:gravity="top">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/choose_community"
+        android:textColor="@color/white"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textDirection="locale"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:fontFamily="@font/dubai_font"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="10dp"
+        />
+<LinearLayout
+    android:id="@+id/spinnerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" android:layout_gravity="center" android:gravity="center">
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="38dp"
+        android:id="@+id/root_view">
+        <TextView
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_background"
+            android:drawableEnd="@drawable/chevron_black"
+            android:paddingRight="10dp"
+            android:paddingLeft="8dp"
+            android:gravity="center_vertical"
+            android:fontFamily="@font/dubai_font"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:drawableRight="@drawable/chevron_black" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:id="@+id/overlayLayout"
+            android:visibility="invisible"
+            android:layout_height="fill_parent">
+            <requestFocus></requestFocus>
+        </LinearLayout>
+
+    </FrameLayout>
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/infoLand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="0dp"
+        android:drawablePadding="16dp"
+        android:fontFamily="@font/dubai_font"
+        android:text="@string/enter_land_number"
+        android:textAlignment="center"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@color/white" />
+        <!--<ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/drawable_info"
+            android:layout_gravity="center"
+
+            android:layout_marginStart="10dp"
+            android:id="@+id/infoLand_img"
+            android:layout_marginLeft="10dp" />-->
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:layoutDirection="ltr">
+        <EditText
+            android:id="@+id/editLandP1"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:textAlignment="center"
+            android:ems="10"
+            android:padding="3dp"
+            android:inputType="number"
+            android:minLines="1"
+            android:maxLines="1"
+            android:maxLength="4"
+            android:textSize="16sp"
+            android:background="@drawable/edittext_background"
+            android:hint="@string/deed_hint"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_marginTop="7dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textSize="35dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/editLandP2"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:textAlignment="center"
+            android:background="@drawable/edittext_background"
+            android:ems="10"
+            android:minLines="1"
+            android:maxLines="1"
+            android:maxLength="2"
+            android:padding="3dp"
+            android:textSize="16sp"
+            android:inputType="number"
+            android:hint="@string/sub_deed_hint"/>
+        </LinearLayout>
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:src="@drawable/map_bg"/>
+    </LinearLayout>
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="35dp">-->
+
+    <!--</LinearLayout>-->
+</LinearLayout>

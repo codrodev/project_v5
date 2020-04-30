@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <string name="app_name">خريطتي  </string>
+  <string name="action_settings">إعدادات</string>
+  <string name="language">عربي</string>
+  <string name="lbl_plotnumber">البحث عن قطعة الأرض</string>
+  <string name="navigation_drawer_close">إغلاق درج التنقل</string>
+  <string name="navigation_drawer_open">فتح درج التنقل</string>
+  <string name="lbl_login">تسجيل الدخول</string>
+  <string name="choose_checkbox_option">يرجى تحديد الاختيارات التالية لمقدم الطلب </string>
+  <string name="storage_permission">إذن التخزين</string>
+  <string name="storage_permission_message">لا يستطيع تطبيق خريطتي الوصول إلى معرض الصور الخاص بك. لتمكين الوصول ، انقر فوق الإعدادات وقم بتشغيل التخزين</string>
+
+
+
+  <string name="camera_permission">إذن الكاميرا</string>
+  <string name="camera_permission_message">لا يستطيع تطبيق خريطتي الوصول الى الكاميرا ، للسماح باستخدامها ، اضغط على الاعدادات ومن ثم قم بتفعيل الكاميرا
+</string>
+  <string name="permission_settings">الإعدادات</string>
+  <string name="permission_cancel">الغاء</string>
+  <string name="snackbar_text">يرجى الضغط على قطعة الأرض للمتابعة</string>
+
+  <string name="lbl_or">أو</string>
+  <string name="lbl_contAsGuest">متابعة كضيف</string>
+  <string name="title_client">بلدية دبي</string>
+  <string name="title_welcome">مرحبا بك في</string>
+  <string name="title_optionSelect"> أدخل اسم وهوية الإمارات ورقم الجوال والبريد الإلكتروني للمالك</string>
+  <string name="title_optionSelect2">أدخل الاسم وهوية الإمارات ورقم الجوال والبريد الإلكتروني</string>
+  <string name="title_zoneReg1"> يمكنك الإطلاع على التشريعات التخطيطية لقطعة الأرض المختارة أو مخالفات البناء من خلال اللوائح التالية </string>
+
+  <string name="plc_username"> اسم المستخدم أو البريد الإلكتروني</string>
+  <string name="plc_plotNumber">الرجاء إدخال رقم قطعة الأرض</string>
+  <string name="PLEASE_ENTER_PLOTNUMBER">الرجاء إدخال رقم قطعة الأرض</string>
+  <string name="plc_mobileNumber">الرجاء إدخال رقم الهاتف المتحرك</string>
+  <string name="plc_password">كلمة المرور</string>
+
+  <string name="timeout_title">مهلة جلسة</string>
+  <string name="timeout_message">انقضت مهلة جلستك</string>
+  <string name="timeout_ok">حسنا</string>
+
+  <string name="menu_mymaps">خرائطي</string>
+  <string name="menu_myland">أرضي</string>
+  <string name="menu_favorites">المفضلة</string>
+  <string name="menu_zoneReguration">تنظيم المنطقة</string>
+  <string name="menu_downloadSitePlan">خرائطي</string>
+  <string name="menu_language">التبديل إلى اللغة العربية</string>
+  <string name="menu_apptour">جولة في التطبيق</string>
+  <string name="menu_search">بحث</string>
+  <string name="menu_help">مساعدة</string>
+  <string name="menu_email">البريد الإلكتروني</string>
+  <string name="menu_download_zone_regulation">تنزيل</string>
+  <string name="menu_contact_us">إتصل بنا</string>
+  <string name="menu_about_us">نبذة عنا</string>
+  <string name="menu_rate_us"> قيمنا</string>
+  <string name="toggle_lang">English</string>
+  <string name="menu_happiness">مؤشر السعادة</string>
+  <string name="menu_setting">الإعدادات</string>
+  <string name="menu_share">انشر تطبيق خريطتي</string>
+  <string name="menu_privacy_policy">سياسة الخصوصية</string>
+  <string name="menu_terms_and_conditions">الشروط والاحكام</string>
+  <string name="menu_related_application">تطبيق ذات الصلة</string>
+  <string name="menu_accessible">إمكانية الوصول</string>
+  <string name="menu_info">معلومات‎</string>
+  <string name="menu_your_voice">صوتك </string>
+
+  <string name="msg_loading">أرجو الإنتظار ...</string>
+  <string name="msg_gettingUserInfo">الحصول على تفاصيل المستخدم...</string>
+
+  <string name="btn_login_txt">دخول</string>
+
+  <string name="menu_downloaded_site_plan">تنزيل الخارطة</string>
+  <string name="menu_myfavorites">المفضلة</string>
+  <string name="lbl_my_favourites_heading">المفضلة</string>
+  <string name="lbl_ok">موافق</string>
+
+  <string name="lbl_app_detail">إدارة نظم المعلومات الجغرافية في بلدية دبي<br></br>
+تأسست الإدارة بموجب القانون رقم 6 الصادر في العام 2001 عن حاكم إمارة دبي، المغفور له بإذن الله الشيخ مكتوم بن راشد آل مكتوم، وقد حدد القانون أن إدارة نظم المعلومات الجغرافية هي الجهة الرسمية الوحيدة المصرح لها إصدار بيانات جغرافية معتمدة في الإمارة.
+
+نتولى في إدارة نظم المعلومات الجغرافية تقديم خدمات البيانات الجغرافية والصور والخرائط المكانية عن إمارة دبي للدوائر الحكومية والقطاع الخاص والأفراد.
+<br></br>
+<b>تطبيق خريطتي</b>
+تم تطوير التطبيق من قبل إدارة نظم المعلومات الجغرافية – بلدية دبي وذلك لتمكين مالك الأرض أو الشخص المخول من قبل المالك من الإطلاع على تفاصيل الأرض وطلب إصدار خريطة موقعية للأرض في إمارة دبي. الهدف هو تبسيط عملية طلب واستلام الخريطة الموقعية الرسمية الصادرة من إدارة المساحة ببلدية دبي من خلال هذا التطبيق للهاتف المحمول بخطوات بسيطة ومضمونة.
+<br></br>
+<u>التطبيق متوفر على المنصات:</u>
+مخزن أبل
+مخزن غوغل بلاي
+</string>
+  <string name="Policies">السياسات</string>
+  <string name="privacy_policy_click">سياسة الخصوصية</string>
+  <string name="libraries_we_use">الأنظمة المستخدمة</string>
+  <string name="apacheLicense"><a href="www.apache.org/licenses/LICENSE-2.0">Apache License Version 2.0</a></string>
+  <string name="email">البريد الإلكتروني</string>
+  <string name="email_hint">البريد الإلكتروني* </string>
+  <string name="you_are_about_to_call">للإتصال ب</string>
+  <string name="feedback_subject">رأيك يهمنا</string>
+
+  <string name="Contact_us_Call_permission">"التطبيق سوف يستخدم خاصية الهاتف لإجراء المكالمات. ولن يتم هذا إلا بعلم المستخدم."</string>
+  <string name="phone">رقم الهاتف</string>
+  <string name="Website">موقع الكتروني</string>
+  <string name="Chat">دردشة</string>
+  <string name="Live_chat_with_our_call_center"> دردشة مباشرة مع الدعم التقني</string>
+  <string name="social_network">وسائل التواصل الإجتماعي</string>
+  <string name="facebook">فيس بوك</string>
+  <string name="twitter">تويتر</string>
+  <string name="instagram">إنستجرام</string>
+  <string name="youtube">يوتيوب</string>
+  <string name="email2">البريد الإلكتروني</string>
+  <string name="feedback">إقتراحات</string>
+  <string name="send_your_feedback_about_the_app">إرسال ملاحظاتك عن خريطتي</string>
+  <string name="title_activity_home"> الصفحة الرئيسية </string>
+  <string name="favorite">المفضل</string>
+  <string name="login"> الدخول </string>
+
+  <string name="feedback_name">الاسم *</string>
+  <string name="profile_name">الاسم</string>
+  <string name="subject">العنوان* </string>
+
+  <string name="mobile_number_9715xxxxxxxx">9715xxxxxxxx</string>
+  <string name="submit">إرسال</string>
+  <string name="captcha_txt">الرجاء سحب المؤشر إلى %1$d لتوثيق طلبك</string>
+  <string name="captcha_error">الرجاء السحب إلى الرقم المحدد لإكمال هذا الطلب</string>
+  <string name="all_fields_are_required">جميع الحقول مطلوبه</string>
+  <string name="next">التالي</string>
+
+  <string name="need_permissions">الأذونات اللازمة</string>
+  <string name="need_permissions_message">للمتابعة تطبيق خريطتي يتطلب الحصول على إذن.الرجاء اختيار " موافق"  وتحديد وتوفير الأذونات المطلوبة
+</string>
+
+
+  <string name="CHOOSETHEOPTION">اختر من التالي</string>
+  <string name="CAMERA">كاميرا</string>
+  <string name="LIBRARY"></string>
+  <string name="internet_connection_problem">لا يوجد اتصال إنترنت، الرجاء التحقق من الاتصال وحاول مرة أخرى</string>
+  <string name="internet_connection_problem1">لا يوجد اتصال إنترنت، الرجاء التحقق من الاتصال وحاول مرة أخرى</string>
+  <string name="wait_attachment">الرجاء الإنتظار. جار تحميل المرفق. قد يستغرق هذا بعض الوقت.</string>
+  <string name="dm_tx_success">تم تقديم الطلب بنجاح ، الرقم المرجعي للمعاملة: </string>
+  <string name="dm_tx_notification">سيصلك تنبيه بمجرد إصدار الخارطة الموقعية من بلدية دبي ، و من ثم بامكانك الضغط على خرائطي  من القائمة الرئيسيّة للتطبيق</string>
+  <string name="email_sent_success">تم ارسال البريد الإلكتروني بنجاح</string>
+  <string name="enter_valid_email">الرجاء إدخال عنوان بريد إلكتروني صحيح</string>
+  <string name="remindme">ذكرني لاحقا</string>
+  <string name="downloaded_siteplans">تنزيل الخارطة</string>
+  <string name="siteplanreq_underprocess">جار إنشاء طلب إنشاء مخطط الموقع.</string>
+  <string name="under_process">طلب مخطط الموقع قيد التنفيذ</string>
+  <string name="NOPLOTFOUNDDETAILTEXT"> إذا لم تتمكن من ايجاد قطعة الأرض الخاصة بك، يرجى تحديث ملف التعريف الخاص بك في بلدية دبي</string>
+  <string name="feedback_description"> الوصف*</string>
+  <string name="description_fav">الوصف*</string>
+  <!--<string name="enter_description">أدخل الوصف</string>-->
+  <string name="hello_blank_fragment">وإذا لم تتمكن من العثور على قطعة الأرض الممنوحة لك، قم بتحديث ملفك الشخصي في بلدية دبي عن طريق التواصل من خلال</string>
+  <string name="lbl_myMap">خرائطي</string>
+  <string name="lbl_requestKharetati">طلب الخريطة الموقعية</string>
+  <string name="lbl_next">التالي</string>
+  <string name="lbl_zoneRegulation">تشريعات تخطيطية للأرض</string>
+  <string name="plc_emirateId">الخرائط دون الحاجة لتحميل المرفقات</string>
+  <string name="plot_does_not_exist">الرجاء إدخال رقم قطعة أرض صحيح</string>
+  <string name="logout">خروج</string>
+  <string name="NO_FAVOURITE_PLOTS_FOUND">لا تتوفر إشارات مرجعية</string>
+  <string name="bookmark">أضف للمفضلة</string>
+  <string name="bookmark_save">تم إضافة قطعة الأرض للمفضلة </string>
+  <string name="error_response">الرجاء التحقق من الاتصال وحاول مرة أخرى</string>
+  <string name="plotno">" رقم قطعة الأرض : "</string>
+  <string name="Community">المنطقة السكنية:</string>
+  <string name="confirmation_delete">هل أنت متأكد أنك تريد الحذف؟</string>
+  <string name="PLOTREMOVESSUCCESSFULLY">تمت إزالة الارض بنجاح</string>
+  <string name="ERRORRESPONSE">حدث خطأ أثناء استرداد المعلومات من الخادم</string>
+  <string name="confirmation_openlink">فتح الرابط في المتصفح؟</string>
+  <string name="user_name">* هوية المستخدم  </string>
+  <string name="enter_emirates_id"> الرجاء إدخال الهوية الشخصية الإماراتية الخاصة بك </string>
+  <string name="enter_valid_emirates_id"> الرجاء إدخال هوية شخصية إماراتية سارية </string>
+  <string name="lbl_warning">مسح البيانات المسجله مسبقا</string>
+  <string name="please_enter_phone">من فضلك أدخل رقم الهاتف</string>
+  <string name="please_enter_email_address">الرجاء إدخال عنوان البريد الإلكتروني الخاص بك </string>
+  <string name="guest">حساب زائر</string>
+  <string name="ok"> موافق </string>
+  <string name="enter_name">من فضلك أدخل إسمك</string>
+  <string name="ALLOCATEDAREA">المساحة المخصصة</string>
+  <string name="COMMUNITYANDAREADETAILS">تفاصيل المساحة والمنطقة التخطيطية</string>
+  <string name="CoastDetails">التفاصيل الساحلية</string>
+  <string name="ExcepDetails">تفاصيل الاستثناءات</string>
+  <string name="FAR">النسبة الطابقية</string>
+  <string name="FullFrozenDetails">التفاصيل الكلية</string>
+  <string name="GFA">المساحة الطابقية</string>
+  <string name="FullyAffDetails">تفاصيل التأثير الكلي</string>
+  <string name="GRADE">الصفوف</string>
+  <string name="GROSSFLOORAREA">المساحة الطابقية</string>
+  <string name="HEIGHT_REG">الإرتفاع</string>
+  <string name="High">ثانوي</string>
+  <string name="KinderGarden">رياض االاطفال</string>
+  <string name="LANDUSE_REG">تفاصيل استعمالات الأرض</string>
+  <string name="MAXCLASSROOMS">الحد الأعلى لعدد الصفوف</string>
+  <string name="MAXSTUDENTS">الحد الأعلى لعدد التلاميذ</string>
+  <string name="MINOSANDPGA">الحد الأدنى للمناطق المفتوحة والملاعب\ لكل طالب</string>
+  <string name="MetroDetails">تفاصيل المترو</string>
+  <string name="Middle">متوسط</string>
+  <string name="PARKING_REG">تفاصيل موقف السيارات</string>
+  <string name="Primary">اساسي</string>
+  <string name="REMARKS_REG">الملاحظات</string>
+  <string name="SCHOOLREGULATIONS">تتشريعات تخطيطية للمدارس</string>
+  <string name="SETBACK_REG">تفاصيل الارتداد</string>
+  <string name="TOTAL">المجموع</string>
+  <string name="ZONE_CODE">رمز المنطقة</string>
+  <string name="PartDetails">التفاصيل الجزئية</string>
+  <string name="ZONE_REGULATIONS">تشريعات تخطيطية للأرض</string>
+  <string name="COMMUNITY">المنطقة السكنية</string>
+  <string name="AREA">المساحة</string>
+  <string name="generic_error_message">الرجاء المحاولة لاحقا</string>
+  <string name="lbl_error">تنبيه</string>
+  <string name="land_ownership_certificate">صورة محدثة من خارطة دائرة الأملاك والأراضي أو الخريطة الموقعية (بلدية دبي)*</string>
+  <string name="owner_emiratesID">هوية المالك*</string>
+  <string name="front">الجهة الأمامية للهوية</string>
+  <string name="back">الجهة الخلفية للهوية</string>
+  <string name="isResident">هل أنت مقيم في دولة الإمارات</string>
+  <string name="isOwner">هل انت المالك</string>
+  <string name="letter_from_owner">شهادة عدم ممانعة (من المالك)</string>
+  <string name="SQ_MTS">متر مربع</string>
+  <string name="msg_uploading_attachment">الرجاء الإنتظار. جاري تحميل الصور إلى الخادم. قد يستغرق هذا بعض الوقت.</string>
+  <string name="cancel_payment">تم إلغاء دفعتك.</string>
+  <string name="terminate_payment">تم إنهاء الدفع. يرجى الاتصال بحكومة دبي الذكيةوتزويدهم برقم المعاملة لمزيد من الاستفسارات.</string>
+  <string name="available_for_download">متوفر للتحميل</string>
+  <string name="register"><a href="https://myid.dubai.gov.ae/Registration.aspx">سجل الآن</a></string>
+  <string name="forgot_username_password"><a href="https://myid.dubai.gov.ae/ForgotPassword.aspx">نسيت اسم المستخدم أو كلمة المرور؟</a></string>
+  <string name="create_account">هل تريد إنشاء حساب؟</string>
+  <string name="login_alert">الرجاء تسجيل الدخول لتمكن من استخدام هذه الخاصية</string>
+  <string name="exit_alert_title_ar">الخروج؟</string>
+  <string name="exit_alert_message">هل أنت متأكد من أنك تريد الخروج من التطبيق؟</string>
+  <string name="exit_alert_yes_ar">نعم</string>
+  <string name="exit_alert_no_ar">لا</string>
+  <string name="guest_login_message_ar">الرجاء تسجيل الدخول لتحديث ملفك</string>
+  <string name="title_rate_us">يرجى تقييمنا</string>
+  <string name="msg_rate_us">نقدر ملاحظاتكم. يرجى أن تقيمنا في المتجر</string>
+  <string name="not_now">أغلق</string>
+  <string name="rate_it">قيمنا الأن</string>
+  <string name="thank_you_feedback">شكرا على اقتراحاتكم!</string>
+  <string name="open_in_app_store">فتح في المتجر</string>
+  <string name="PARCELBLOCKED">جاري إصدار الخريطة الموقعية لقطعة الأرض</string>
+  <string name="NOTAPRIVATEPLOT">هذه القطعة غير صالحة لإنشاء الخارطة الموقعية</string>
+  <string name="ENTERTHEPLOTNUMBER">أدخل رقم قطعة الأرض</string>
+  <string name="PAYMENT">الدفع</string>
+  <string name="CANCELTRANSACTIONALERT">هل انت متأكد من إلغاء العملية؟</string>
+  <string name="CANCEL">إلغاء</string>
+  <string name="ERRORCONNECTINGSERVER">الرجاء المحاولة لاحقاً</string>
+  <string name="select_photo_gallery">حدد صورة من المعرض</string>
+  <string name="capture_photo_camera">التقاط الصور من الكاميرا</string>
+  <string name="terms_and_conditions_click">الشروط والاحكام</string>
+  <string name="sortbydate">رتب حسب التاريخ</string>
+  <string name="yes">نعم</string>
+  <string name="no">لا</string>
+  <string name="DOWNLOAD_PDF_PROGRESS_MSG">جاري تنزيل الملف يرجى الانتظار..</string>
+  <string name="SPN_TX_NO">رقم المعاملة:</string>
+  <string name="LBL_REQUEST_STATUS">حالة الطلب:</string>
+  <string name="LBL_DATE_TIME">التاريخ / الوقت:</string>
+  <string name="NO_SITE_PLAN_DOWNLOADED">لم يتم تنزيل أي مخطط موقع</string>
+  <string name="download_siteplan_user_mismatch">الرجاء تسجيل الدخول باسم %s لعرض خطة الموقع</string>
+  <string name="payment_gateway_connection">تعذر الاتصال بخدمة الدفع بحكومة دبي الذكية، يرجى إعادة المحاولة</string>
+  <string name="pending_transaction">معاملتك قيد التنفيذ، يرجى الانتظار، سنقوم بإعلامك بمجرد الانتهاء من المعاملة</string>
+  <string name="UPDATE_YOUR_PROFILE">عرض الصفحة الشخصية</string>
+  <string name="VIEW_PROFILE">عرض الملف الشخصي</string>
+  <string name="UPDATE_PROFILE_MSG"> لتحديث ملفك الشخصي ، يرجى تطبيق الطلب في  </string>
+  <string name="MYID">هويتي</string>
+  <string name="emirates_id">الهوية الإماراتية</string>
+  <string name="email_hint_mandatory">البريد الإلكتروني *</string>
+  <string name="PLEASE_UPLOAD_EMIRATESID">يرجى تحميل الهوية الاماراتية</string>
+  <string name="rememberme">تذكرني</string>
+  <string name="cancelled">ملغى</string>
+  <string name="enter_password"> الرجاء إدخال كلمة المرور </string>
+  <string name="enter_dubai_id_username">الرجاء إدخال اسم المستخدم</string>
+  <string name="wrong_username_password">اسم المستخدم أو كلمة المرور خاطئة</string>
+  <string name="server_connect_error">الرجاء المحاولة لاحقاً</string>
+  <string name="user_Detail_error">تعذر العثور على تفاصيل المستخدم</string>
+  <string name="NOUPLOADPASSPORTALERT">يرجى تحميل جواز السفر</string>
+  <string name="NO_NOC_CERTIFICATE_ALERT">يرجى تحميل شهادة عدم الممانعة</string>
+  <string name="NOEMIDFRONTALERT">يرجى تحميل الجهة الأمامية للهوية</string>
+  <string name="NOEMIDBACKALERT">يرجى تحميل الجهة الخلفية للهوية</string>
+  <string name="NOLANDOWNERSHIPCERTIFICATEALERT">يرجى تحميل شهادة ملكية مالك الأرض</string>
+  <string name="retry">إعادة المحاولة</string>
+  <string name="license">رخصة‎</string>
+  <string name="plotno2">رقم قطعة الأرض:</string>
+  <string name="fragment_downloaded_siteplans_lblHeading">خرائطي</string>
+
+  <string name="app_dubai_park_resort">الذكي للحدائق والشواطئ</string>
+  <string name="app_idubai"> آي دبي</string>
+  <string name="app_makani">مكاني</string>
+  <string name="app_green_building"> المباني الخضراء</string>
+  <string name="app_green_ticket">التذكرة الخضراء </string>
+  <string name="app_ramsitna">رمستنا</string>
+  <string name="app_aleef"> أليف </string>
+  <string name="app_more">المزيد‎</string>
+  <string name="bookmarks_desc_heading">اسم المفضلة</string>
+  <string name="myid_profile_heading">Dubai Id الملف الشخصي</string>
+  <string name="myid_dob">تاريخ الميلاد</string>
+  <string name="appUpdateMsg">هناك نسخة جديدة من برنامج خريطتي متاح في جوجل بلاي. هل ترغب في تحديثه الآن؟</string>
+  <string name="uploadDocError">حدث خطأ أثناء تحميل المستندات. سنقوم بإعلامك بمجرد الانتهاء من عملية التحميل</string>
+
+  <string name="emiratesId">الهوية الإماراتية</string>
+  <string name="otp_sent_msg">يرجى إدخال رمز التحقق الخاص الذي ستتلقاه على هاتفك النقال قريباّ</string>
+  <string name="invalidOtp">رمز التحقق الخاص خطأ</string>
+  <string name="enter_otp_validate_mobile">أدخل رمز التحقق الخاص للتأكد من صحة رقم الهاتف النقال</string>
+  <string name="resendOtp">إعادة إرسال رمز التحقق الخاص</string>
+  <string name="otp">رمز التحقق الخاص</string>
+  <string name="i_am_owner">أنا صاحب قطعة الأرض</string>
+  <string name="enter_your_mobile">أدخل رقم موبايلك</string>
+
+  <string name="customerCharter">ميثاق المتعامل</string>
+  <string name="serviceDetails">تفاصيل الخدمة</string>
+  <string name="suggestion">الاقتراحات</string>
+  <string name="technicalSupport">الخدمات الالكترونية</string>
+  <string name="businessSupport">دعم الاعمال</string>
+  <string name="errorOtp">حدث خطأ أثناء إرسال رمز التحقق الخاص، يرجى إعادة المحاولة لإرسال رمز التحقق الخاص مرة أخرى.</string>
+
+  <string name="slide_1_title">خريطتي</string>
+  <string name="slide_2_title">البحث عن قطعة الأرض</string>
+  <string name="slide_3_title">عرض قطعة الأرض على الخريطة</string>
+  <string name="slide_4_title">عرض قوانين المنطقة</string>
+  <string name="slide_5_title">طلب خطة الموقع</string>
+
+  <string name="slide_1_desc">تطبيق خريطتي سيساعد مالك الارض او من ينوب عنه بتقديم طلب إصدار خارطة و متابعته من خلال خطوات بسيطة و آمنة</string>
+  <string name="slide_2_desc">خريطتي تقدم خيار البحث بسهولة تامة. ببساطة أدخل الرقم الخاص بك المكون من 7 أرقام ثم اضغط على بحث وسيتم عرض المعلومات لقطعة الأرض الخاص بك</string>
+  <string name="slide_3_desc">سيتم تسليط الضوء على قطعة الأرض الخاصة بك على الخريطة حيث التحريك، والتكبير، وإضافة القطعة  الخاصة بك للمفضلة والعثور على مزيد من المعلومات حول موقع القطعة</string>
+  <string name="slide_4_desc"> عرض جميع أنظمة المنطقة للقطعة الخاصة بك، مثل استخدام الأراضي المسموح بها، ومتطلبات وقوف السيارات، وسماح ارتفاع، والتفاصيل الأخرى</string>
+  <string name="slide_5_desc">من خلال تقديم وثائق الهوية الخاصة بك من خلال التطبيق وبوابة الدفع في حكومة دبي، تحميل خطة موقعك مباشرة على هاتفك النقال</string>
+
+  <string name="skip">تخطى </string>
+  <string name="start">تم</string>
+
+  <string name="app_logo">شعار خريطتي</string>
+  <string name="slide_2_title_icon">أيقونة البحث عن القطعة</string>
+  <string name="slide_3_title_icon">أيقونة عرض القطعة على الخريطة</string>
+  <string name="slide_4_title_icon"> أيقونة تنظيم المنطقة</string>
+  <string name="slide_5_title_icon">أيقونة طلب مخطط الموقع</string>
+
+  <string name="myid_logo"> ID شعار دبي </string>
+  <string name="toggle_layer"> تبديل الطبقة</string>
+
+  <string name="delete_bookmark">حذف المفضلة</string>
+  <string name="edit_bookmark">تعديل المفضلة</string>
+  <string name="view_site_plan">عرض مخطط الموقع</string>
+
+  <string name="menu_faq">الاسئلة الشائعة</string>
+  <string name="find_site_plan">بحث</string>
+  <string name="no_siteplan">لم يتم العثور على خطة الموقع المطلوبة‎</string>
+
+  <string name="FREQUENTLY_ASKED_QUESTIONS">الاسئلة الشائعة</string>
+  <string name="faq_1">هل يمكنني التقدم بطلب للحصول على خارطة موقع باستخدام هذا التطبيق؟</string>
+  <string name="faq_2">كيف يمكنني البحث عن قطعة الأرض الخاصة بي؟</string>
+  <string name="faq_3">كيف يمكن أن أرى موقع أرضي؟</string>
+  <string name="faq_4">كيف يمكنني معرفة أي نوع من التشريعات التخطيطية ينطبق على قطعة الأرض؟</string>
+  <string name="faq_5">ماذا لو أردت تنزيل خارطة موقعي على هاتفي الجوال؟</string>
+  <string name="faq_6">هل الخارطة التي يتم إصدارها من خلال تطبيق خريطتي معتمدة؟</string>
+
+  <string name="faq_1_ans">تطبيق خريطتي سيساعد مالك الارض او من ينوب عنه بتقديم طلب إصدار خارطة و متابعته من خلال خطوات بسيطة و آمنة.</string>
+  <string name="faq_2_ans">خريطتي تقدم خيار البحث بسهولة تامة. ببساطة أدخل رقم قطعة الأرض ثم اضغط على "بحث". سيتم عرض المعلومات لقطعة الأرض الخاصة بك.</string>
+  <string name="faq_3_ans">سيتم عرض قطعة الأرض الخاصة بك على الخريطة حيث يمكنك التحكم بأبعاد قطعة الأرض، وإضافة القطعة الخاصة بك للمفضلة ومعرفة الاتجاهات للوصول إلى موقع الأرض.</string>
+  <string name="faq_4_ans">يتم عرض جميع التشريعات التخطيطية للقطعة الخاصة بك، مثل استخدامات الأراضي المسموح بها، ومواصفات مواقف السيارات، وحد الارتفاع للبناء، وتفاصيل أخرى ويتم ذلك من خلال الضغط على أيقونة (تشريعات تخطيطية للأرض) بحيث يتم استعراض جميع الاستعمالات من ارتداد ومواقف وارتفاع والملاحظات التخطيطية الواردة على الأرض.</string>
+  <string name="faq_5_ans">بتسجيل الدخول إلى التطبيق وارفاق صورة من الهوية الخاصة بك (مالك الأرض) وإتمام عملية الدفع الإلكتروني لتحميل خريطة موقع الأرض الخاصة بك.</string>
+  <string name="faq_6_ans">نعم، الخارطة معتمدة من بلدية دبي وتحمل ختم الكتروني معتمد.</string>
+  <string name="findPlot">البحث عن قطعة الأرض</string>
+  <string name="lbl_plot_utilities_btn">خريطة ممرات الخدمات</string>
+  <string name="lbl_building_violations_btn">الإطلاع على مخالفات المبنى </string>
+  <string name="lbl_building_violations">مخالفات المبنى</string>
+  <string name="lbl_building_violations_followupno">رقم المتابعة</string>
+  <string name="lbl_building_violations_hasFine">يوجد غرامة مالية</string>
+  <string name="lbl_building_violations_lastNoticeNumber">رقم آخر انذار</string>
+  <string name="lbl_building_violations_numberOfNotices">عدد الانذارات</string>
+  <string name="lbl_building_violations_paymentStatus">حالة الدفع</string>
+  <string name="lbl_building_violations_repeatedTime">عدد المخالفات المتكررة</string>
+  <string name="lbl_building_violations_sourceSection">الجهة الصادرة للمخالفة</string>
+  <string name="lbl_building_violations_uniqueId">Unique Id:</string>
+  <string name="lbl_building_violations_violationCode">الرمز المرجعي للمخالفة</string>
+  <string name="lbl_building_violations_violationDate">تاريخ المخالفة</string>
+  <string name="lbl_building_violations_violationRemarks">ملاحظات المخالفة</string>
+  <string name="lbl_building_violations_violationStatus">حالة المخالفة</string>
+  <string name="lbl_building_violations_violatorType">نوع المخالفة</string>
+  <string name="lbl_building_violations_violationType">وصف المخالفة</string>
+  <string name="lbl_building_violations_violatorName">اسم المخالف</string>
+  <string name="no_violations_found">لا توجد مخالفات</string>
+  <string name="copyright">بلدية دبي © .جميع الحقوق محفوظة 2018</string>
+  <string name="app_version">رقم إصدار هذا الموقع: 1.5</string>
+  <string name="enter_valid_parcel_no">الرجاء إدخال رقم قطعة أرض صحيح</string>
+  <string name="lbl_share_the_app">مشاركة التطبيق</string>
+  <string name="lbl_security_and_privacy_policy">الأمن و سياسة الخصوصية</string>
+  <string name="profile_update_success">تم تحديث ملف المستخدم بنجاح</string>
+  <string name="lbl_PlotRegulation"> الإطلاع التشريعات التخطيطية </string>
+  <string name="open_makani_confirm">هل أنت متأكد من أنك تريد الانتقال إلى مكاني</string>
+  <string name="open_forgotpassword_myid">هل تريد استرجاع اسم المستخدم أو كلمة المرور؟</string>
+  <string name="open_dubaiportal_myid"> هل انت متاكد من أنك تريد الانتقال إلى صفحة هوية دبي؟</string>
+  <string name="passport">جواز السفر (المعلومات الشخصية)*</string>
+  <string name="download_noc_letter"><u>تحميل رسالة عدم الممانعة</u></string>
+  <string name="or">أو</string>
+  <string name="view_noc_letter_txt">الإطلاع على رسالة عدم الممانعة لتقديم رسالة مماثلة</string>
+  <string name="signed_noc_owner">رسالة عدم الممانعة موقعة من المالك*</string>
+  <string name="i_am_resident">أنا مقيم في دولة الإمارات</string>
+  <string name="terms_and_conditions">الشروط والاحكام</string>
+  <string name="emirates_id_expired">انتهت صلاحية بطاقة هويتك. يرجى التجديد لمتابعة الطلب.</string>
+  <string name="kharetati_app">برنامج خريطتي</string>
+  <string name="try_kharetati_app">لتحميل تطبيق خريطتي</string>
+  <string name="choose_option">يرجى تحديد الاختيارات التالية لمقدم الطلب </string>
+  <string name="userimage">صورة المستخدم</string>
+  <string name="navback">الى الخلف</string>
+  <string name="forward">إلى الأمام</string>
+  <string name="kharetatilogo">شعار خرياتي</string>
+  <string name="ploticon">أيقونة الخريطة</string>
+  <string name="viewmap">إعرض الخريطة</string>
+  <string name="callus">اتصل بنا</string>
+  <string name="reload">إعادة تحميل</string>
+  <string name="app_dubai_park_resort_logo">شعار دبي باركس والشواطئ</string>
+  <string name="icon_for_more">تطبيقات أكثر</string>
+  <string name="emirates_id_front">معرف الإمارات الأمامي</string>
+  <string name="emirates_id_back">الى الخلفمعرف الإمارات</string>
+  <string name="dubai_id_logo">شعار هوية دبي</string>
+  <string name="expand_icon">بناء الانتهاكات توسيع أيقونة</string>
+  <string name="login_alert_title">تنبيه تسجيل الدخول</string>
+  <string name="view">عرض الصورة</string>
+  <string name="sending_mail"> جاري إرسال البريد الإلكتروني. الرجاء الانتظار..</string>
+  <string name="alert">الارت</string>
+    <string name="choose_image">يرجى اختيار الصورة</string>
+  <string name="delivery_by_courier">الاستلام عن طريق شركة الشحن</string>
+  <string name="makani_no">رقم مكاني</string>
+  <string name="street_adress">رقم الشارع</string>
+  <string name="mailing_address">العنوان</string>
+  <string name="emirate">الإمارة*</string>
+  <string name="villa_flat_building_no">رقم الفيلا/ الشقة/ البناية</string>
+  <string name="building_name">اسم البناية</string>
+  <string name="nearest_landmark">أقرب معلم</string>
+  <string name="reciever_name">اسم المستلم*</string>
+  <string name="mobile_no">رقم الهاتف المتحرك*</string>
+  <string name="email_address">البريد الإلكتروني*</string>
+  <string name="courier_alert_title">هل تريد استلام الخارطة الموقعية عن طريق شركة الشحن؟</string>
+  <string name="address_for_delivery">عنوان الاستلام</string>
+  <string name="cancel">الغاء</string>
+    <string name="already_exists">تم إضافة قطعة الأرض مسبقا للمفضلة</string>
+    <string name="deatails_saved">تم حفظ البيانات بنجاح</string>
+  <string name="enter_valid_mobile">الرجاء إدخال رقم هاتف صالح</string>
+  <string name="close_withoutsaving">هل أنت متأكد من أنك تريد الإغلاق بدون حفظ؟</string>
+  <string name="select_emirate">من فضلك اختر الإمارة</string>
+  <string name="save">حفظ</string>
+  <string name="valid_plot_number">الرجاء إدخال رقم قطعة أرض صحيح</string>
+  <string name="description">اسم المفضلة</string>
+  <string name="server_error">غير قادر على إرسال البريد الإلكتروني. لقد حدث خادم</string>
+    <string name="fields_are_required">يرجى إدخال جميع الحقول المطلوبة</string>
+    <string name="enter_favourite_name">يرجى إدخال اسم المفضلة</string>
+    <string name="loading">تحميل..</string>
+    <string name="Crop">أختر</string>
+    <string name="lbl_building_violations_violationAmount">قيمة الغرامة (درهم)</string>
+  <string name="lbl_building_violations_payment_voucherNumber">رقم إذن الدفع</string>
+  <string name="lbl_building_violations_fine_warning_msg">لن يتم اغلاق المخالفة حتى يتم استيفاء الشروط التالية (دفع الغرامات والالتزام بتصحيح الوضع المخالف)</string>
+    <string name="root_alert">عذرًا ، هذا الجهاز متجذر ولا يمكنك استخدام تطبيق خريطتي</string>
+  <string name="choose_community" >اختر منطقة</string>
+  <string name="enter_land_number">يرجى إدخال رقم الملكية</string>
+  <string name="enter_parcelid">ادخل رقم قطعة الأرض الخاص بك</string>
+  <string name="enter_makani_number">ادخل رقم مكاني الخاص بك</string>
+  <string name="lbl_land_activities">الإطلاع على أنشطة الأرض</string>
+    <string name="lbl_activitie_code">رمز النشاط </string>
+  <string name="lbl_activitie_name">اسم النشاط:</string>
+    <string name="submit_enquiry">تقديم استفسار</string>
+    <string name="message">الموضوع*</string>
+    <string name="plot_number">رقم قطعة الأرض</string>
+  <string name="land_number">رقم الملكية</string>
+  <string name="tab_land_number">رقم الملكية</string>
+  <string name="makani_number">رقم مكاني:</string>
+  <string name="makani_number_menu">رقم مكاني</string>
+  <string-array name="emirates">
+    <item>- اختر الإمارة - </item>
+    <item>أبو ظبي</item>
+    <item>دبي</item>
+    <item>الشارقة</item>
+    <item>عجمان</item>
+    <item>أم القيوين</item>
+    <item>رأس الخيمة</item>
+    <item>الفجيرة</item>
+  </string-array>
+
+  <string-array name="emirates_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+    <item>6</item>
+    <item>7</item>
+  </string-array>
+
+  <string name="land_info_msg"> ادخل رقم الأرض التابع لدائرة الأراضي (237/3) الرجاء</string>
+  <string name="plot_info_msg">الرجاء ادخل رقم قطعة الأرض التابع لبلدية دبي (1190353)</string>
+  <string name="invalid_makani">الرجاء إدخال رقم مكاني صحيح</string>
+  <string name="showing_msg">عرض</string>
+  <string name="showing_msg_max">من اصل</string>
+  <string name="search_by_activity">البحث حسب رمز النشاط أو الاسم</string>
+  <string name="invalid_land">جميع البيانات مطلوبة.</string>
+  <string name="no_valid_land">يرجى إدخال رقم ملكية صحيح</string>
+  <string name="submit_enquiry_validation">يرجى إدخال جميع الحقول المطلوبة</string>
+  <string name="community_error">حدث خطا اثناء إحضار المجتمع</string>
+  <string name="guest_error">الرجاء تسجيل الدخول لتمكن من استخدام هذه الخاصية </string>
+  <string name="tap_to_choose">اضغط لاختيار المنطقة</string>
+  <string name="submit_enquiry_success">تم تقديم الاستفسار بنجاح</string>
+  <string name="please_enter_makani">الرجاء إدخال رقم مكاني </string>
+  <string name="please_enter_land">يرجى إدخال رقم الملكية</string>
+  <string name="no_activities">لم يتم العثور على أنشطة</string>
+  <string name="empty_makani">الرجاء إدخال رقم مكاني </string>
+  <string name="please_enter_valid_makani">الرجاء ادخل رقم مكاني صحيح</string>
+  <string name="data_not_found">لم يتم العثور على البيانات</string>
+    <string name="reset">تحديث</string>
+  <string name="pay">دفع</string>
+  <string name="date_from">التاريخ - من:</string>
+    <string name="date">DD/MM/YYYY</string>
+    <string name="date_to">التاريخ - إلى:</string>
+  <string name="land_owner_type">يرجى تحديد نوع المالك</string>
+  <string name="select">اختر</string>
+  <string name="land_owned_By_person">الأرض التي يمتلكها شخص</string>
+  <string name="land_owned_By_company">الأرض التي تمتلكها شركة</string>
+  <string name="pay_now">الدفع الان</string>
+  <string name="pay_later">الدفع بالقنوات الأخرى</string>
+    <string name="request_details">تفاصيل الطلب</string>
+  <string name="payment_channels">قنوات الدفع</string>
+  <string name="payment_warning">يرجى إتمام عملية الدفع خلال 5 أيام، في حالة عدم الدفع سيتم إلغاء الطلب*</string>
+  <string name="done">تم الانتهاء</string>
+  <string name="request_num">رقم الطلب</string>
+  <string name="parcelid">رقم قطعة الأرض</string>
+  <string name="voucher_num">رقم أذن الدفع</string>
+  <string name="amount">المبلغ</string>
+  <string name="i_am_not_owner">أنا لست صاحب الأرض</string>
+  <string name="visa_passport">جواز السفر (رقم الاضبارة أو الإقامة)*</string>
+  <string name="dateAlert">لا يمكن أن يكون تاريخ الانتهاء أقل من تاريخ البدء</string>
+    <string name="company_license">رخصة الشركة*</string>
+  <string name="view_image">عرض</string>
+  <string name="change">تغير</string>
+  <string name="enter_plot_number">ادخل رقم قطعة الأرض</string>
+  <string name="paid">مدفوعة</string>
+  <string name="register_your_land" >تسجيل الأرض الخاصة بك</string>
+  <string name="register_your_land_msg" >يرجى تسجيل الأرض الخاصة بك من خلال اختيار \"تسجيل\" من القائمة الرئيسية</string>
+  <string name="do_not_show_btn_text" >لا تظهر هذه الرسالة مرة اخرى</string>
+  <string name="register_my_land" >تسجيل الأرض الخاصة بي</string>
+  <string name="register_my_company_land" >تسجيل الأرض الخاصة بالشركة</string>
+  <string name="registration" >التسجيل</string>
+  <string name="register_land" >تسجيل الأرض</string>
+  <string name="no_record">لا توجد سجلات</string>
+  <string name="valid_from_date">الرجاء إدخال صالح من تاريخ</string>
+  <string name="valid_to_date">الرجاء إدخال التاريخ الصحيح</string>
+  <string name="older_to_date">حتى الآن لا يمكن ان يكون أقدم من من تاريخ</string>
+  <string name="future_to_date">حتى الآن لا يمكن ان يكون تاريخا في المستقبل</string>
+  <string name="other_services_fee">رسوم الخدمات الأخرى</string>
+  <string name="already_progress">لا يمكن متابعة الطلب، الطلب قيد الاجراء من قبل مستخدم اخر</string>
+  <string name="empty_document" >يرجى تحميل الوثائق المطلوبة</string>
+  <string name="clear">واضح</string>
+  <string name="choose_from_explorer">اختر من ملف منتقي</string>
+  <string name="required_fields">الرجاء إدخال الحقول المطلوبة</string>
+  <string name="valid_date">يرجى تحديد تواريخ صالحة</string>
+  <string name="valid_doc">يرجى تحميل الوثائق الصحيحة</string>
+  <string name="mobile_validation">يرجى إدخال هاتف متحرك صحيح المثال (9715XXXXXXXX)</string>
+  <string name="applicant_details">معلومات مقدم الطلب</string>
+  <string name="feedback_mobile_number">رقم الهاتف المحمول</string>
+  <string name="cancel_button_label">Cancel</string>
+  <string name="choose_label">Select</string>
+  <string name="default_dir" translatable="false">/sdcard</string>
+  <string name="label_parent_directory">Parent Directory</string>
+  <string name="last_edit">Last edited: </string>
+  <string name="error_dir_access">Directory cannot be accessed</string>
+  <string name="label_parent_dir" translatable="false">...</string>
+  <string name="title_activity_settings">Settings</string>
+  <string name="label_apply">Apply</string>
+  <string name="hint_offset">eg. /mnt/sdcard/Music or leave empty</string>
+  <string name="label_offset_directory">Offset Directory</string>
+  <string name="hint_root_dir">eg. /mnt/sdcard or leave empty</string>
+  <string name="label_root_directory">Root Directory</string>
+  <string name="hint_extensions">eg. jpg, zip, rar or leave empty</string>
+  <string name="label_single">Single</string>
+  <string name="label_multiple">Multiple</string>
+  <string name="label_selection_mode">Selection Mode</string>
+  <string name="label_selection_type">Selection Type</string>
+  <string name="label_file">File</string>
+  <string name="label_directory">Directory</string>
+  <string name="label_files_and_directories">Files and Directories</string>
+  <string name="label_extensions">Filter Extensions(Seperate with Commas, Don\'t use dots)</string>
+  <string name="show_dialog">Show Dialog</string>
+    <string name="favourite_deleted">تم حذف المفضلة بنجاح</string>
+    <string name="enter_activity_code">الرجاء إدخال رمز النشاط أو اسم النشاط</string>
+  <string name="invalid_area">يرجى اختيار المنطقة</string>
+    <string name="deed_hint">مثال: 123</string>
+    <string name="sub_deed_hint">مثال: 12</string>
+  <string name="login_uaepass">تسجيل الدخول بالهوية الرقمية</string>
+    <!--<string name="deed_hint">237</string>
+    <string name="sub_deed_hint">12</string>-->
+</resources>

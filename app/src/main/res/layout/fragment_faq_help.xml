@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="dm.sime.com.kharetati.fragment.FaqHelp">
+
+  <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingTop="0dp"
+    android:weightSum="1"
+    tools:context="dm.sime.com.kharetati.fragment.AboutFragment">
+
+    <TextView
+        android:id="@+id/title_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        android:text="@string/FREQUENTLY_ASKED_QUESTIONS"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:orientation="vertical" >
+
+      <!-- Editext for Search -->
+      <EditText
+          android:id="@+id/inputSearch"
+          android:layout_width="fill_parent"
+          android:layout_height="48dp"
+          android:background="@color/white"
+          android:hint="@string/menu_search"
+          android:inputType="textVisiblePassword"
+          android:textAlignment="center" />
+
+      <!-- List View -->
+      <ListView
+          android:id="@+id/list_view_faq"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp" />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</FrameLayout>

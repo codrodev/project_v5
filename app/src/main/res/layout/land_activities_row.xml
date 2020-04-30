@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="3dp"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="6dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.00"
+        android:background="@drawable/upper_adapter_section"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/lbl_activitie_code"
+            android:textColor="#22952e"
+            android:textSize="@dimen/fontSize"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/activity_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:textAlignment="viewStart"
+            android:textDirection="locale"
+            android:gravity="start"
+            android:text=""
+            android:textColor="#757576"
+            android:textSize="@dimen/fontSize"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.00"
+        android:orientation="horizontal"
+        android:background="@drawable/lower_adapter_section">
+        <ImageView
+            android:layout_margin="16dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/worldwide"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="5dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="15dp"
+            android:text="@string/lbl_activitie_name"
+            android:textColor="#7c7f84"
+            android:textSize="@dimen/fontSize"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/activity_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="10dp"
+            android:textAlignment="viewStart"
+            android:textDirection="locale"
+            android:textColor="#878a8f"
+            android:gravity="start"
+            android:text=""
+            android:textSize="@dimen/fontSize" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

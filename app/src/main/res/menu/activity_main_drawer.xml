@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+  <!-- Add some empty space to the top because the top menu items are hidden behind the header-->
+  <item android:enabled="false"
+      android:title=" " />
+  <item android:enabled="false"
+      android:title=" " />
+  <item android:enabled="false"
+      android:title=" " />
+  <item android:enabled="false"
+      android:title=" " />
+
+  <group android:id="@+id/grp1" android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home_24x24"
+        android:title="@string/title_activity_home" />
+    <item
+        android:id="@+id/nav_bookmark"
+        android:icon="@drawable/myfavorites_24x24"
+        android:title="@string/menu_favorites" />
+    <item
+        android:id="@+id/nav_sitePlan"
+        android:icon="@drawable/mymaps_24x24"
+        android:title="@string/menu_mymaps" />
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/update_profile_24x24"
+        android:title="@string/UPDATE_YOUR_PROFILE"
+        android:visible="false"
+        />
+    <item
+        android:id="@+id/nav_landReg"
+        android:icon="@drawable/my_land_hamburger"
+        android:title="@string/register_land"
+        android:visible="false"
+        />
+    <item
+        android:id="@+id/nav_sign_in"
+        android:icon="@drawable/logout_512x512"
+        android:title="@string/login" />
+  </group>
+  <group android:id="@+id/grp2" android:checkableBehavior="single">
+    <item android:title="@string/menu_your_voice">
+      <menu>
+        <item
+            android:id="@+id/nav_happiness"
+            android:icon="@drawable/happiness_24x24"
+            android:title="@string/menu_happiness" />
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/share_kharetati_24x24"
+            android:title="@string/menu_share" />
+        <item
+            android:id="@+id/nav_rateus"
+            android:icon="@drawable/rate_us_24x24"
+            android:title="@string/menu_rate_us" />
+      </menu>
+    </item>
+
+  </group>
+  <group
+      android:id="@+id/group_information">
+    <item android:title="@string/menu_info">
+      <menu>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/aboutus_24x24"
+            android:title="@string/menu_about_us" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/contact_us_24x24"
+            android:title="@string/menu_contact_us" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/help_24x24"
+            android:title="@string/menu_help" />
+        <item
+            android:id="@+id/nav_faq"
+            android:icon="@drawable/faq_24x24"
+            android:title="@string/menu_faq" />
+        <item
+            android:id="@+id/nav_privacy"
+            android:icon="@drawable/privacy_policy_24x24"
+            android:title="@string/menu_terms_and_conditions" />
+        <item
+            android:id="@+id/nav_related_app"
+            android:icon="@drawable/related_app_24x24"
+            android:title="@string/menu_related_application"
+            android:visible="false" />
+      </menu>
+    </item>
+  </group>
+  <group
+      android:id="@+id/group_setting">
+    <item android:title="@string/menu_setting">
+      <menu>
+        <item
+            android:id="@+id/nav_accessible"
+            android:icon="@drawable/accessibility_24x24"
+            android:title="@string/menu_accessible" />
+        <item
+            android:id="@+id/nav_localeSwitch"
+            android:icon="@drawable/arabic"
+            android:title="@string/toggle_lang" />
+      </menu>
+    </item>
+  </group>
+</menu>

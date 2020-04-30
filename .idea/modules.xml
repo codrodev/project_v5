@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Kharetati.iml" filepath="$PROJECT_DIR$/Kharetati.iml" group="Kharetati" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Kharetati/app" />
+      <module fileurl="file://$PROJECT_DIR$/libraryuaepass/libraryuaepass.iml" filepath="$PROJECT_DIR$/libraryuaepass/libraryuaepass.iml" group="Kharetati/libraryuaepass" />
+    </modules>
+  </component>
+</project>

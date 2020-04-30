@@ -1,0 +1,586 @@
+<resources>
+
+    <string name="app_name">Kharetati</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="language">English</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="lbl_plotnumber">SEARCH PLOT</string>
+    <string name="lbl_login">Login</string>
+    <string name="lbl_or">or</string>
+    <string name="lbl_contAsGuest">Continue As Guest</string>
+    <string name="lbl_next">Next</string>
+
+    <string name="lbl_myMap">Kharetati (My Site-Plan)</string>
+    <string name="lbl_requestKharetati">Request Site Plan</string>
+    <string name="lbl_zoneRegulation">Zoning Regulations</string>
+    <string name="lbl_PlotRegulation">View Plot Regulations</string>
+    <string name="storage_permission">Storage Permission</string>
+    <string name="storage_permission_message">Kharetati does not have access to your gallery. To enable access, tap Settings and turn on Storage</string>
+    <string name="camera_permission">Camera Permission</string>
+    <string name="camera_permission_message">Kharetati does not have access to your camera. To enable access, tap Settings and turn on Camera.</string>
+    <string name="permission_settings">Settings</string>
+    <string name="permission_cancel">Cancel</string>
+
+    <string name="need_permissions">Need Permissions</string>
+    <string name="need_permissions_message">To continue further Kharetati App requires permission access. Please click on \"Settings\" and Select \"Permissions\" and provide required permissions </string>
+
+
+    <string name="title_optionSelect">Enter Owner Name,Owner Emirates ID, Owner Mobile Number and Owner Email</string>
+    <string name="title_optionSelect2">Enter  Name, Emirates ID,  Mobile Number and  Email</string>
+    <string name="title_zoneReg1">View the plot regulations and building violations for the selected plot through the following </string>
+
+    <string name="title_client">DUBAI MUNICIPALITY</string>
+    <string name="title_welcome">WELCOME TO</string>
+
+    <string name="plc_username">DubaiID Username or Email</string>
+    <string name="plc_plotNumber">Enter your plot number</string>
+    <string name="PLEASE_ENTER_PLOTNUMBER">Please Enter Your Plot Number</string>
+    <string name="plc_mobileNumber">Enter Mobile Number</string>
+    <string name="plc_password">DubaiID Password</string>
+    <string name="plc_emirateId">Enter EmirateID</string>
+
+    <string name="menu_mymaps">My Maps</string>
+    <string name="menu_myland">My Land</string>
+    <string name="menu_favorites">My Favorites</string>
+    <string name="menu_zoneReguration">Zone Regulation</string>
+    <string name="menu_downloadSitePlan">Downloaded Site Plan</string>
+    <string name="menu_language">Switch to English</string>
+    <string name="menu_apptour">Tour the App</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_email">Email *</string>
+    <string name="menu_download_zone_regulation">Download</string>
+    <string name="menu_contact_us">Contact Us</string>
+    <string name="menu_about_us">About Us</string>
+    <string name="menu_rate_us">Rate Us</string>
+    <string name="toggle_lang">العربية‎</string>
+    <string name="menu_happiness">Happiness</string>
+    <string name="menu_setting">Settings</string>
+    <string name="menu_share">Share Kharetati App</string>
+    <string name="menu_privacy_policy">Privacy Policy</string>
+    <string name="menu_terms_and_conditions">Terms and Conditions</string>
+    <string name="menu_related_application">Related Applications</string>
+    <string name="menu_accessible">Accessibility</string>
+    <string name="menu_faq">FAQ</string>
+    <string name="menu_info">Information</string>
+    <string name="menu_your_voice">Your Voice</string>
+    <string name="login_alert">Please sign in to be able to use this feature</string>
+
+
+    <string name="msg_loading">Please Wait…</string>
+    <string name="msg_gettingUserInfo">Getting User Detail…</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="btn_login_txt">LOGIN</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="lbl_app_detail">Geographic Information Systems (GIS) Department at Dubai Municipality.<br></br>
+The department was established through a decree (Law No. 6, 2001) of the Ruler of Dubai, the late Sheikh Maktoum Bin Rashid Al Maktoum. The law stipulated that the GIS Department is considered to be the only official body which allows producing geographical data in the Emirate.
+GIS Department is considered as an official portal to provide geographical data services, images and spatial maps of Dubai to governmental bodies, the private sector and individuals.
+<br></br>
+<b>KHARETATI Application</b> is developed by GIS Department – DM to enable land owner or an authorized person by the land owner to view land details and request for site plan for the specified land in the Emirate of Dubai.  The objective is to simplify the process of requesting and receiving the official site plans issued by Survey Department in DM through this mobile application with simple secured steps.
+<br></br>
+<br></br><u>The application is available on:</u><br></br><br></br>App Store:<br></br>
+Google play:<br></br>
+</string>
+    <string name="Policies">Policies</string>
+    <string name="terms_and_conditions_click">Terms and Conditions</string>
+    <string name="privacy_policy_click">Privacy policy</string>
+    <string name="libraries_we_use">Libraries we use</string>
+    <string name="apacheLicense">Apache License Version 2.0</string>
+    <string name="email">Email </string>
+    <string name="email_hint">Email(mail@abc.com)*</string>
+    <string name="feedback_subject">Kharetati Feedback</string>
+    <string name="Contact_us_Call_permission">"Kharetati needs permission to make calls to Dubai Municipality."</string>
+    <string name="you_are_about_to_call">Call </string>
+    <string name="phone">Phone</string>
+    <string name="Website">Website</string>
+    <string name="Chat">Chat</string>
+    <string name="Live_chat_with_our_call_center">Live chat with our call center</string>
+    <string name="please_enter_phone">Please enter your phone number</string>
+    <string name="social_network">Social Media</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="instagram">Instagram</string>
+    <string name="youtube">Youtube</string>
+    <string name="email2">Email</string>
+    <string name="feedback">Feedback</string>
+    <string name="send_your_feedback_about_the_app">Send your feedback about Kharetati</string>
+    <string name="title_activity_home">Home</string>
+    <string name="favorite">Favourites</string>
+    <string name="login">Login</string>
+    <string name="next">Next</string>
+    <string name="feedback_name">Name *</string>
+    <string name="profile_name">Name</string>
+    <string name="subject">Subject *</string>
+    <string name="feedback_description">Description *</string>
+    <string name="description_fav">Description *</string>
+    <!--<string name="enter_description">Enter description</string>-->
+    <string name="menu_myfavorites">My Favorites</string>
+    <string name="lbl_my_favourites_heading">My Favorites</string>
+    <string name="kharetati_app">Kharetati App</string>
+    <string name="try_kharetati_app">Download Kharetati App</string>
+
+    <string name="mobile_number_9715xxxxxxxx">9715xxxxxxxx</string>
+    <string name="submit">Submit</string>
+    <string name="captcha_txt">Move slider to %1$d to authenticate your request</string>
+    <string name="captcha_error">Move security slider to requested number to process this request</string>
+    <string name="all_fields_are_required">All fields are required</string>
+
+    <string name="CHOOSETHEOPTION">Choose the option</string>
+    <string name="CAMERA">Camera</string>
+    <string name="LIBRARY">Library</string>
+    <string name="internet_connection_problem">Please check your internet connection \n and try again</string>
+    <string name="internet_connection_problem1">Please check your internet connection and try again</string>
+    <string name="wait_attachment">Please wait. Uploading attachment. This might take time.</string>
+
+    <string name="dm_tx_success">Your request is successfully submitted, transaction reference number: </string>
+    <string name="dm_tx_notification">You will receive a notification once the map is issued by Dubai Municipality, so you can click on My Maps from the main menu of the application</string>
+    <string name="email_sent_success">Email sent successfully</string>
+    <string name="enter_valid_email">Please enter valid Email Address</string>
+    <string name="menu_downloaded_site_plan">Downloaded Site Plans</string>
+    <string name="downloaded_siteplans">Downloaded Site Plans</string>
+    <string name="siteplanreq_underprocess">Site Plan creation request is under process..</string>
+    <string name="under_process">Under process</string>
+    <string name="NOPLOTFOUNDDETAILTEXT">If you couldn’t find your Plots then kindly update your profile at Dubai Municipality</string>
+    <string name="plot_does_not_exist">Please enter a valid plot number</string>
+    <string name="logout">Log Out</string>
+    <string name="NO_FAVOURITE_PLOTS_FOUND">Currently no favourites are available</string>
+    <string name="bookmark">Add To Favourites</string>
+    <string name="bookmark_save"> Plot added to the favourite</string>
+    <string name="error_response">An error occured while fetching data</string>
+    <string name="plotno">Plot No : </string>
+    <string name="plotno2">Plot Number:</string>
+    <string name="Community">Community</string>
+    <string name="confirmation_delete">Are you sure you want to delete?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="PLOTREMOVESSUCCESSFULLY">Plot removed successfully</string>
+    <string name="ERRORRESPONSE">Error while retrieving information from server</string>
+    <string name="user_name">User name *</string>
+
+    <string name="confirmation_openlink">Are you sure you want to open this link?</string>
+    <string name="guest">Guest</string>
+    <string name="enter_emirates_id">Please enter your Emirates ID</string>
+    <string name="enter_valid_emirates_id">Please enter a valid Emirates ID</string>
+    <string name="lbl_warning">Warning</string>
+    <string name="ok">Ok</string>
+    <string name="please_enter_email_address">Please Enter Your Email Address</string>
+    <string name="enter_name">Please enter a name</string>
+    <string name="ExcepDetails">EXCEPTION DETAILS</string>
+    <string name="FullFrozenDetails">FULLY FROZEN DETAILS</string>
+    <string name="FullyAffDetails">FULLY AFFECTED DETAILS</string>
+    <string name="CoastDetails">COASTAL DETAILS</string>
+    <string name="MetroDetails">METRO DETAILS</string>
+    <string name="COMMUNITYANDAREADETAILS">COMMUNITY AND AREA DETAILS</string>
+    <string name="ZONE_CODE">ZONE CODE</string>
+    <string name="HEIGHT_REG">HEIGHT</string>
+    <string name="GFA">GFA</string>
+    <string name="FAR">FAR</string>
+    <string name="REMARKS_REG">REMARKS</string>
+    <string name="PARKING_REG">PARKING</string>
+    <string name="SETBACK_REG">SETBACK</string>
+    <string name="LANDUSE_REG">LANDUSE</string>
+    <string name="SCHOOLREGULATIONS">SCHOOL REGULATIONS</string>
+    <string name="GRADE">GRADE</string>
+    <string name="KinderGarden">KinderGarden</string>
+    <string name="Primary">Primary</string>
+    <string name="Middle">Middle</string>
+    <string name="High">High</string>
+    <string name="MAXCLASSROOMS">Max Classrooms</string>
+    <string name="MAXSTUDENTS">Max students</string>
+    <string name="GROSSFLOORAREA">Gross Floor Area</string>
+    <string name="MINOSANDPGA">Minimum Open Space and Playground Area / student</string>
+    <string name="ALLOCATEDAREA">Allocated Area</string>
+    <string name="TOTAL">Total</string>
+    <string name="PartDetails">PARTIAL FROZEN DETAILS</string>
+    <string name="ZONE_REGULATIONS">ZONE REGULATIONS</string>
+    <string name="COMMUNITY">COMMUNITY</string>
+    <string name="AREA">AREA</string>
+    <string name="generic_error_message">Please try again later</string>
+    <string name="lbl_error">Attention</string>
+    <string name="SQ_MTS">SQ. METERS</string>
+    <string name="sortbydate">Sort By Date</string>
+    <string name="login_alert_ar">يرجى التسجيل في شاشة "الدخول" لمتابعة الطلب.</string>
+    <string name="exit_alert_title_ar">Exit Alert</string>
+    <string name="exit_alert_message">Are you sure you want to exit from the application?</string>
+    <string name="exit_alert_yes_ar">Yes</string>
+    <string name="exit_alert_no_ar">No</string>
+    <string name="guest_login_message_ar">الرجاء تسجيل الدخول لتحديث ملفك</string>
+
+    <string name="land_ownership_certificate">Latest site plan issued by Land Department or Dubai Municipality*</string>
+    <string name="owner_emiratesID">Owner Emirates ID *</string>
+    <string name="front">Front</string>
+    <string name="back">Back</string>
+    <string name="isResident">Are you the resident</string>
+    <string name="isOwner">Are you the owner</string>
+    <string name="letter_from_owner">NOC Certificate (Letter from owner)</string>
+
+    <string name="msg_uploading_attachment">Please wait. Uploading attachments to server. This might take time.</string>
+    <string name="cancel_payment">Your payment has been canceled.</string>
+    <string name="terminate_payment">Your payment has been terminated. Please contact DSG with the transaction number for further queries.</string>
+    <string name="available_for_download">Available For Download</string>
+    <string name="register">Register</string>
+    <string name="forgot_username_password">Forgot Username or Password?</string>
+    <string name="create_account">Do you want to create an account?</string>
+    <string name="timeout_title">Session Timeout</string>
+    <string name="timeout_message">Your session has timed out</string>
+    <string name="timeout_ok">Ok</string>
+    <string name="choose_checkbox_option">Please choose relevant option</string>
+
+
+    <string name="title_rate_us">Please Rate Us</string>
+    <string name="msg_rate_us">We value your feedback. Kindly rate us in the store</string>
+    <string name="not_now">Close</string>
+    <string name="remindme">Remind me later</string>
+    <string name="rate_it">Rate now</string>
+    <string name="thank_you_feedback">Thank you for your feedback!</string>
+    <string name="open_in_app_store">Open in App Store</string>
+    <string name="PARCELBLOCKED">Siteplan generation for this plot is under process</string>
+    <string name="NOTAPRIVATEPLOT">This plot is not valid for site plan generation </string>
+    <string name="ENTERTHEPLOTNUMBER">Please enter the plot number</string>
+    <string name="DOWNLOAD_PDF_PROGRESS_MSG">Downloading PDF, Please wait..</string>
+    <string name="SPN_TX_NO">SPS#:</string>
+    <string name="LBL_REQUEST_STATUS">Request Status:</string>
+    <string name="LBL_DATE_TIME">Date/Time:</string>
+    <string name="PAYMENT">PAYMENT</string>
+    <string name="CANCELTRANSACTIONALERT">Are you sure you want to cancel the transaction?</string>
+    <string name="CANCEL">Cancel</string>
+    <string name="ERRORCONNECTINGSERVER">Error while connecting to server</string>
+    <string name="select_photo_gallery">Select photo from gallery</string>
+    <string name="capture_photo_camera">Capture photo from camera</string>
+    <string name="lbl_ok">Ok</string>
+    <string name="NO_SITE_PLAN_DOWNLOADED">If you could not find your site plan kindly click on "Find Site Plan" button.</string>
+    <string name="download_siteplan_user_mismatch">Please login as %s to view this Site Plan</string>
+    <string name="payment_gateway_connection">Unable to connect to Dubai Smart Government, please try again</string>
+    <string name="pending_transaction">Your transaction is pending, Please wait, we will notify you once your transaction completed</string>
+    <string name="UPDATE_YOUR_PROFILE">View Profile</string>
+    <string name="VIEW_PROFILE">View Profile</string>
+    <string name="UPDATE_PROFILE_MSG">To update your profile, please apply the request in </string>
+    <string name="MYID">MyID</string>
+    <string name="emirates_id">Emirates ID</string>
+    <string name="email_hint_mandatory">Email(mail@abc.com)*</string>
+    <string name="PLEASE_UPLOAD_EMIRATESID">Please upload Emirates ID</string>
+    <string name="rememberme">Remember Me</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="enter_password">Please enter a password</string>
+    <string name="enter_dubai_id_username">Please enter your username</string>
+    <string name="wrong_username_password">Wrong username or password</string>
+    <string name="server_connect_error">Unable to Connect to Server</string>
+    <string name="user_Detail_error">Unable to find User Detail</string>
+    <string name="NOUPLOADPASSPORTALERT">Please upload the Passport</string>
+    <string name="NO_NOC_CERTIFICATE_ALERT">Please upload the NOC Certificate(Letter from owner)</string>
+    <string name="NOEMIDFRONTALERT">Please Upload Emirates ID Front</string>
+    <string name="NOEMIDBACKALERT">Please Upload Emirates ID Back</string>
+    <string name="NOLANDOWNERSHIPCERTIFICATEALERT">Please upload the Land Owner Ship Certificate</string>
+    <string name="retry">Retry</string>
+    <string name="license">License</string>
+    <string name="fragment_downloaded_siteplans_lblHeading">My Maps</string>
+    <string name="bookmarks_desc_heading">Favorite Name</string>
+
+    <string name="app_dubai_park_resort">Dubai Parks and Beaches</string>
+    <string name="app_idubai">iDubai</string>
+    <string name="app_makani">Makani</string>
+    <string name="app_green_building">Green Buildings</string>
+    <string name="app_green_ticket">Green ticket</string>
+    <string name="app_ramsitna">Ramsitna</string>
+    <string name="app_aleef">Aleef</string>
+    <string name="app_more">More</string>
+    <string name="myid_profile_heading">Dubai Id Profile</string>
+    <string name="myid_dob">Date Of Birth</string>
+    <string name="emiratesId">Emirates ID</string>
+    <string name="appUpdateMsg">A new version of Kharetati is available on the Play Store. Would you like to update it now?</string>
+    <string name="uploadDocError">An error occurred while uploading the document. We will notify you once uploading process completed</string>
+    <string name="otp_sent_msg">Please enter the OTP that you will receive on your mobile shortly</string>
+    <string name="invalidOtp">Invalid OTP</string>
+    <string name="enter_otp_validate_mobile">Enter OTP(One Time Password) To Validate your Mobile Number</string>
+    <string name="resendOtp">Resend OTP</string>
+    <string name="otp">OTP</string>
+    <string name="i_am_owner">I am the owner of the plot</string>
+    <string name="enter_your_mobile">Enter your mobile number</string>
+
+    <string name="customerCharter">Customer Charter</string>
+    <string name="serviceDetails">Service details</string>
+    <string name="suggestion">Suggestions</string>
+    <string name="technicalSupport">Technical Support</string>
+    <string name="businessSupport">Business Support</string>
+    <string name="errorOtp">An error occurred while sending OTP, Please try resend otp again.</string>
+
+    <string name="slide_1_title">Kharetati</string>
+    <string name="slide_2_title">Search Plot</string>
+    <string name="slide_3_title">View Plot on map</string>
+    <string name="slide_4_title">View Zone Regulations</string>
+    <string name="slide_5_title">Request Site Plan</string>
+    <string-array name="emirates">
+        <item>--Select Emirate--</item>
+        <item>Abu Dhabi</item>
+        <item>Dubai</item>
+        <item>Sharjah</item>
+        <item>Ajman</item>
+        <item>Umm AlQuwain</item>
+        <item>Ras Al Khaimah</item>
+        <item>Fujairah</item>
+    </string-array>
+    <string-array name="emirates_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string name="slide_1_desc">Kharetati enables the land owner or authorized person\'s to view and apply for site plan requests through simple secured steps</string>
+    <string name="slide_2_desc">Kharetati offers a hassle free search option. Simply enter your 7 digit plot number and search. That\'s it. Your plot information will be displayed.</string>
+    <string name="slide_3_desc">Your plot will be highlighted on the map where you can pan, zoom, bookmark your plot and find more information about the plot location.</string>
+    <string name="slide_4_desc">View all zone regulations for your plot, such as permitted land use, parking requirements, allowed height and other details.</string>
+    <string name="slide_5_desc">By submitting your ID documents through the app and using the Dubai Government\'s payment gateway, you can download your site plan directly on to your smart devices.</string>
+
+    <string name="skip">Skip</string>
+    <string name="start">GOT IT</string>
+
+    <string name="app_logo">Kharetati logo</string>
+    <string name="slide_2_title_icon">Search Plot icon</string>
+    <string name="slide_3_title_icon">View Plot on map icon</string>
+    <string name="slide_4_title_icon">Zone Regulation icon</string>
+    <string name="slide_5_title_icon">Site Plan Request icon</string>
+
+    <string name="myid_logo">Dubai Id logo</string>
+    <string name="toggle_layer">Toggle Layer</string>
+
+    <string name="delete_bookmark">Delete Favourite</string>
+    <string name="edit_bookmark">Edit Favourite</string>
+    <string name="view_site_plan">View Site Plan</string>
+    <string name="find_site_plan">Find Site Plan</string>
+
+    <string name="no_siteplan">Requested Site Plan Not Found</string>
+
+    <string name="FREQUENTLY_ASKED_QUESTIONS">FAQ</string>
+    <string name="faq_1">Can I apply for a site plan using this application?</string>
+    <string name="faq_2">How can I find for my plot?</string>
+    <string name="faq_3">How can I locate my plot?</string>
+    <string name="faq_4">How do I know what type of zoning regulations apply to my plot?</string>
+    <string name="faq_5">Can I download my site plan on my mobile phone?</string>
+    <string name="faq_6">Is the issued plan by the application is an official document?</string>
+
+    <string name="faq_1_ans">Kharetati application enables the land owner or the authorized person to request for site plan request through simple secured steps.</string>
+    <string name="faq_2_ans">Kharetati offers a hassle free search option. Simply enter your plot number and press "Search". That\'s it. Your plot information will be displayed.</string>
+    <string name="faq_3_ans">Your plot will be highlighted on the map where you can pan, zoom, bookmark your plot and find the directions to the plot location.</string>
+    <string name="faq_4_ans">All zoning regulations for your plot, such as permitted land use, parking specifications, allowed height for building, setback and other details can be found by clicking on (Plot regulations) option.</string>
+    <string name="faq_5_ans">After submitting owner ID document through the application and completing the electronic payment process, you can download the site plan on your mobile.</string>
+    <string name="faq_6_ans">Yes, the issued plan is approved by Dubai Municipality and has a certified electronic stamp.</string>
+
+    <string name="findPlot">FIND YOUR PLOT</string>
+    <string name="lbl_plot_utilities_btn">Plot Utilities Map</string>
+    <string name="lbl_building_violations_btn">View Building Violations</string>
+    <string name="lbl_building_violations">BUILDING VIOLATIONS</string>
+    <string name="lbl_building_violations_followupno">Follow-Up No</string>
+    <string name="lbl_building_violations_hasFine">Has Fine</string>
+    <string name="lbl_building_violations_lastNoticeNumber">Last Notice Number</string>
+    <string name="lbl_building_violations_numberOfNotices">No of Notices</string>
+    <string name="lbl_building_violations_paymentStatus">Payment Status</string>
+    <string name="lbl_building_violations_repeatedTime">Repeated Times</string>
+    <string name="lbl_building_violations_sourceSection">Source Section</string>
+    <string name="lbl_building_violations_uniqueId">Unique Id</string>
+    <string name="lbl_building_violations_violationCode">Violation Code</string>
+    <string name="lbl_building_violations_violationDate">Violation Date</string>
+    <string name="lbl_building_violations_violationRemarks">Violation Remarks</string>
+    <string name="lbl_building_violations_violationStatus">Violation Status</string>
+    <string name="lbl_building_violations_violatorType">Violator Type</string>
+    <string name="lbl_building_violations_violationType">Violation Type</string>
+    <string name="lbl_building_violations_violatorName">Violator Name</string>
+    <string name="no_violations_found">No Violations Found</string>
+    <string name="copyright">Copyright 2018 © Dubai Municipality, All Rights Reserved</string>
+    <string name="app_version">Version 1.5</string>
+    <string name="enter_valid_parcel_no">Please enter a valid parcel number</string>
+    <string name="lbl_share_the_app">Share The App</string>
+    <string name="lbl_security_and_privacy_policy">Security &amp; Privacy Policy</string>
+    <string name="profile_update_success">User profile successfully updated</string>
+    <string name="open_makani_confirm">Are you sure you want to navigate to Makani?</string>
+    <string name="open_forgotpassword_myid"> Do you want to reset your username or password?</string>
+    <string name="open_dubaiportal_myid"> Are you sure you want to navigate to Dubai id portal?</string>
+    <string name="passport">Passport(Personal Details)*</string>
+    <string name="download_noc_letter"><u>Download NOC Letter</u></string>
+    <string name="or">OR</string>
+    <string name="view_noc_letter_txt">View NOC Letter to Provide Similar Template for the Letter</string>
+    <string name="signed_noc_owner">Signed NOC Letter From the Owner*</string>
+    <string name="i_am_resident">I am a UAE resident</string>
+
+
+    <string name="terms_and_conditions">Terms and Conditions</string>
+    <string name="emirates_id_expired">Your emirates ID is expired. Please update to proceed.</string>
+    <string name="choose_option">Please choose the relevant option</string>
+    <string name="snackbar_text">Please click on plot to proceed</string>
+    <string name="userimage">User image</string>
+    <string name="navback">Back</string>
+    <string name="forward">Forward</string>
+    <string name="kharetatilogo">Kharetati Logo</string>
+    <string name="ploticon">Map icon</string>
+    <string name="viewmap">Show Map</string>
+    <string name="callus">call us</string>
+    <string name="reload">Reload</string>
+    <string name="app_dubai_park_resort_logo">Dubai Parks and Beaches Logo</string>
+    <string name="icon_for_more">More Apps</string>
+    <string name="emirates_id_front">Emirates Id front</string>
+    <string name="emirates_id_back">Emirates Id Back</string>
+    <string name="dubai_id_logo">Dubai Id logo</string>
+    <string name="expand_icon">Building Violations Expand Icon</string>
+    <string name="login_alert_title">Login Alert</string>
+    <string name="view">View Image</string>
+    <string name="sending_mail">Sending email. Please wait..</string>
+    <string name="alert">Alert</string>
+    <string name="choose_image">Please choose the Image</string>
+    <string name="delivery_by_courier">Delivery by courier</string>
+    <string name="makani_no">Makani No.</string>
+    <string name="street_adress">Street Address</string>
+    <string name="mailing_address">Mailing Address</string>
+    <string name="emirate">Emirate*</string>
+    <string name="villa_flat_building_no">Villa/ Flat/ Building No.</string>
+    <string name="building_name">Building Name</string>
+    <string name="nearest_landmark">Nearest Landmark</string>
+    <string name="reciever_name">Receiver Name*</string>
+    <string name="mobile_no">Mobile No*</string>
+    <string name="email_address">Email Address*</string>
+    <string name="courier_alert_title">Do you want to receive the site plan by courier?</string>
+    <string name="address_for_delivery">Address for Delivery</string>
+    <string name="cancel">Cancel</string>
+    <string name="already_exists"> Plot already available in the favourite</string>
+    <string name="deatails_saved"> All the details are saved successfully</string>
+    <string name="enter_valid_mobile">Please enter valid Mobile Number</string>
+    <string name="close_withoutsaving">Are you sure you want to close without saving?</string>
+    <string name="select_emirate">Please select Emirate</string>
+    <string name="save">Save</string>
+    <string name="valid_plot_number">Please Enter a Valid Plot Number</string>
+    <string name="description">Favourite Name</string>
+    <string name="server_error">Unable to send email. A server has occurred</string>
+    <string name="fields_are_required">Please enter all the required fields</string>
+    <string name="enter_favourite_name">Please enter the favourite name</string>
+    <string name="loading">Loading..</string>
+    <string name="Crop">Choose</string>
+    <string name="lbl_building_violations_violationAmount">Violation Amount(AED)</string>
+    <string name="lbl_building_violations_payment_voucherNumber">Payment Voucher Number</string>
+    <string name="lbl_building_violations_fine_warning_msg">The fine will not be removed unless the two conditions are met(Fine Payment and Commitment in removing violated part)</string>
+    <string name="root_alert">Sorry , this device is Rooted you can not use Kharetati Application</string>
+    <string name="choose_community" >Choose Area</string>
+    <string name="enter_land_number">Enter your Title deed number</string>
+    <string name="enter_parcelid">Enter your Plot Number</string>
+    <string name="enter_makani_number">Enter your Makani Number</string>
+    <string name="lbl_land_activities">View Land Activities</string>
+    <string name="lbl_activitie_code">Activity Code </string>
+    <string name="lbl_activitie_name">Activity Name:</string>
+    <string name="submit_enquiry">Submit Enquiry</string>
+    <string name="message">Message *</string>
+    <string name="plot_number">Plot Number</string>
+    <string name="land_number">Title Deed Number</string>
+    <string name="tab_land_number">Title Deed Number</string>
+    <string name="makani_number">Makani Number:</string>
+    <string name="makani_number_menu">Makani Number</string>
+    <string name="land_info_msg">Kindly enter the land number received  from Dubai Land Department. Eg: 237/3</string>
+    <string name="plot_info_msg">Kindly enter the Plot Number received from Dubai Municipality. Eg : 1190353</string>
+    <string name="invalid_makani">Please enter a valid makani number</string>
+    <string name="invalid_land">All fields are required</string>
+    <string name="no_valid_land">Please enter a valid title deed number</string>
+    <string name="showing_msg">Showing</string>
+    <string name="showing_msg_max">out of</string>
+    <string name="search_by_activity">Search By Activity Code OR Name</string>
+    <string name="submit_enquiry_validation">Please enter all the required fields</string>
+    <string name="community_error">Error while fetching community</string>
+    <string name="guest_error">Please login to use this feature</string>
+    <string name="tap_to_choose">Tap to choose area</string>
+    <string name="submit_enquiry_success">Enquiry successfully submitted</string>
+    <string name="please_enter_makani">Please enter makani number</string>
+    <string name="please_enter_land">Please enter the title deed number</string>
+    <string name="no_activities">No Activities Found</string>
+    <string name="empty_makani">Please enter makani number</string>
+    <string name="please_enter_valid_makani">Please enter a valid makani number</string>
+    <string name="data_not_found">Data not found</string>
+    <string name="reset">Reset</string>
+    <string name="pay">Pay</string>
+    <string name="date_from">Date - From:</string>
+    <string name="date">DD/MM/YYYY</string>
+    <string name="date_to">Date - To:</string>
+    <string name="land_owner_type">Please select the Land Owner Type</string>
+    <string name="select">Select</string>
+    <string name="land_owned_By_person">Land owned by person</string>
+    <string name="land_owned_By_company">Land owned by company</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="pay_later">Pay By Other Channels</string>
+    <string name="request_details">Request Details</string>
+    <string name="payment_channels">Payment Channels</string>
+    <string name="payment_warning">* The payment need to be done within 5 days, otherwise the request will be cancelled.</string>
+    <string name="done">Done</string>
+    <string name="request_num">Request Number</string>
+    <string name="parcelid">Parcel ID</string>
+    <string name="voucher_num">Voucher Number</string>
+    <string name="amount">Amount</string>
+    <string name="i_am_not_owner">I am not the owner of the plot</string>
+    <string name="visa_passport">Passport (Edbara or Visa)*</string>
+    <string name="dateAlert">End date cannot be less than Start date</string>
+    <string name="company_license">Company License Copy*</string>
+    <string name="view_image">View</string>
+    <string name="change">Change</string>
+    <string name="enter_plot_number">Enter Plot Number</string>
+    <string name="paid">Paid</string>
+    <string name="no_record">No records found</string>
+    <string name="valid_from_date">Please enter a valid from date</string>
+    <string name="valid_to_date">Please enter a valid to date</string>
+    <string name="older_to_date">To Date can not be older than from date</string>
+    <string name="future_to_date">To Date can not be a future date</string>
+    <string name="other_services_fee">Other Services Fees</string>
+    <string name="already_progress">Request is Already in progress</string>
+    <string name="empty_document" >Please upload the required documents</string>
+    <string name="register_your_land" >Register Your Land</string>
+    <string name="register_your_land_msg" >Please register your land by choosing Register in the menu.</string>
+    <string name="do_not_show_btn_text" >Don\'t Show me this again</string>
+    <string name="register_my_land" >Register my land</string>
+    <string name="register_my_company_land" >Register my companies land</string>
+    <string name="registration" >Registration</string>
+    <string name="register_land" >Register Land</string>
+    <string name="clear">Clear</string>
+    <string name="choose_from_explorer">Choose from File chooser</string>
+    <string name="required_fields">Please enter the required fields</string>
+    <string name="valid_date">please select a valid dates</string>
+    <string name="valid_doc">Please upload the valid documents</string>
+    <string name="mobile_validation">Please enter a valid mobile number e.g (9715XXXXXXXX)</string>
+    <string name="applicant_details">Applicant details</string>
+    <string name="feedback_mobile_number">Phone *</string>
+    <string name="cancel_button_label">Cancel</string>
+    <string name="choose_label">Select</string>
+    <string name="default_dir" translatable="false">/sdcard</string>
+    <string name="label_parent_directory">Parent Directory</string>
+    <string name="last_edit">Last edited: </string>
+    <string name="error_dir_access">Directory cannot be accessed</string>
+    <string name="label_parent_dir" translatable="false">...</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="label_apply">Apply</string>
+    <string name="hint_offset">eg. /mnt/sdcard/Music or leave empty</string>
+    <string name="label_offset_directory">Offset Directory</string>
+    <string name="hint_root_dir">eg. /mnt/sdcard or leave empty</string>
+    <string name="label_root_directory">Root Directory</string>
+    <string name="hint_extensions">eg. jpg, zip, rar or leave empty</string>
+    <string name="label_single">Single</string>
+    <string name="label_multiple">Multiple</string>
+    <string name="label_selection_mode">Selection Mode</string>
+    <string name="label_selection_type">Selection Type</string>
+    <string name="label_file">File</string>
+    <string name="label_directory">Directory</string>
+    <string name="label_files_and_directories">Files and Directories</string>
+    <string name="label_extensions">Filter Extensions(Seperate with Commas, Don\'t use dots)</string>
+    <string name="show_dialog">Show Dialog</string>
+    <string name="favourite_deleted">Favorite has been successfully deleted</string>
+    <string name="enter_activity_code">Please enter the activity code or activity name</string>
+    <string name="invalid_area">Please select the area</string>
+    <string name="deed_hint">Eg: 123</string>
+    <string name="sub_deed_hint">Eg: 12</string>
+    <string name="login_uaepass">Login with UAE PASS</string>
+    <!--<string name="deed_hint">237</string>
+    <string name="sub_deed_hint">12</string>-->
+</resources>

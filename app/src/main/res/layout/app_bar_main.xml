@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+  tools:context="dm.sime.com.kharetati.layout.MainActivity">
+
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_horizontal"
+      app:elevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStartWithNavigation="0dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:rotationY="@integer/locale_mirror_flip"
+                android:background="@null"
+                app:srcCompat="@drawable/back" />
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+          android:id="@+id/img_header"
+          android:layout_width="90dp"
+          android:layout_height="28dp"
+          android:layout_marginTop="15dp"
+          android:layout_marginBottom="15dp"
+          android:layout_centerInParent="true"
+          android:importantForAccessibility="no"
+          android:src="@drawable/logo_header_modified" />
+
+      <!--<ImageView-->
+          <!--android:id="@+id/counterBackground"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_alignParentEnd="true"-->
+          <!--android:layout_alignParentLeft="false"-->
+          <!--android:layout_alignParentRight="true"-->
+          <!--android:layout_alignParentTop="false"-->
+          <!--android:layout_centerInParent="true"-->
+          <!--android:layout_marginEnd="50dp"-->
+          <!--android:paddingRight="0dp"-->
+          <!--app:srcCompat="@android:drawable/stat_notify_chat" />-->
+
+      <TextView
+          android:id="@+id/count"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textSize="8sp"
+          android:layout_centerInParent="true"
+          android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <include
+      layout="@layout/content_main"
+      android:layout_width="match_parent" />
+
+  <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:srcCompat="@android:drawable/ic_dialog_email" />-->
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context="dm.sime.com.kharetati.fragment.PolicyFragment">
+
+     <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:paddingTop="0dp"
+      android:weightSum="1">
+
+      <TextView
+        android:id="@+id/title_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center_vertical"
+        android:text="@string/menu_privacy_policy"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+       <WebView
+         android:id="@+id/view_privacy"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent" />
+
+
+    </LinearLayout>
+</FrameLayout>

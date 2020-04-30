@@ -1,0 +1,277 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0eff4"
+    android:layoutDirection="locale"
+    tools:context="dm.sime.com.kharetati.fragment.DownloadedSitePlansFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:id="@+id/fragment_downloaded_siteplans_layout_network_connection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            mask:srcCompat="@drawable/nointernet" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="@string/internet_connection_problem"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/fragment_downloaded_siteplans_btnRetry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_edittext_gradient"
+            android:text="@string/retry" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_downloaded_siteplans_layoutDownloadedSiteplans"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="0dp">
+
+        <TextView
+            android:id="@+id/fragment_downloadedSitePlans_txtHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="40dp"
+            android:textDirection="locale"
+            android:background="?attr/colorPrimary"
+            android:drawablePadding="0dp"
+            android:drawableRight="@drawable/asc"
+            android:drawableEnd="@drawable/asc"
+            android:gravity="center_vertical|center"
+            android:text="@string/fragment_downloaded_siteplans_lblHeading"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/fragment_downloaded_siteplans_layoutSearch"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:focusableInTouchMode="false"
+                android:gravity="center_vertical"
+                android:text="@string/findPlot"
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+            <!--<ImageButton-->
+                <!--android:id="@+id/fragment_downloaded_siteplans_btnSearch"-->
+                <!--android:layout_width="32dp"-->
+                <!--android:layout_height="32dp"-->
+                <!--android:layout_gravity="center_vertical|center_horizontal"-->
+                <!--android:background="@color/white"-->
+                <!--android:scaleType="centerInside"-->
+                <!--app:srcCompat="@drawable/search_100x100" />-->
+
+            <AutoCompleteTextView
+                android:id="@+id/fragment_downloaded_siteplans_plotnumber"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:background="@color/white"
+                android:digits="0123456789"
+                android:hint="-  -  -  -  -  -  -"
+                android:inputType="number"
+                android:maxLength="20"
+                android:textAlignment="center"
+                android:textDirection="ltr"
+                android:textSize="16sp" />
+            <ImageButton
+                android:id="@+id/fragment_downloaded_siteplans_btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:contentDescription="@string/menu_search"
+                android:layout_weight="1"
+                android:background="@color/white"
+                mask:srcCompat="@android:drawable/ic_menu_search" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:gravity="center">
+            <LinearLayout
+                android:id="@+id/findSitePlan"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_background"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/search_icon"
+                    android:layout_marginLeft="6dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/find_site_plan"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textFontWeight="800"
+                    android:textColor="#fff" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/reset"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_background"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/reset_icon"
+                    android:layout_marginLeft="6dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/reset"
+                    android:textAllCaps="false"
+                    android:textSize="15dp"
+                    android:textFontWeight="800"
+                    android:textColor="#fff" />
+            </LinearLayout>
+            <!--<Button
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:textSize="16dp"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:layout_weight="1"
+                android:id="@+id/findSitePlan"
+                android:textAllCaps="false"
+                android:background="@drawable/button_background"
+                android:drawableStart="@drawable/search_icon"
+                android:drawableLeft="@drawable/search_icon"
+                android:text="@string/find_site_plan"
+                android:textColor="@color/white"
+                android:textFontWeight="800"/>-->
+           <!-- <Button
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:textSize="16dp"
+                android:layout_margin="8dp"
+                android:padding="8dp"
+                android:id="@+id/reset"
+                android:layout_weight="1"
+                android:layout_marginStart="30dp"
+                android:textAllCaps="false"
+                android:drawablePadding="10dp"
+                android:textAlignment="viewStart"
+                android:background="@drawable/button_background"
+                android:drawableStart="@drawable/reset_icon"
+                android:drawableLeft="@drawable/search_24x24"
+                android:text="@string/reset"
+                android:textColor="@color/white"
+                android:textFontWeight="800"
+                android:layout_marginLeft="50dp"
+                android:gravity="start" />-->
+            
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/downloadedSitePlans_lblMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="1dp"
+            android:text="@string/NO_SITE_PLAN_DOWNLOADED"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/fragment_downloaded_siteplans_find_SitePlan_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/fragment_search_reg_user_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text="@string/NO_SITE_PLAN_DOWNLOADED"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btn_find_site_plan"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/rounded_edittext_gradient"
+                android:text="@string/find_site_plan"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtNoRecord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:text="@string/no_record"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:visibility="gone" />
+        <ListView
+            android:id="@+id/downloadedSitePlans_lstParcels"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="8dp"
+            android:paddingTop="2dp" />
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/tabPlot"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imgplot"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+        <TextView
+            android:id="@+id/tvPlot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/plot_number"
+            android:gravity="bottom"
+            android:textColor="@color/background_light"
+            android:textSize="10.5sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:id="@+id/tabLandNo"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/imgLandNo"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+        <TextView
+            android:id="@+id/tvLandNo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tab_land_number"
+            android:gravity="bottom"
+            android:textColor="@color/background_light"
+            android:textSize="10.5sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tabMakani"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgMakani"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:id="@+id/tvMakani"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:text="@string/makani_number_menu"
+            android:textColor="@color/background_light"
+            android:textSize="10.5sp" />
+    </LinearLayout>
+</LinearLayout>
