@@ -350,7 +350,7 @@ public class LandFragment extends Fragment implements EditText.OnEditorActionLis
         if(Global.session == null || Global.session.equals("")) {
             params.put("SESSION", "guest");
         } else {
-            params.put("SESSION", Global.session);
+            params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
         }
         final JSONObject jsonBody = new JSONObject(params);
         try {
@@ -518,7 +518,7 @@ public class LandFragment extends Fragment implements EditText.OnEditorActionLis
             if(Global.session == null || Global.session.equals("")) {
                 params.put("token", "guest");
             } else {
-                params.put("token", Global.session);
+                params.put("token",  Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
             }
             params.put("REMARKS", Global.getPlatformRemark());
             final JSONObject jsonBody = new JSONObject(params);

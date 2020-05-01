@@ -20,6 +20,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -38,6 +39,9 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -46,6 +50,9 @@ import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback;
 import ae.sdg.libraryuaepass.UAEPassController;
 import ae.sdg.libraryuaepass.business.authentication.model.UAEPassAccessTokenRequestModel;
 import dm.sime.com.kharetati.R;
+import dm.sime.com.kharetati.network.ApiFactory;
+import dm.sime.com.kharetati.network.MyApiService;
+import dm.sime.com.kharetati.network.NetworkConnectionInterceptor;
 import dm.sime.com.kharetati.pojo.AccessTokenResponse;
 import dm.sime.com.kharetati.pojo.AttachmentBitmap;
 import dm.sime.com.kharetati.pojo.KharetatiUser;
@@ -63,6 +70,11 @@ import dm.sime.com.kharetati.util.Encryptions;
 import dm.sime.com.kharetati.util.FontChangeCrawler;
 import dm.sime.com.kharetati.util.Global;
 import dm.sime.com.kharetati.util.UAEPassRequestModels;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 import static com.android.volley.Request.Method.POST;
 import static dm.sime.com.kharetati.util.Constant.CURRENT_LOCALE;
@@ -84,8 +96,13 @@ public class LoginActivity extends AppCompatActivity {
   public static boolean isGuest=false;
   private View linearLayout_login;
   private String locale;
+  MyApiService apiService;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ApplicationController kharetatiApp;
+    private String TAG = getClass().getSimpleName();
+    private UserRepository repository;
 
-  @Override
+    @Override
   protected void attachBaseContext(Context newBase) {
     if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
       super.attachBaseContext(CustomContextWrapper.wrap(newBase,Constant.CURRENT_LOCALE));
@@ -111,6 +128,18 @@ public class LoginActivity extends AppCompatActivity {
       startActivity(intent);
       finish();
     }
+
+      try {
+          repository = new UserRepository(ApiFactory.getClient(new NetworkConnectionInterceptor(this)));
+      } catch (NoSuchAlgorithmException e) {
+          e.printStackTrace();
+      } catch (KeyStoreException e) {
+          e.printStackTrace();
+      } catch (KeyManagementException e) {
+          e.printStackTrace();
+      }
+      Global.isLoginActivity =true;
+      kharetatiApp = ApplicationController.create(this);
 
 
     progressDialog = new ProgressDialog(LoginActivity.this);
@@ -281,6 +310,29 @@ public class LoginActivity extends AppCompatActivity {
       }
     });
 
+      TextView txtUaePass = (TextView)findViewById(R.id.txtUAEPass);
+      txtUaePass.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              if(!Global.isConnected(getApplicationContext())){
+                  AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.internet_connection_problem1), getString(R.string.ok), LoginActivity.this);
+                  return;
+              }
+              uaeLogin();
+          }
+      });
+      ImageView imgUaePass = (ImageView) findViewById(R.id.imgUAEPass);
+      imgUaePass.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              if(!Global.isConnected(getApplicationContext())){
+                  AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.internet_connection_problem1), getString(R.string.ok), LoginActivity.this);
+                  return;
+              }
+              uaeLogin();
+          }
+      });
+
     Global.deviceId = FirebaseInstanceId.getInstance().getToken();
 
 
@@ -297,7 +349,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     try {
 
-      JsonObjectRequest req = new JsonObjectRequest(Constant.REGISTER_GUEST_USER, null,
+     /* JsonObjectRequest req = new JsonObjectRequest(Constant.URL_UAE_ID_CONFIG,null,
               new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
@@ -329,14 +381,53 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public Map<String, String> getHeaders() {
           Map<String, String> params = new HashMap<>();
-          params.put("token", Global.accessToken);
+          //params.put("token", Global.accessToken);
           return params;
         }};
+
 
       progressDialog.setMessage(getString(R.string.msg_loading));
       progressDialog.show();
       ApplicationController.getInstance().addToRequestQueue(req);
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(500),0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
+*/
+        progressDialog.setMessage(getString(R.string.loading));
+        progressDialog.show();
+        kharetatiApp = ApplicationController.create(this);
+        Log.v(TAG, "uaePassConfigAPI(): calling");
+
+        Disposable disposable = repository.uaePassConfig(Constant.URL_UAE_ID_CONFIG)
+                .subscribeOn(kharetatiApp.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<UaePassConfig>() {
+                    @Override
+                    public void accept(UaePassConfig configResponse) throws Exception {
+                        Log.v(TAG, "uaePassConfigAPI(): success");
+                        //uaePassConfigAPIResponse(configResponse);
+                        if(progressDialog!=null) progressDialog.cancel();
+                        if (configResponse != null) {
+                            Global.uaePassConfig =  configResponse;
+                        } else {
+                            AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        Log.v(TAG, "uaePassConfigAPI(): failed:" + throwable.getMessage());
+                       if(progressDialog!=null) progressDialog.cancel();
+                        if (Global.appMsg != null) {
+                            AlertDialogUtil.warningAlertDialog("",Constant.CURRENT_LOCALE.equals("en") ? Global.appMsg.getErrorFetchingDataEn() : Global.appMsg.getErrorFetchingDataAr(),getString(R.string.ok),LoginActivity.this);
+                        } else
+                            AlertDialogUtil.warningAlertDialog("",getString(R.string.error_response),getString(R.string.ok),LoginActivity.this);
+
+                    }
+                });
+
+        compositeDisposable.add(disposable);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -363,6 +454,7 @@ public class LoginActivity extends AppCompatActivity {
                       public void getToken(String accessToken, String error) {
                           Global.accessToken = accessToken;
                           Global.uae_access_token = accessToken;
+
                           getUAESessionToken(accessToken);
                       }
                   });
@@ -372,9 +464,9 @@ public class LoginActivity extends AppCompatActivity {
                   String authUrl = Global.uaePassConfig.getAuthCodeUAEID_url.endsWith("?") ? Global.uaePassConfig.getAuthCodeUAEID_url : Global.uaePassConfig.getAuthCodeUAEID_url + "?";
                   String url = authUrl + "redirect_uri=" + callbackUrl + "&client_id=" + clientId + "&state=" + secretId + "&response_type=code&scope=" + Global.uaePassConfig.UAE_PASS_SCOPE + "&acr_values=" + Global.uaePassConfig.UAE_PASS_ACR_VALUES_WEBVIEW + "&ui_locales=" + language;
 
-                  //Intent intent = new Intent(this, WebViewActivity.class);
-                  //intent.setData(Uri.parse(url));
-                  //startActivity(intent);
+                  Intent intent = new Intent(this, WebViewActivity.class);
+                  intent.setData(Uri.parse(url));
+                  startActivity(intent);
               }
           }
       }
@@ -442,6 +534,12 @@ public class LoginActivity extends AppCompatActivity {
                         return params;
                     }
                 };
+                progressDialog.setMessage(getString(R.string.msg_loading));
+                progressDialog.show();
+                ApplicationController.getInstance().addToRequestQueue(req);
+                req.setRetryPolicy(new DefaultRetryPolicy(
+                        (int) TimeUnit.SECONDS.toMillis(500),0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             }
         }
         Global.isUAEAccessToken = false;
@@ -458,55 +556,42 @@ public class LoginActivity extends AppCompatActivity {
             Global.isUAEAccessToken = false;
             Global.clientID = "";
             Global.state = "";
+            Log.v(TAG, "UAE Pass App: getUAESessionToken(): calling");
+            progressDialog.show();
+
             String url = Constant.BASE_AUXULARY_URL_UAE_SESSION + "getsessionuaepass/" + code + "/" + Global.getPlatformRemark();
             if (!Global.isConnected(this)) {
-                if (Global.appMsg != null)
-                    AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),
-                            Global.getCurrentLanguage(this).equals("en") ? Global.appMsg.getInternetConnCheckEn() : Global.appMsg.getInternetConnCheckAr(), getResources().getString(R.string.ok), this);
+                if(Global.appMsg!=null)
+                    AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),Constant.CURRENT_LOCALE.equals("en")?Global.appMsg.getInternetConnCheckEn():Global.appMsg.getInternetConnCheckAr() , getResources().getString(R.string.ok), this);
                 else
-                    AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),
-                            getResources().getString(R.string.internet_connection_problem1), getResources().getString(R.string.ok), this);
+                    AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), getResources().getString(R.string.internet_connection_problem1), getResources().getString(R.string.ok), this);
 
-            } else {
-                JsonObjectRequest req = new JsonObjectRequest(url, null,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                try {
-                                    progressDialog.hide();
-                                    if (response != null) {
-                                        Gson gson = new GsonBuilder().serializeNulls().create();
-                                        SessionUaePassResponse sessionUaePassResponse = gson.fromJson(response.toString(), SessionUaePassResponse.class);
-                                        if (sessionUaePassResponse != null) {
-                                            Global.uaeSessionResponse = sessionUaePassResponse;
-                                            login(true);
-                                        } else {
-                                            AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
-                                        }
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (error instanceof AuthFailureError)
-                            Global.logout(LoginActivity.this);
-                        progressDialog.hide();
-                        VolleyLog.e("Error: ", error.getMessage());
-                        AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
-                    }
-                }) {    //this is the part, that adds the header to the request
-                    @Override
-                    public Map<String, String> getHeaders() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("token", Global.accessToken);
-                        return params;
-                    }
-                };
             }
-        }
+            else {
+                Disposable disposable = repository.getSessionUAEPass(url)
+                        .subscribeOn(kharetatiApp.subscribeScheduler())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Consumer<SessionUaePassResponse>() {
+                            @Override
+                            public void accept(SessionUaePassResponse uaeSessionResponse) throws Exception {
+                                Log.v(TAG, "UAE Pass App: getUAESessionToken(): success");
+                                Global.uaeSessionResponse = uaeSessionResponse;
+                                Log.v(TAG, "UAE Pass App: getUAESessionToken(): sessionToken:" + uaeSessionResponse.getService_response().getUAEPASSDetails().getUuid());
+                                login(true);
+                            }
+                        }, new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                Log.v(TAG, "UAE Pass App: getUAESessionToken(): failed:" + throwable.getMessage());
+                                showErrorMessage();
+                            }
+                        });
+
+                compositeDisposable.add(disposable);
+            }
+
+
+    }
     }
 
   private void btnContinueAsGuest() {
@@ -608,9 +693,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    if (editTextUserName.getText().toString().matches("")) {
+    if (editTextUserName.getText().toString().matches("") && !isUAE) {
       AlertDialogUtil.warningAlertDialog(getResources().getString(R.string.lbl_warning),  getResources().getString(R.string.enter_dubai_id_username), getResources().getString(R.string.lbl_ok), LoginActivity.this);
-    } else if (editTextPassword.getText().toString().matches("")) {
+    } else if (editTextPassword.getText().toString().matches("")&& !isUAE) {
       AlertDialogUtil.warningAlertDialog(getResources().getString(R.string.lbl_warning), getResources().getString(R.string.enter_password), getResources().getString(R.string.lbl_ok), LoginActivity.this);
     } else {
 
@@ -620,10 +705,12 @@ public class LoginActivity extends AppCompatActivity {
         final String username = isUAE ? "" : editTextUserName.getText().toString().trim();
         final String pwd = isUAE ? "" : editTextPassword.getText().toString().trim();
         guestName=username;
-        jsonBody.put("username", username);
-        jsonBody.put("password", pwd);
+        jsonBody.put("username", isUAE?"": username);
+        jsonBody.put("password", isUAE?"": pwd);
         jsonBody.put("isUAEID", isUAE);
         jsonBody.put("uaeIDToken", isUAE ? Global.uae_access_token : "");
+
+        Global.isUAE = isUAE;
 
         JsonObjectRequest req = new JsonObjectRequest(Constant.MYID_ACCESS_TOKEN_URL, jsonBody,
                 new Response.Listener<JSONObject>() {
@@ -825,7 +912,7 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-  private void registerLoggedUser(boolean isUAE) {
+  private void registerLoggedUser(final boolean isUAE) {
     try {
       User user = Global.getUser(this);
       final JSONObject jsonBody = new JSONObject();
@@ -904,7 +991,17 @@ public class LoginActivity extends AppCompatActivity {
                         else{
 
                         Global.sime_userid = jObject.getInt("userID");
-                        getSessionID();
+                        if(!isUAE)
+                            getSessionID();
+                        else{
+                            Global.session = Global.uaeSessionResponse.getService_response().getToken();
+                            Global.LAST_TAB = 0;
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            finish();
+                        }
+
                         }
                       } else
                         AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok),LoginActivity.this);
@@ -977,7 +1074,12 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                       }
+                      else if(accessTokenResponse!=null)
+                          AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? accessTokenResponse.getMessage(): accessTokenResponse.getMessage_ar(), getResources().getString(R.string.ok), LoginActivity.this);
+
+
                     }
+
                   } catch (Exception e) {
                     e.printStackTrace();
                     AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok), LoginActivity.this);
@@ -1037,5 +1139,16 @@ public class LoginActivity extends AppCompatActivity {
       }
   }
 
+
+    public void showErrorMessage(){
+        if(progressDialog!=null)progressDialog.cancel();
+        if(Global.appMsg!=null){
+            AlertDialogUtil.warningAlertDialog("",Global.getCurrentLanguage(this).equals("en")?Global.appMsg.getErrorFetchingDataEn():Global.appMsg.getErrorFetchingDataAr(),getString(R.string.ok),this);
+        }
+        else
+            AlertDialogUtil.warningAlertDialog("",getString(R.string.error_response),getString(R.string.ok),this);
+
+       // authListener.onFailure(activity.getString(R.string.error_response));
+    }
 }
 

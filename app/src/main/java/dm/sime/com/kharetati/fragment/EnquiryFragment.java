@@ -191,7 +191,7 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
                 params.put("SUBJECT", enquirySubject.getText().toString());
                 params.put("USER_ID", Global.getUser(getActivity()).getEmail());
                 params.put("USER_NAME", Global.getUser(getActivity()).getUsername());
-                params.put("SESSION", Global.session);
+                params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
                 params.put("REMARKS", Global.getPlatformRemark());
                 params.put("LANGUAGE", lang);
                 final JSONObject jsonBody = new JSONObject(params);
@@ -234,7 +234,7 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
                         params.put("SUBJECT", enquirySubject.getText().toString());
                         params.put("USER_ID", Global.getUser(getActivity()).getEmail());
                         params.put("USER_NAME", Global.getUser(getActivity()).getUsername());
-                        params.put("SESSION", Global.session);
+                        params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
                         params.put("REMARKS", Global.getPlatformRemark());
                         params.put("LANGUAGE", lang);
                         return params;

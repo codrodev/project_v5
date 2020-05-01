@@ -295,7 +295,11 @@ public class AttachmentSelectionFragment extends Fragment {
         final JSONObject jsonBody = new JSONObject();
         try {
 
-            jsonBody.put("my_id",Global.loginDetails.username);
+            if(Global.isUAE)
+                jsonBody.put("my_id",Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getUuid());
+            else
+                jsonBody.put("my_id",Global.loginDetails.username);
+
             jsonBody.put("is_owner",rbOwner_isChecked);
             jsonBody.put("is_owned_by_person",isPerson);
             jsonBody.put("token",Global.site_plan_token);

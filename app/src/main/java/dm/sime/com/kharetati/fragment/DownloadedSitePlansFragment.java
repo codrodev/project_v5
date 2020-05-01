@@ -361,7 +361,10 @@ public class DownloadedSitePlansFragment extends Fragment {
         final JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("token",Global.site_plan_token);
-            jsonBody.put("my_id",Global.loginDetails.username);
+            if(Global.isUAE)
+                jsonBody.put("my_id",Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getUuid());
+            else
+                jsonBody.put("my_id",Global.loginDetails.username);
             jsonBody.put("locale",Global.getCurrentLanguage((MainActivity)getActivity()).compareToIgnoreCase("en")==0 ? "en" : "ar");
             final String locale="en";
             JsonObjectRequest req = new JsonObjectRequest(Global.base_url_site_plan + Constant.RETRIEVE_MY_MAPS,jsonBody,

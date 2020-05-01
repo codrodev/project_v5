@@ -482,8 +482,12 @@ public class MyMapFragment extends Fragment {
 
       jsonBody.put("parcel_id", Integer.parseInt(PlotDetails.parcelNo));
     jsonBody.put("token", Global.site_plan_token);
-    jsonBody.put("my_id", Global.loginDetails.username);
-    jsonBody.put("locale", locale);
+      if(Global.isUAE)
+        jsonBody.put("my_id",Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getUuid());
+      else
+        jsonBody.put("my_id",Global.loginDetails.username);
+
+      jsonBody.put("locale", locale);
     JsonObjectRequest req = new JsonObjectRequest(POST, Global.base_url_site_plan + Constant.VALIDATE_REQUEST, jsonBody,
             new Response.Listener<JSONObject>() {
               @Override
@@ -951,7 +955,7 @@ public class MyMapFragment extends Fragment {
       params.put("PARCEL_ID", PlotDetails.parcelNo);
       params.put("LANG", lang);
       params.put("DESC", "");
-      params.put("SESSION", Global.session);
+      params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
       params.put("REMARKS", Global.getPlatformRemark());
       final JSONObject jsonBody = new JSONObject(params);
       JsonObjectRequest req = new JsonObjectRequest(POST,Constant.MYID_LAND_ACTIVITY, jsonBody,

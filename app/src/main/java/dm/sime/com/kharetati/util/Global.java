@@ -62,6 +62,7 @@ import static dm.sime.com.kharetati.util.Constant.USER_OBJECT;
  */
 
 public class Global {
+    public static final String FR_WEBVIEW_ACTIVITY = "WebView Screen";
     public static String CurrentAndroidVersion;
     public static String current_fragment_id_locale_change =null;
     public static Fragment current_fragment_locale_change;
@@ -89,6 +90,8 @@ public class Global {
     public static String terms_en_url;
     public static String terms_ar_url;
     public static AppMsg appMsg;
+    public static boolean isLoginActivity;
+    public static boolean isUAE;
     private static Context context;
     public static boolean isLanguageChanged=false;
     public static String noctemplateUrl;

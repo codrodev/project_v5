@@ -82,6 +82,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.zip.Inflater;
@@ -223,6 +224,7 @@ public class MapFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         Global.current_fragment_id= Constant.FR_MAP;
+        Global.requestId = null;
         ((MainActivity)getActivity()).hideAppBar();
         Global.hideSoftKeyboard(getActivity());
         locale=Global.getCurrentLanguage(getActivity()).compareToIgnoreCase("en")==0?"en":"ar";
@@ -283,6 +285,10 @@ public class MapFragment extends Fragment {
         userCredentials.setTokenServiceUrl(Constant.GIS_LAYER_TOKEN_URL);
 
         dynamicLayer = new ArcGISDynamicMapServiceLayer(Constant.GIS_LAYER_URL,null,userCredentials);
+
+
+
+
 
         mMapView.addLayer(dynamicLayer);
 

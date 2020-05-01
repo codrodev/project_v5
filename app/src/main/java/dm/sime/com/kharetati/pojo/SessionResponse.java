@@ -4,6 +4,15 @@ public class SessionResponse {
     private String is_exception;
 
     private String message;
+    private String message_ar;
+
+    public String getMessage_ar() {
+        return message_ar;
+    }
+
+    public void setMessage_ar(String message_ar) {
+        this.message_ar = message_ar;
+    }
 
     private Session service_response;
 

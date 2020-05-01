@@ -43,7 +43,7 @@ public class Constant {
 // public static final String BASE_URL="https://www.smartgis.ae/kharetativ2/"; //production
 
 
- public static final String BASE_URL="https://smart.gis.gov.ae/kharetativ4/"; //staging
+ public static final String BASE_URL="https://smart.gis.gov.ae/kharetativ4_2/"; //staging
 // public static final String BASE_URL="https://www.smartgis.ae/kharetativ5/"; //new production
 
 
@@ -60,6 +60,7 @@ public class Constant {
 
 
  public static final String REGISTER_GUEST_USER = BASE_URL + "Util/addDeviceID";
+
 
  public static final String REGISTER_MYID_USER = BASE_URL + "Util/registerMobileUser";
  public static final String GET_PAYMENT_URL = BASE_URL + "Util/getVoucher2";

@@ -1,6 +1,7 @@
 package dm.sime.com.kharetati.util;
 
 import android.app.Application;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.StrictMode;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.Tracker;
@@ -17,6 +19,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import dm.sime.com.kharetati.R;
+import io.reactivex.Scheduler;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Hasham on 7/5/2017.
@@ -49,6 +53,22 @@ public class ApplicationController extends Application {
    * A singleton instance of the application class for easy access in other places
    */
   private static ApplicationController sInstance;
+  private Scheduler scheduler;
+
+
+  public static ApplicationController create(Context context) {
+    return ApplicationController.get(context);
+  }
+  private static ApplicationController get(Context context) {
+    return (ApplicationController) context.getApplicationContext();
+  }
+  public Scheduler subscribeScheduler() {
+    if (scheduler == null) {
+      scheduler = Schedulers.io();
+    }
+
+    return scheduler;
+  }
 
   @Override
   public void onCreate() {
@@ -111,7 +131,8 @@ public class ApplicationController extends Application {
     // lazy initialize the request queue, the queue instance will be
     // created when it is accessed for the first time
     if (mRequestQueue == null) {
-      mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+
+      mRequestQueue  = Volley.newRequestQueue(ApplicationController.getInstance().getApplicationContext(), new HurlStack(null, ClientSSLSocketFactory.getSocketFactory()));
     }
 
     return mRequestQueue;

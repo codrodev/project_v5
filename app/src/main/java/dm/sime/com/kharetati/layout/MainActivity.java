@@ -430,6 +430,22 @@ public class MainActivity extends AppCompatActivity
                             fullnameTxt.setText(fullname.toUpperCase());
 
                         }
+                        if(Global.isUAE){
+                            if(CURRENT_LOCALE.equals("en")){
+                                if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN()!=null)
+                                    fullnameTxt.setText(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN());
+                                else
+                                    fullnameTxt.setText(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR());
+                            }
+                            else if(CURRENT_LOCALE.equals("ar")){
+                                if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR()!=null)
+                                    fullnameTxt.setText(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR());
+                                else
+                                    fullnameTxt.setText(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN());
+                            }
+                        }
+
+
 
                     } catch (Exception ex) {
                         userPhoto.setImageResource(R.drawable.arab_avatar);
