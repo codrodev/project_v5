@@ -39,7 +39,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.esri.core.geometry.Line;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
@@ -593,7 +592,7 @@ public class LandFragment extends Fragment implements EditText.OnEditorActionLis
     public void onDestroy() {
         super.onDestroy();
         if (progressDialog != null) {
-            progressDialog.dismiss();
+            progressDialog.cancel();
             progressDialog = null;
         }
     }

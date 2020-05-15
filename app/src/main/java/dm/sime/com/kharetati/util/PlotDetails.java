@@ -1,8 +1,10 @@
 package dm.sime.com.kharetati.util;
 
-import com.esri.core.geometry.Geometry;
-import com.esri.core.geometry.Point;
-import com.esri.core.map.Graphic;
+
+
+import com.esri.arcgisruntime.geometry.Geometry;
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.mapping.view.Graphic;
 
 import dm.sime.com.kharetati.pojo.BuildingViolationResponse;
 import dm.sime.com.kharetati.pojo.EmailParam;

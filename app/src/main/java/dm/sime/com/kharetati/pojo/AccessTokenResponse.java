@@ -1,5 +1,8 @@
 package dm.sime.com.kharetati.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Hasham on 7/5/2017.
  */
@@ -22,6 +25,9 @@ public class AccessTokenResponse {
   public String community_layerid;
   public String url_plotfinder;
   public String gis_layer_url;
+  @SerializedName("map_hidden_layers")
+  @Expose
+  private String[] mapHiddenLayers;
 
   public String parcelLayerExportUrl_en;
   public String parcelLayerExportUrl_ar;
@@ -44,6 +50,10 @@ public class AccessTokenResponse {
   public String terms_ar_url;
   public String terms_en_url;
   private AppMsg appMsg;
+
+  public String[] getMapHiddenLayers() {
+    return mapHiddenLayers;
+  }
 
   public AppMsg getAppMsg() {
     return appMsg;

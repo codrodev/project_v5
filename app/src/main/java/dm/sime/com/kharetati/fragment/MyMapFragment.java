@@ -307,10 +307,10 @@ public class MyMapFragment extends Fragment {
           else{
           User userLoggedin = Global.getUser(getActivity());
 
-          if(LoginActivity.isGuest)
+          if(!Global.isUserLoggedIn)
           {
             //Toast.makeText(application,getActivity().getString(R.string.login_alert), Toast.LENGTH_LONG).show();
-            AlertDialogUtil.guestLoginAlertDialog(getActivity().getString(R.string.login_alert_title),locale.equals("en") ? Global.appMsg.getSign_in_to_proceed_en(): Global.appMsg.getSign_in_to_proceed_ar(),getResources().getString(R.string.ok),getResources().getString(R.string.cancel),getContext());
+            AlertDialogUtil.guestLoginAlertDialog("",locale.equals("en") ? Global.appMsg.getSign_in_to_proceed_en(): Global.appMsg.getSign_in_to_proceed_ar(),getResources().getString(R.string.ok),getResources().getString(R.string.cancel),getContext());
 
           }
           else{
@@ -957,13 +957,14 @@ public class MyMapFragment extends Fragment {
       params.put("DESC", "");
       params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
       params.put("REMARKS", Global.getPlatformRemark());
+      params.put("IsGuest", !Global.isUserLoggedIn);
       final JSONObject jsonBody = new JSONObject(params);
       JsonObjectRequest req = new JsonObjectRequest(POST,Constant.MYID_LAND_ACTIVITY, jsonBody,
               new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                   try {
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     if (response != null) {
                         String msg=locale.compareToIgnoreCase("en")==0 ? response.getString("message"):response.getString("message_ar");
                       Gson gson = new GsonBuilder().serializeNulls().create();
@@ -996,7 +997,7 @@ public class MyMapFragment extends Fragment {
         public void onErrorResponse(VolleyError error) {
           if(error instanceof AuthFailureError)
             //Global.logout(LoginActivity.this);
-            progressDialog.hide();
+           if(progressDialog!=null) progressDialog.cancel();
           VolleyLog.e("Error: ", error.getMessage());
           AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),
                   lang.compareToIgnoreCase("E")==0 ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(),
@@ -1027,6 +1028,7 @@ public class MyMapFragment extends Fragment {
       Global.loginDetails.username = null;
       Global.loginDetails.pwd = null;
       e.printStackTrace();
+      if(progressDialog!=null)progressDialog.cancel();
     }
   }
 
@@ -1034,7 +1036,7 @@ public class MyMapFragment extends Fragment {
   public void onDestroy() {
     super.onDestroy();
     if (progressDialog != null) {
-      progressDialog.dismiss();
+      progressDialog.cancel();
       progressDialog = null;
     }
   }

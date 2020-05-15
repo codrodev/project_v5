@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.text.Html;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.google.android.gms.analytics.Tracker;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -182,14 +184,37 @@ public class ZoneRegulationFragment extends Fragment {
 
     private void appendExceptionDetails(View view, ViewGroup container,JSONObject res){
         try{
-            LinearLayout parentLayoutLinear = (LinearLayout)view.findViewById(R.id.rl);
-            JSONObject excepDetails=res.has("ExepDetails")?res.getJSONObject("ExepDetails"):null;
-            if(excepDetails!=null && excepDetails.has("EXCEPTION") && excepDetails.get("EXCEPTION").toString().compareToIgnoreCase("null")!=0)
-            {
-                JSONObject exceptionJson=excepDetails.has("EXCEPTION")?excepDetails.getJSONObject("EXCEPTION"):null;
-                if(exceptionJson==null )return;
-                String exceptionDetails=exceptionJson.has("attributeValue")?exceptionJson.getString("attributeValue"):null;
 
+            String sampleXml =res.getString("rawXML");
+
+            JSONObject jsonObj = null;
+            try {
+                jsonObj = XML.toJSONObject(sampleXml);
+                Log.d("XML", sampleXml);
+
+                Log.d("JSON", jsonObj.toString());
+            } catch (JSONException e) {
+                Log.e("JSON exception", e.getMessage());
+                e.printStackTrace();
+            }
+
+            /*XmlPullParserFactory xmlFactoryObject = XmlPullParserFactory.newInstance();
+            XmlPullParser myparser = xmlFactoryObject.newPullParser();
+            myparser.setInput(res.getString("rawXML"), null);*/
+
+
+            //jsonObj.getJSONObject("RESPONSE").getString("EXCEPTIONDETAILS");
+            LinearLayout parentLayoutLinear = (LinearLayout)view.findViewById(R.id.rl);
+            JSONObject excepDetails=res.getJSONObject("ExepDetails").getString("EXCEPTION")==null?res.getJSONObject("ExepDetails"):jsonObj.getJSONObject("RESPONSE");
+            if((excepDetails!=null && excepDetails.has("EXCEPTION") && excepDetails.get("EXCEPTION").toString().compareToIgnoreCase("null")!=0)||(excepDetails!=null && excepDetails.has("EXCEPTIONDETAILS") && excepDetails.get("EXCEPTIONDETAILS").toString().compareToIgnoreCase("null")!=0))
+            {
+                String exceptionDetails;
+                JSONObject exceptionJson=excepDetails.has("EXCEPTION")?excepDetails.getJSONObject("EXCEPTION"):null;
+                if(exceptionJson==null)
+                    exceptionDetails = excepDetails.getString("EXCEPTIONDETAILS");
+                else
+                    exceptionDetails=exceptionJson.has("attributeValue")?exceptionJson.getString("attributeValue"):excepDetails.getString("EXCEPTIONDETAILS");
+                Log.d("exceptionDetails",exceptionDetails);
                 CardView cardView = new CardView(container.getContext());
                 //cardView.setLayoutParams(params);
                 LayoutParams cardparams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -506,12 +531,14 @@ public class ZoneRegulationFragment extends Fragment {
             if(res.has("SchoolReg")){
                 JSONObject schoolRegJson=res.getJSONObject("SchoolReg");
                 JSONArray schoolGradesJson=schoolRegJson.has("SchoolGrade")?schoolRegJson.getJSONArray("SchoolGrade"):null;
+                JSONArray schoolTotalJson=schoolRegJson.has("Total")?schoolRegJson.getJSONArray("Total"):null;
                 if(schoolGradesJson!=null && schoolGradesJson.length()>0)
                 {
                     JSONArray schoolGrade_High=schoolGradesJson.getJSONObject(0).has("High")?schoolGradesJson.getJSONObject(0).getJSONArray("High"):null;
                     JSONArray schoolGrade_KinderGarden=schoolGradesJson.getJSONObject(0).has("KinderGarden")?schoolGradesJson.getJSONObject(0).getJSONArray("KinderGarden"):null;
                     JSONArray schoolGrade_Middle=schoolGradesJson.getJSONObject(0).has("Middle")?schoolGradesJson.getJSONObject(0).getJSONArray("Middle"):null;
                     JSONArray schoolGrade_Primary=schoolGradesJson.getJSONObject(0).has("Primary")?schoolGradesJson.getJSONObject(0).getJSONArray("Primary"):null;
+
 
 //                    CardView cardView = new CardView(container.getContext());
 //                    //cardView.setLayoutParams(params);
@@ -556,8 +583,8 @@ public class ZoneRegulationFragment extends Fragment {
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.ALLOCATEDAREA),schoolGrade_High.getJSONObject(0).getJSONObject("ALLOCATEDAREA").getString("attributeValue"),true,null,rowColorAlt);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXCLASSROOMS),schoolGrade_High.getJSONObject(0).getJSONObject("MAXCLASSROOMS").getString("attributeValue"),true,null,rowColor);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXSTUDENTS),schoolGrade_High.getJSONObject(0).getJSONObject("MAXSTUDENTS").getString("attributeValue"),true,null,rowColorAlt);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolGrade_High.getJSONObject(0).getJSONObject("GROSSFLOORAREA").getString("attributeValue"),true,null,rowColor);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolGrade_High.getJSONObject(0).getJSONObject("MINOSANDPGA").getString("attributeValue"),true,null,rowColorAlt);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolRegJson.getJSONObject("Coverage_Limit").getString("Value"),true,null,rowColor);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolRegJson.getJSONObject("Open_Spaces_Title").getString("Value"),true,null,rowColorAlt);
 
                         cardView.addView(linearLayoutVer);
                         parentLayoutLinear.addView(cardView);
@@ -579,8 +606,8 @@ public class ZoneRegulationFragment extends Fragment {
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.ALLOCATEDAREA),schoolGrade_KinderGarden.getJSONObject(0).getJSONObject("ALLOCATEDAREA").getString("attributeValue"),true,null,rowColorAlt);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXCLASSROOMS),schoolGrade_KinderGarden.getJSONObject(0).getJSONObject("MAXCLASSROOMS").getString("attributeValue"),true,null,rowColor);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXSTUDENTS),schoolGrade_KinderGarden.getJSONObject(0).getJSONObject("MAXSTUDENTS").getString("attributeValue"),true,null,rowColorAlt);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolGrade_KinderGarden.getJSONObject(0).getJSONObject("GROSSFLOORAREA").getString("attributeValue"),true,null,rowColor);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolGrade_KinderGarden.getJSONObject(0).getJSONObject("MINOSANDPGA").getString("attributeValue"),true,null,rowColorAlt);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolRegJson.getJSONObject("Coverage_Limit").getString("Value"),true,null,rowColor);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolRegJson.getJSONObject("Open_Spaces_Title").getString("Value"),true,null,rowColorAlt);
 
                         cardView.addView(linearLayoutVer);
                         parentLayoutLinear.addView(cardView);
@@ -602,8 +629,9 @@ public class ZoneRegulationFragment extends Fragment {
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.ALLOCATEDAREA),schoolGrade_Middle.getJSONObject(0).getJSONObject("ALLOCATEDAREA").getString("attributeValue"),true,null,rowColorAlt);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXCLASSROOMS),schoolGrade_Middle.getJSONObject(0).getJSONObject("MAXCLASSROOMS").getString("attributeValue"),true,null,rowColor);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXSTUDENTS),schoolGrade_Middle.getJSONObject(0).getJSONObject("MAXSTUDENTS").getString("attributeValue"),true,null,rowColorAlt);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolGrade_Middle.getJSONObject(0).getJSONObject("GROSSFLOORAREA").getString("attributeValue"),true,null,rowColor);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolGrade_Middle.getJSONObject(0).getJSONObject("MINOSANDPGA").getString("attributeValue"),true,null,rowColorAlt);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolRegJson.getJSONObject("Coverage_Limit").getString("Value"),true,null,rowColor);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolRegJson.getJSONObject("Open_Spaces_Title").getString("Value"),true,null,rowColorAlt);
+
 
                         cardView.addView(linearLayoutVer);
                         parentLayoutLinear.addView(cardView);
@@ -625,12 +653,50 @@ public class ZoneRegulationFragment extends Fragment {
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.ALLOCATEDAREA),schoolGrade_Primary.getJSONObject(0).getJSONObject("ALLOCATEDAREA").getString("attributeValue"),true,null,rowColorAlt);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXCLASSROOMS),schoolGrade_Primary.getJSONObject(0).getJSONObject("MAXCLASSROOMS").getString("attributeValue"),true,null,rowColor);
                         appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXSTUDENTS),schoolGrade_Primary.getJSONObject(0).getJSONObject("MAXSTUDENTS").getString("attributeValue"),true,null,rowColorAlt);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolGrade_Primary.getJSONObject(0).getJSONObject("GROSSFLOORAREA").getString("attributeValue"),true,null,rowColor);
-                        appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolGrade_Primary.getJSONObject(0).getJSONObject("MINOSANDPGA").getString("attributeValue"),true,null,rowColorAlt);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolRegJson.getJSONObject("Coverage_Limit").getString("Value"),true,null,rowColor);
+                        //appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolRegJson.getJSONObject("Open_Spaces_Title").getString("Value"),true,null,rowColorAlt);
+
 
                         cardView.addView(linearLayoutVer);
                         parentLayoutLinear.addView(cardView);
                     }
+
+
+                    CardView cardViewTotal = new CardView(container.getContext());
+                    LinearLayout linearLayoutTotal=new LinearLayout(container.getContext());
+                    linearLayoutTotal.setOrientation(LinearLayout.VERTICAL);
+                    LayoutParams paramsLinearTotal = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                    linearLayoutTotal.setLayoutParams(paramsLinearTotal);
+                    LayoutParams cardparamsTotal = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    cardparamsTotal.setMargins(40,10,40,10);
+                    cardViewTotal.setLayoutParams(cardparamsTotal);
+                    cardViewTotal.setBackgroundColor(Color.parseColor(headerBackgroundColor));//4CAF50 to int
+                    TextView headerTotal=createTextView(getResources().getString(R.string.TOTAL) ,true,container,-1,null,20,10);
+                    headerTotal.setTextColor(Color.WHITE);
+                    headerTotal.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER);
+                    linearLayoutTotal.addView(headerTotal);
+                    cardViewTotal.addView(linearLayoutTotal);
+                    parentLayoutLinear.addView(cardViewTotal);
+                    cardViewTotal.setCardElevation(2);
+
+                    LinearLayout linearLayoutVer=new LinearLayout(container.getContext());
+                    linearLayoutVer.setOrientation(LinearLayout.VERTICAL);
+                    LayoutParams paramsLinear = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+                    linearLayoutVer.setLayoutParams(paramsLinear);
+
+                    CardView cardView = new CardView(container.getContext());
+                    //cardView.setLayoutParams(params);
+                    LayoutParams cardparams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                    cardparams.setMargins(40,10,40,10);
+                    cardView.setLayoutParams(cardparams);
+
+                    appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXCLASSROOMS),schoolTotalJson.getJSONObject(0).getJSONObject("TOTALMAXCLASSROOMS").getString("attributeValue"),true,null,rowColorAlt);
+                    appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MAXSTUDENTS),schoolTotalJson.getJSONObject(0).getJSONObject("TOTALMAXSTUDENTS").getString("attributeValue"),true,null,rowColor);
+                    appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.ALLOCATEDAREA),schoolTotalJson.getJSONObject(0).getJSONObject("TOTALALLOCATEDAREA").getString("attributeValue"),true,null,rowColorAlt);
+                    appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.GROSSFLOORAREA),schoolRegJson.getJSONObject("Coverage_Limit").getString("Value"),true,null,rowColor);
+                    appendGradeRegulationRow(linearLayoutVer,container,getResources().getString(R.string.MINOSANDPGA),schoolRegJson.getJSONObject("Open_Spaces_Title").getString("Value"),true,null,rowColorAlt);
+                    cardView.addView(linearLayoutVer);
+                    parentLayoutLinear.addView(cardView);
                 }
             }
         }
@@ -648,7 +714,7 @@ public class ZoneRegulationFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_zone_regulation, container, false);
         communicator = (Communicator) getActivity();
 
-        if(MapFragment.isMakani || LoginActivity.isGuest)
+        if(MapFragment.isMakani || !Global.isUserLoggedIn)
             communicator.hideMainMenuBar();
         else
             communicator.showMainMenuBar();

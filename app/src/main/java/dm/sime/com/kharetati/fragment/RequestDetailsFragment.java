@@ -133,6 +133,7 @@ public class RequestDetailsFragment extends Fragment {
                    if(fragmentManager!=null)
                        while(fragmentManager.getBackStackEntryCount() >=0) {
                            if(fragmentManager.getBackStackEntryCount()== 0 ){
+                               fragmentManager.popBackStackImmediate();
                                break;
                            } else {
                                fragmentManager.popBackStackImmediate();

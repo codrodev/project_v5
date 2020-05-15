@@ -1,9 +1,9 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context="dm.sime.com.kharetati.fragment.ContactUsFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="dm.sime.com.kharetati.fragment.ContactUsFragment">
 
   <LinearLayout
       android:layout_width="match_parent"
@@ -122,94 +122,94 @@
           </LinearLayout>
 
           <!--<TextView-->
-              <!--android:id="@+id/textView31"-->
-              <!--android:layout_width="match_parent"-->
-              <!--android:layout_height="1dp"-->
-              <!--android:background="@color/gray" />-->
+          <!--android:id="@+id/textView31"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="1dp"-->
+          <!--android:background="@color/gray" />-->
 
           <!--<LinearLayout-->
-              <!--android:id="@+id/SuggestionMEmail"-->
-              <!--android:layout_width="match_parent"-->
-              <!--android:layout_height="wrap_content"-->
-              <!--android:layout_margin="5dp"-->
-              <!--android:orientation="horizontal"-->
-              <!--android:visibility="gone">-->
+          <!--android:id="@+id/SuggestionMEmail"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_margin="5dp"-->
+          <!--android:orientation="horizontal"-->
+          <!--android:visibility="gone">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/icon_suggestion_email"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_marginEnd="16dp"-->
-                <!--android:layout_marginRight="16dp"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="24dp" />-->
+          <!--<TextView-->
+          <!--android:id="@+id/icon_suggestion_email"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_gravity="center"-->
+          <!--android:layout_marginEnd="16dp"-->
+          <!--android:layout_marginRight="16dp"-->
+          <!--android:textColor="@color/black"-->
+          <!--android:textSize="24dp" />-->
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
+          <!--<LinearLayout-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:orientation="vertical">-->
 
-              <!--<TextView-->
-                  <!--style="@style/TextAppearance.AppCompat.Medium"-->
-                  <!--android:layout_width="wrap_content"-->
-                  <!--android:layout_height="wrap_content"-->
-                  <!--android:text="@string/suggestion"-->
-                  <!--android:textColor="@color/black" />-->
+          <!--<TextView-->
+          <!--style="@style/TextAppearance.AppCompat.Medium"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:text="@string/suggestion"-->
+          <!--android:textColor="@color/black" />-->
 
-              <!--<TextView-->
-                  <!--android:id="@+id/SuggestionDMEmail"-->
-                  <!--android:layout_width="wrap_content"-->
-                  <!--android:layout_height="wrap_content"-->
-                  <!--android:layout_marginTop="3dp"-->
-                  <!--android:text="suggestions@dm.gov.ae" />-->
-            <!--</LinearLayout>-->
+          <!--<TextView-->
+          <!--android:id="@+id/SuggestionDMEmail"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_marginTop="3dp"-->
+          <!--android:text="suggestions@dm.gov.ae" />-->
+          <!--</LinearLayout>-->
 
           <!--</LinearLayout>-->
 
           <!--<TextView-->
-              <!--android:id="@+id/textView32"-->
-              <!--android:layout_width="match_parent"-->
-              <!--android:layout_height="1dp"-->
-              <!--android:background="@color/gray" />-->
+          <!--android:id="@+id/textView32"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="1dp"-->
+          <!--android:background="@color/gray" />-->
 
           <!--<LinearLayout-->
-              <!--android:id="@+id/TechnicalEmail"-->
-              <!--android:layout_width="match_parent"-->
-              <!--android:layout_height="wrap_content"-->
-              <!--android:layout_margin="5dp"-->
-              <!--android:orientation="horizontal"-->
-              <!--android:visibility="gone">-->
+          <!--android:id="@+id/TechnicalEmail"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_margin="5dp"-->
+          <!--android:orientation="horizontal"-->
+          <!--android:visibility="gone">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/icon_technical_email"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_marginEnd="16dp"-->
-                <!--android:layout_marginRight="16dp"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="24dp" />-->
+          <!--<TextView-->
+          <!--android:id="@+id/icon_technical_email"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_gravity="center"-->
+          <!--android:layout_marginEnd="16dp"-->
+          <!--android:layout_marginRight="16dp"-->
+          <!--android:textColor="@color/black"-->
+          <!--android:textSize="24dp" />-->
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
+          <!--<LinearLayout-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:orientation="vertical">-->
 
-              <!--<TextView-->
-                  <!--style="@style/TextAppearance.AppCompat.Medium"-->
-                  <!--android:layout_width="wrap_content"-->
-                  <!--android:layout_height="wrap_content"-->
-                  <!--android:text="@string/technicalSupport"-->
-                  <!--android:textColor="@color/black" />-->
+          <!--<TextView-->
+          <!--style="@style/TextAppearance.AppCompat.Medium"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:text="@string/technicalSupport"-->
+          <!--android:textColor="@color/black" />-->
 
-              <!--<TextView-->
-                  <!--android:id="@+id/TechnicalDMEmail"-->
-                  <!--android:layout_width="wrap_content"-->
-                  <!--android:layout_height="wrap_content"-->
-                  <!--android:layout_marginTop="3dp"-->
-                  <!--android:text="esupport@dm.gov.ae" />-->
-            <!--</LinearLayout>-->
+          <!--<TextView-->
+          <!--android:id="@+id/TechnicalDMEmail"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_marginTop="3dp"-->
+          <!--android:text="esupport@dm.gov.ae" />-->
+          <!--</LinearLayout>-->
 
           <!--</LinearLayout>-->
 
@@ -257,48 +257,48 @@
           </LinearLayout>
 
           <!--<TextView-->
-              <!--android:id="@+id/textView34"-->
-              <!--android:layout_width="match_parent"-->
-              <!--android:layout_height="1dp"-->
-              <!--android:background="@color/gray" />-->
+          <!--android:id="@+id/textView34"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="1dp"-->
+          <!--android:background="@color/gray" />-->
 
           <!--<LinearLayout-->
-              <!--android:id="@+id/BusinessEmail"-->
-              <!--android:layout_width="match_parent"-->
-              <!--android:layout_height="wrap_content"-->
-              <!--android:layout_margin="5dp"-->
-              <!--android:orientation="horizontal"-->
-              <!--android:visibility="gone">-->
+          <!--android:id="@+id/BusinessEmail"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_margin="5dp"-->
+          <!--android:orientation="horizontal"-->
+          <!--android:visibility="gone">-->
 
-            <!--<TextView-->
-                <!--android:id="@+id/icon_business_email"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_marginEnd="16dp"-->
-                <!--android:layout_marginRight="16dp"-->
-                <!--android:textColor="@color/black"-->
-                <!--android:textSize="24dp" />-->
+          <!--<TextView-->
+          <!--android:id="@+id/icon_business_email"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_gravity="center"-->
+          <!--android:layout_marginEnd="16dp"-->
+          <!--android:layout_marginRight="16dp"-->
+          <!--android:textColor="@color/black"-->
+          <!--android:textSize="24dp" />-->
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
+          <!--<LinearLayout-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:orientation="vertical">-->
 
-              <!--<TextView-->
-                  <!--style="@style/TextAppearance.AppCompat.Medium"-->
-                  <!--android:layout_width="wrap_content"-->
-                  <!--android:layout_height="wrap_content"-->
-                  <!--android:text="@string/businessSupport"-->
-                  <!--android:textColor="@color/black" />-->
+          <!--<TextView-->
+          <!--style="@style/TextAppearance.AppCompat.Medium"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:text="@string/businessSupport"-->
+          <!--android:textColor="@color/black" />-->
 
-              <!--<TextView-->
-                  <!--android:id="@+id/BusinessDMEmail"-->
-                  <!--android:layout_width="wrap_content"-->
-                  <!--android:layout_height="wrap_content"-->
-                  <!--android:layout_marginTop="3dp"-->
-                  <!--android:text="kharetati@dm.gov.ae" />-->
-            <!--</LinearLayout>-->
+          <!--<TextView-->
+          <!--android:id="@+id/BusinessDMEmail"-->
+          <!--android:layout_width="wrap_content"-->
+          <!--android:layout_height="wrap_content"-->
+          <!--android:layout_marginTop="3dp"-->
+          <!--android:text="kharetati@dm.gov.ae" />-->
+          <!--</LinearLayout>-->
 
           <!--</LinearLayout>-->
 
@@ -401,10 +401,8 @@
               android:layout_height="300dp"
               android:orientation="horizontal">
 
-            <com.esri.android.map.MapView
+            <com.esri.arcgisruntime.mapping.view.MapView
                 android:id="@+id/mapContactUs"
-                mapoptions.ZoomLevel="16"
-                mapoptions.center="25.276987, 55.296249"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="visible" />

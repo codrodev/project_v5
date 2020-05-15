@@ -6,8 +6,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -24,10 +26,12 @@ import android.support.v4.view.ViewCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -48,50 +52,77 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.esri.android.map.GraphicsLayer;
-import com.esri.android.map.MapOnTouchListener;
-import com.esri.android.map.MapView;
-import com.esri.android.map.ags.ArcGISDynamicMapServiceLayer;
-import com.esri.android.map.ags.ArcGISLayerInfo;
-import com.esri.android.map.event.OnZoomListener;
-import com.esri.android.runtime.ArcGISRuntime;
-import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.Geometry;
-import com.esri.core.geometry.GeometryEngine;
-import com.esri.core.geometry.Point;
-import com.esri.core.geometry.Polygon;
-import com.esri.core.geometry.SpatialReference;
-import com.esri.core.io.SelfSignedCertificateHandler;
-import com.esri.core.io.UserCredentials;
-import com.esri.core.map.Feature;
-import com.esri.core.map.FeatureResult;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.FontWeight;
-import com.esri.core.symbol.PictureMarkerSymbol;
-import com.esri.core.symbol.SimpleFillSymbol;
-import com.esri.core.symbol.SimpleLineSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol;
-import com.esri.core.symbol.TextSymbol;
-import com.esri.core.tasks.query.QueryParameters;
-import com.esri.core.tasks.query.QueryTask;
+import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.LicenseInfo;
+import com.esri.arcgisruntime.arcgisservices.ArcGISMapServiceInfo;
+import com.esri.arcgisruntime.arcgisservices.ArcGISMapServiceSublayerInfo;
+import com.esri.arcgisruntime.arcgisservices.MapServiceLayerIdInfo;
+import com.esri.arcgisruntime.concurrent.ListenableFuture;
+import com.esri.arcgisruntime.data.ArcGISFeature;
+import com.esri.arcgisruntime.data.ArcGISFeatureTable;
+import com.esri.arcgisruntime.data.FeatureQueryResult;
+import com.esri.arcgisruntime.data.Field;
+import com.esri.arcgisruntime.data.QueryParameters;
+import com.esri.arcgisruntime.data.RelatedFeatureQueryResult;
+import com.esri.arcgisruntime.data.ServiceFeatureTable;
+import com.esri.arcgisruntime.geometry.Geometry;
+import com.esri.arcgisruntime.geometry.GeometryEngine;
+import com.esri.arcgisruntime.geometry.ImmutablePart;
+import com.esri.arcgisruntime.geometry.ImmutablePartCollection;
+import com.esri.arcgisruntime.geometry.Polygon;
+import com.esri.arcgisruntime.geometry.SpatialReference;
+
+import com.esri.arcgisruntime.layers.ArcGISMapImageLayer;
+import com.esri.arcgisruntime.data.Feature;
+import com.esri.arcgisruntime.geometry.Envelope;
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.loadable.LoadStatus;
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.Viewpoint;
+import com.esri.arcgisruntime.mapping.view.DefaultMapViewOnTouchListener;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.mapping.view.IdentifyGraphicsOverlayResult;
+import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.portal.Portal;
+import com.esri.arcgisruntime.security.Credential;
+import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
+import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
+import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
+import com.esri.arcgisruntime.security.UserCredential;
+import com.esri.arcgisruntime.symbology.TextSymbol;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 import java.util.zip.Inflater;
 
 import dm.sime.com.kharetati.R;
 import dm.sime.com.kharetati.layout.MainActivity;
+
+import dm.sime.com.kharetati.layout.UserRepository;
+import dm.sime.com.kharetati.network.ApiFactory;
+import dm.sime.com.kharetati.network.NetworkConnectionInterceptor;
 import dm.sime.com.kharetati.pojo.AgsExtent;
 import dm.sime.com.kharetati.pojo.EmailParam;
 import dm.sime.com.kharetati.pojo.ExportParam;
+import dm.sime.com.kharetati.pojo.SerializableParcelDetails;
+import dm.sime.com.kharetati.pojo.SerializeGetAppInputRequestModel;
+import dm.sime.com.kharetati.pojo.SerializeGetAppRequestModel;
 import dm.sime.com.kharetati.services.Communicator;
 import dm.sime.com.kharetati.util.AlertDialogUtil;
 import dm.sime.com.kharetati.util.ApplicationController;
@@ -99,7 +130,13 @@ import dm.sime.com.kharetati.util.Constant;
 import dm.sime.com.kharetati.util.FontChangeCrawler;
 import dm.sime.com.kharetati.util.Global;
 import dm.sime.com.kharetati.util.PlotDetails;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
 import static dm.sime.com.kharetati.util.Constant.FR_MAP;
+import com.esri.arcgisruntime.layers.*;
 
 public class MapFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
@@ -107,20 +144,16 @@ public class MapFragment extends Fragment {
     private String parcelId, latLong;
     private String mParam2;
     private MapView mMapView = null;
-    private ArcGISDynamicMapServiceLayer dynamicLayer = null;
-    private QueryTask queryTask=null;
-    private GraphicsLayer graphicsLayer = null;
+    private ArcGISMapImageLayer dynamicLayer = null;
+    private GraphicsOverlay graphicsLayer = null;
     private ProgressDialog progress;
     private Communicator communicator;
-    private  UserCredentials userCredentials = null;
-    //static String token = "29WiU5tasyljeMfb1ybq85BFN74SSz-GKLIUaU3qUWSpp9CRkXCcmKWAHrvaJcvfQYpkIx9sRnajJT76fBDtyQ..";
+    private  UserCredential userCredentials = null;
     static String token = Global.arcgis_token;
     Snackbar snack;
-
     private boolean hasCommunityTaskCompleted=true;
     private boolean hasPlotTaskCompleted=true;
     public Point parcelCenter;
-    //private Button btnNextFlow;
     private ProgressDialog progressDialog = null;
     private Envelope initExtent;
     View view;
@@ -145,8 +178,15 @@ public class MapFragment extends Fragment {
     public static boolean isMakani,isLand;
     double latitude, longitude;
 
+
     private Inflater mInflater;
     private String locale;
+    private ArcGISMap map;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private ApplicationController kharetatiApp;
+    private String TAG = getClass().getSimpleName();
+    public UserRepository repository;
+    private ImageButton btnToggleLayer2;
 
 
     public MapFragment() {
@@ -218,15 +258,79 @@ public class MapFragment extends Fragment {
         fontChanger.replaceFonts((ViewGroup) this.getView());
     }
 
+    class MapViewTouchListener extends DefaultMapViewOnTouchListener {
+
+        /**
+         * Constructs a DefaultMapViewOnTouchListener with the specified Context and MapView.
+         *
+         * @param context the context from which this is being created
+         * @param mapView the MapView with which to interact
+         */
+        public MapViewTouchListener(Context context, MapView mapView){
+            super(context, mapView);
+        }
+
+        /**
+         * Override the onSingleTapConfirmed gesture to handle tapping on the MapView
+         * and detected if the Graphic was selected.
+         * @param e the motion event
+         * @return true if the listener has consumed the event; false otherwise
+         */
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            // get the screen point where user tapped
+            android.graphics.Point screenPoint = new android.graphics.Point((int)e.getX(), (int)e.getY());
+
+            // identify graphics on the graphics overlay
+            final ListenableFuture<IdentifyGraphicsOverlayResult> identifyGraphic = mMapView.identifyGraphicsOverlayAsync(graphicsLayer, screenPoint, 10.0, false, 2);
+
+            identifyGraphic.addDoneListener(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        IdentifyGraphicsOverlayResult grOverlayResult = identifyGraphic.get();
+                        // get the list of graphics returned by identify graphic overlay
+                        List<Graphic> graphic = grOverlayResult.getGraphics();
+                        // get size of list in results
+                        int identifyResultSize = graphic.size();
+                        if(!graphic.isEmpty()){
+                            if(btnFind.isEnabled() && PlotDetails.plotGeometry!=null)
+                            {
+                                goToNext();
+
+                            }
+                        }
+                    }catch(InterruptedException | ExecutionException ie){
+                        ie.printStackTrace();
+                    }
+
+                }
+            });
+
+            return super.onSingleTapConfirmed(e);
+        }
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         Global.current_fragment_id= Constant.FR_MAP;
-        Global.requestId = null;
         ((MainActivity)getActivity()).hideAppBar();
         Global.hideSoftKeyboard(getActivity());
+        try {
+            repository = new UserRepository(ApiFactory.getClient(new NetworkConnectionInterceptor(getActivity())));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (KeyManagementException e) {
+            e.printStackTrace();
+        }
+
+        kharetatiApp = ApplicationController.create(getActivity());
         locale=Global.getCurrentLanguage(getActivity()).compareToIgnoreCase("en")==0?"en":"ar";
         view =inflater.inflate(R.layout.fragment_map, container, false);
         view.setFocusableInTouchMode(true);
@@ -253,10 +357,13 @@ public class MapFragment extends Fragment {
         communicator = (Communicator) getActivity();
         communicator.hideMainMenuBar();
         communicator.hideAppBar();
-        ArcGISRuntime.setClientId(Constant.ESRI_SDK_CLIENTID);
+        ArcGISRuntimeEnvironment.setLicense("runtimelite,1000,rud3984007683,none,GB2PMD17J0YJ2J7EZ071");
 
         frame=(FrameLayout) view.findViewById(R.id.mapFrame);
         mMapView  = (MapView)view.findViewById(R.id.map);
+
+
+
 
         if(frame!=null){
             frame.removeView(mMapView);
@@ -265,37 +372,126 @@ public class MapFragment extends Fragment {
             mMapView.setLayoutParams(params);
             params.setMargins(0,50,0,0);
             frame.addView(mMapView);
-
-            //showSnackBar();
-
-
+            mMapView.setAttributionTextVisible(false);
         }
         mMapView.setVisibility(View.INVISIBLE);
         mapToolbar.setVisibility(View.INVISIBLE);
 
+
         SpatialReference mSR = SpatialReference.create(3997);
-        Point p1 = GeometryEngine.project(54.84,24.85,  mSR);
-        Point p2 = GeometryEngine.project(55.55,25.34 , mSR);
-        initExtent = new Envelope(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-        mMapView.setExtent(initExtent);
-        mMapView.setOnTouchListener(new TouchListener(getContext(),mMapView));
+        Point px = new Point(54.84, 24.85);
+        Point py = new Point(55.55, 25.34);
 
-        userCredentials = new UserCredentials();
-        userCredentials.setUserAccount(Constant.GIS_LAYER_USERNAME,Constant.GIS_LAYER_PASSWORD);
-        userCredentials.setTokenServiceUrl(Constant.GIS_LAYER_TOKEN_URL);
+        Point p1 = new Point(54.84,24.85,  0, mSR);
+        Point p2 = new Point(55.55,25.34 , 0,mSR);
+        initExtent = new Envelope(p1.getX(), p1.getY(), p2.getX(), p2.getY(), mSR);
 
-        dynamicLayer = new ArcGISDynamicMapServiceLayer(Constant.GIS_LAYER_URL,null,userCredentials);
+        Viewpoint vp = new Viewpoint(initExtent);
+        mMapView.setViewpoint(vp);
+
+        SpatialReference sr=SpatialReference.create(3997);
+
+        map = new ArcGISMap(sr);
+        mMapView.setMap(map);
+
+        // set up gesture for interacting with the MapView
+        MapViewTouchListener mMapViewTouchListener = new MapViewTouchListener(this.getActivity(), mMapView);
+        mMapView.setOnTouchListener(mMapViewTouchListener);
+
+        dynamicLayer = new ArcGISMapImageLayer(Constant.GIS_LAYER_URL);
+        Credential credential=new UserCredential(Constant.GIS_LAYER_USERNAME,Constant.GIS_LAYER_PASSWORD);
+        dynamicLayer.setCredential(credential);
+
+        map.getOperationalLayers().add(dynamicLayer);
+
+        graphicsLayer = new GraphicsOverlay();
+        mMapView.getGraphicsOverlays().add(graphicsLayer);
 
 
 
+        dynamicLayer.addDoneLoadingListener(() -> {
+            if (dynamicLayer.getLoadStatus() == LoadStatus.LOADED) {
+                ArcGISMapServiceInfo mapServiceInfo = dynamicLayer.getMapServiceInfo();
 
+               /* List<ArcGISSublayer> layers=dynamicLayer.getSublayers();
+                for(int i=0;i<layers.size();i++){
 
-        mMapView.addLayer(dynamicLayer);
+                    for(int j= 0; j < Global.mapSearchResult.getService_response().getMap().getDetails().getLayerDefinition().size(); j++){
+                        if(layers.get(i).getId()==Integer.parseInt(Global.mapSearchResult.getService_response().getMap().getDetails().getLayerDefinition().get(j).getId())){
 
-        graphicsLayer = new GraphicsLayer();
-        mMapView.addLayer(graphicsLayer);
+                            if(Boolean.parseBoolean(Global.mapSearchResult.getService_response().getMap().getDetails().getLayerDefinition().get(j).getShow())){
+                                //retriveLayer = Global.mapSearchResult.getService_response().getMap().getDetails().getLayerDefinition().get(j) ;
+                                ((ArcGISMapImageSublayer)layers.get(i)).setDefinitionExpression(Global.mapSearchResult.getService_response().getMap().getDetails().getLayerDefinition().get(j).getQueryClause());
+
+                            }
+                            else
+                                layers.get(i).setVisible(false);
+
+                        }
+                    }
+                }*/
+                try {
+
+                    if (Global.mapHiddenLayers != null && Global.mapHiddenLayers.length > 0) {
+                        List<ArcGISSublayer> layers = dynamicLayer.getSublayers();
+                        for (int i = 0; i < layers.size(); i++) {
+
+                            for (int j = 0; j < Global.mapHiddenLayers.length; j++) {
+                                if (layers.get(i).getId() == Long.parseLong(Global.mapHiddenLayers[j])) {
+
+                                    layers.get(i).setVisible(false);
+
+                                }
+                            }
+                        }
+                    }
+                } catch (NumberFormatException e) {
+
+                }
+                //only show dimensions for this plot
+                ArcGISMapImageSublayer sublayer= (ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(4);
+                sublayer.setDefinitionExpression("PARCEL_ID ='" + parcelId + "'");
+                if(checkNetworkConnection()){
+
+                    if(isMakani) {
+                        mMapView.setVisibility(View.VISIBLE);
+                        mapToolbar.setVisibility(View.VISIBLE);
+                        //findParcel();
+                        if (parcelId != null && parcelId.trim().length() != 0) {
+                            findParcel(parcelId);
+                        }
+
+                    } else {
+                        if(parcelId!=null && parcelId.trim().length()!=0)
+                        {
+                            mMapView.setVisibility(View.VISIBLE);
+                            mapToolbar.setVisibility(View.VISIBLE);
+                            findParcel(parcelId);
+
+                        }
+                        else{
+
+                            imgNext.setVisibility(View.GONE);
+                            if(progressDialog!=null)progressDialog.cancel();
+
+                        }
+                    }
+
+                }
+                else{
+                    if(progressDialog!=null)progressDialog.cancel();
+                }
+                //initiateFindParcelRequest();
+            }
+            else{
+                imgNext.clearAnimation();
+                imgNext.setVisibility(View.GONE);
+                if(progressDialog!=null)progressDialog.cancel();
+            }
+        });
 
         btnReset=(ImageButton) view.findViewById(R.id.btnReset);
+        btnToggleLayer2 = (ImageButton) view.findViewById(R.id.btnToggleLayer);
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -308,27 +504,39 @@ public class MapFragment extends Fragment {
 
                 }
                 else{
-                if(mMapView!=null && PlotDetails.currentState.graphic!=null)
-                {
-                    mMapView.setExtent(PlotDetails.currentState.graphic.getGeometry(), extentPadding);
-                    final Timer timer=new Timer();
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            mMapView.zoomout();
-                            timer.cancel();
-                            //initiateFindParcelRequest();
-                        }
-                    }, 1000*1);
+                    if(mMapView!=null && PlotDetails.currentState.graphic!=null)
+                    {
+                        mMapView.setViewpointGeometryAsync(PlotDetails.currentState.graphic.getGeometry(), extentPadding);
+                        final Timer timer=new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+                                ////mMapView.zoomout();
+                                if(getActivity()!=null)
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if(btnToggleLayer2!=null){
+                                            btnToggleLayer2.setImageResource(R.drawable.layers_480x480);
+                                            btnToggleLayer2.setTag("layer");
+                                        }
+                                    }
+                                });
+
+
+                                timer.cancel();
+                                //initiateFindParcelRequest();
+                            }
+                        }, 1000*1);
+                    }
                 }
-            }
             }
         });
 
         //Layer Button on Click event
-        btnToggleLayer = (ImageButton) view.findViewById(R.id.btnToggleLayer);
-        btnToggleLayer.setTag("layer");
-        btnToggleLayer.setOnClickListener(new View.OnClickListener()   {
+
+        btnToggleLayer2.setTag("layer");
+        btnToggleLayer2.setOnClickListener(new View.OnClickListener()   {
             public void onClick(View v)  {
                 if (!Global.isConnected(getActivity())) {
 
@@ -339,36 +547,39 @@ public class MapFragment extends Fragment {
 
                 }
                 else{
-                try {
+                    try {
 
-                    ImageButton btnToggleLayer2 = (ImageButton) v.findViewById(R.id.btnToggleLayer);
-                    if(btnToggleLayer2.getTag().toString().equalsIgnoreCase("layer")){
-                        btnToggleLayer2.setImageResource(R.drawable.layers_active_480x480);
-                        btnToggleLayer2.setTag("layer_active");
-                        if(getOrthoLayer()!=null)
-                        {
-                            ArcGISLayerInfo layerinfo=getOrthoLayer();
-                            //mMapView.zoomToScale(mMapView.getCenter(),layerinfo.getMaxScale()-1);
-                            layerinfo.setVisible(true);
-                        }
-                    }else{
-                        btnToggleLayer2.setImageResource(R.drawable.layers_480x480);
-                        btnToggleLayer2.setTag("layer");
-                        if(getOrthoLayer()!=null)
-                        {
-                            ArcGISLayerInfo layerinfo=getOrthoLayer();
-                            layerinfo.setVisible(false);
-                        }
 
+                        if(btnToggleLayer2.getTag().toString().equalsIgnoreCase("layer")){
+                            btnToggleLayer2.setImageResource(R.drawable.layers_active_480x480);
+                            btnToggleLayer2.setTag("layer_active");
+                            map.setBasemap(Basemap.createImagery());
+                            if(getOrthoLayer()!=null)
+                            {
+                                ArcGISSublayer ortho=getOrthoLayer();
+                                ortho.setVisible(true);
+                                mMapView.setViewpointScaleAsync(ortho.getMaxScale()+1);
+                            }
+                        }else{
+                            btnToggleLayer2.setImageResource(R.drawable.layers_480x480);
+                            btnToggleLayer2.setTag("layer");
+
+                            map = new ArcGISMap();
+                            if(getOrthoLayer()!=null)
+                            {
+                                ArcGISSublayer ortho=getOrthoLayer();
+                                ortho.setVisible(false);
+                            }
+
+                        }
+                        //map.loadAsync();
+                        dynamicLayer.retryLoadAsync();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                    dynamicLayer.refresh();
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
-            }
         });
-        //btnToggleLayer.bringToFront();
 
         //bookmark button click event
         btnBookmark = (ImageButton) view.findViewById(R.id.btnBookmark);
@@ -394,14 +605,13 @@ public class MapFragment extends Fragment {
 
                         }
                         else
-                        ((Communicator) getActivity()).saveAsBookmark(true);
+                            ((Communicator) getActivity()).saveAsBookmark(true);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-        //btnBookmark.bringToFront();
 
         btnMakani = (ImageButton) view.findViewById(R.id.btnMakani);
         btnMakani.setOnClickListener(new View.OnClickListener()   {
@@ -417,7 +627,7 @@ public class MapFragment extends Fragment {
 
                         }
                         else
-                        Global.openMakani(parcelId, getActivity());
+                            Global.openMakani(parcelId, getActivity());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -443,11 +653,11 @@ public class MapFragment extends Fragment {
 
                     }
                     else{
-                    isMakani = false;
-                    Global.landNumber = null;
-                    Global.area = null;
-                    Global.area_ar = null;
-                    initiateFindParcelRequest();}
+                        isMakani = false;
+                        Global.landNumber = null;
+                        Global.area = null;
+                        Global.area_ar = null;
+                        initiateFindParcelRequest();}
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -456,7 +666,7 @@ public class MapFragment extends Fragment {
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage(getString(R.string.msg_loading));
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         adapterHistory = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, Global.getParcelNumbersFromHistory(getActivity()));
@@ -524,17 +734,7 @@ public class MapFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(checkNetworkConnection()){
-//                    mMapView.removeLayer(dynamicLayer);
-//                    dynamicLayer = new ArcGISDynamicMapServiceLayer(Constant.GIS_LAYER_URL,null,userCredentials);
-//                    mMapView.addLayer(dynamicLayer);
-//
-//                    mMapView.removeLayer(graphicsLayer);
-//                    graphicsLayer = new GraphicsLayer();
-//                    mMapView.addLayer(graphicsLayer);
-//
-//                    mMapView.invalidate();
-//                    mMapView.postInvalidate();
-//                    findParcel(parcelId);
+
                     Fragment frg = null;
                     frg = getActivity().getSupportFragmentManager().findFragmentByTag(Constant.FR_MAP);
                     final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -574,10 +774,7 @@ public class MapFragment extends Fragment {
         if(frame!=null){
             frame.bringChildToFront(mMapView);
             frame.bringChildToFront(mapToolbar);
-            //frame.bringChildToFront(btnBookmark);
-            //frame.bringChildToFront(btnToggleLayer);
-            //frame.bringChildToFront(btnMakani);
-            //frame.bringChildToFront(txtPlotNo);
+
             frame.bringChildToFront(layoutSearch);
             frame.bringChildToFront(layoutNetworkCon);
         }
@@ -585,7 +782,7 @@ public class MapFragment extends Fragment {
 
         imgNext=(ImageButton)getActivity().findViewById(R.id.btnForward);
         if(imgNext!=null){
-            //imgNext.setEnabled(false);
+
             imgNext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -595,63 +792,12 @@ public class MapFragment extends Fragment {
         }
         imgNext.setEnabled(false);
 
-        final Timer timer=new Timer();
-        if(checkNetworkConnection()){
-            if(isMakani) {
-                mMapView.setVisibility(View.VISIBLE);
-                mapToolbar.setVisibility(View.VISIBLE);
-                //findParcel();
-                if (parcelId != null && parcelId.trim().length() != 0) {
+        //final Timer timer=new Timer();
 
-                    findParcel(parcelId);
-                } else {
-                    findParcel();
-                }
-            } else {
-                if(parcelId!=null && parcelId.trim().length()!=0)
-                {
-                    mMapView.setVisibility(View.VISIBLE);
-                    mapToolbar.setVisibility(View.VISIBLE);
-                    findParcel(parcelId);
-                    //imgNext.setVisibility(View.GONE);
-                }
-                else{
-
-                    imgNext.setVisibility(View.GONE);
-                    progressDialog.hide();
-
-                }
-            }
-
-            /*timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    if(parcelId!=null && parcelId.trim().length()!=0)
-                    {
-                        findParcel(parcelId);
-                    }
-                    else{
-                        new Handler().post(new Runnable() {
-                            @Override
-                            public void run() {
-                                imgNext.setVisibility(View.GONE);
-                                progressDialog.hide();
-                            }
-                        });
-
-                    }
-                    timer.cancel();
-                }
-            },1000);*/
-            //findParcel(Global.rectifyPlotNo(parcelId));
-        }
-        else{
-            progressDialog.hide();
-        }
 
         skipOnTextChangeEvent=true;
         if(!isMakani)
-        txtPlotNo.setText(Global.rectifyPlotNo(parcelId), TextView.BufferType.EDITABLE);
+            txtPlotNo.setText(Global.rectifyPlotNo(parcelId), TextView.BufferType.EDITABLE);
         ViewCompat.setLayoutDirection(txtPlotNo, ViewCompat.LAYOUT_DIRECTION_LTR);
         return view;
     }
@@ -699,23 +845,25 @@ public class MapFragment extends Fragment {
             if(isMakani == true){
                 if (parcelId.length() <= 20) {
                     if (parcelId.length() > 4) {
-
                         findParcel(parcelId);
                     }
-                } else{
-                    findParcel();
+                    else{
+                        Toast.makeText(MapFragment.this.getActivity(), R.string.enter_valid_parcel_no,
+                                Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    Toast.makeText(MapFragment.this.getActivity(), R.string.enter_valid_parcel_no,
+                            Toast.LENGTH_LONG).show();
                 }
                 Global.hideSoftKeyboard(getActivity());
-                if(hasPlotTaskCompleted)
-                    showSnackBar();
             } else {
                 if (parcelId.length() <= 20) {
                     if (parcelId.length() > 4) {
 
                         findParcel(parcelId);
                         Global.hideSoftKeyboard(getActivity());
-                        if (hasPlotTaskCompleted)
-                            showSnackBar();
+
                         return true;
                     } else
                         AlertDialogUtil.warningAlertDialog("", getResources().getString(R.string.valid_plot_number), getResources().getString(R.string.ok), getActivity());
@@ -734,100 +882,326 @@ public class MapFragment extends Fragment {
     private boolean checkNetworkConnection(){
         if(Global.isConnected(getActivity())){
             layoutNetworkCon.setVisibility(View.INVISIBLE);
-            //btnNextFlow.setVisibility(View.VISIBLE);
             imgNext.setVisibility(View.VISIBLE);
             return true;
         }
         else{
             layoutNetworkCon.setVisibility(View.VISIBLE);
-            //btnNextFlow.setVisibility(View.INVISIBLE);
             imgNext.setVisibility(View.INVISIBLE);
             return false;
         }
     }
 
-    private OnZoomListener onZoomListener;
-
-
-    final Handler myHandler = new Handler();
-    private void UpdateGUI() {
-        myHandler.post(myRunnable);
-    }
-    final Runnable myRunnable = new Runnable() {
-        public void run() {
-            //mMapView.zoomToScale(PlotDetails.currentState.parcelCenter, 1000);
-            //mMapView.zoomout();
+    public ArcGISSublayer getOrthoLayer(){
+        List<ArcGISSublayer> layers=dynamicLayer.getSublayers();
+        for(int i=0;i<layers.size();i++){
+            ArcGISSublayer layer=layers.get(i);
+            if(layer.getName().equals("Imagery"))
+                return layer;
         }
-    };
 
-    final Handler handlerEnableSearchButton = new Handler();
-    private void EnableSearchButton() {
-        handlerEnableSearchButton.post(myRunnable);
-    }
-    final Runnable enableSearchButtonRunnable = new Runnable() {
-        public void run() {
-            btnFind.setEnabled(true);
-            imgNext.clearAnimation();
-            imgNext.setVisibility(View.GONE);
-
-        }
-    };
-
-    final Handler findCommHandler = new Handler();
-    private void invokeFindCommunity(){
-        findCommHandler.post(myRunnableFindComm);
-    }
-    final Runnable myRunnableFindComm = new Runnable() {
-        public void run() {
-            //mMapView.zoomToScale(PlotDetails.currentState.parcelCenter, 1000);
-            if(PlotDetails.currentState.graphic==null)
-                findCommunity(PlotDetails.parcelNo);
-            else{
-                graphicsLayer.addGraphic(PlotDetails.currentState.graphic);
-                mMapView.setExtent(PlotDetails.currentState.graphic.getGeometry(), extentPadding);
-
-                graphicsLayer.addGraphic(PlotDetails.currentState.textLabel2);
-                graphicsLayer.addGraphic(PlotDetails.currentState.textLabel3);
-                graphicsLayer.addGraphic(PlotDetails.currentState.textLabel);
-                //btnNextFlow.setEnabled(true);
-                imgNext.setEnabled(true);
-                btnFind.setEnabled(true);
-                final Timer timer=new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        UpdateGUI();
-                        timer.cancel();
-                    }
-                },1000);
-
-            }
-        }
-    };
-
-    public ArcGISLayerInfo getOrthoLayer(){
-        ArcGISLayerInfo[] arcgisLayerInfo = dynamicLayer.getAllLayers();
-        for(int i=0;i<arcgisLayerInfo.length;i++){
-            ArcGISLayerInfo layerInfo=arcgisLayerInfo[i];
-            if(layerInfo.getId()==5)
-                return layerInfo;
-        }
         return null;
     }
 
+    public void  findCommunity(){
+        try{
+            if(progressDialog != null)
+                progressDialog.show();
+            ArcGISMapImageSublayer communityLayer= (ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(Integer.valueOf(Constant.community_layerid));
+            communityLayer.loadAsync();
+            communityLayer.addDoneLoadingListener(new Runnable() {
+                @Override
+                public void run() {
+                    ServiceFeatureTable sublayerTable = communityLayer.getTable();
+                    QueryParameters query = new QueryParameters();
+                    query.setWhereClause("COMM_NUM  = '" + parcelId.substring(0,3) + "'");
+                    ListenableFuture<FeatureQueryResult> sublayerQuery = sublayerTable.queryFeaturesAsync(query,ServiceFeatureTable.QueryFeatureFields.LOAD_ALL);
+                    sublayerQuery.addDoneListener(() -> {
+                        try {
+                            FeatureQueryResult result = sublayerQuery.get();
+                            PlotDetails.emailParam=new EmailParam();
+                            for (Feature feature : result) {
+                                List<Field> fields=result.getFields();
+                                for(Field field : fields)
+                                {
+
+                                    if(field.getName().compareToIgnoreCase("COMMUNITY_E")==0){
+                                        PlotDetails.communityEn=feature.getAttributes().get("COMMUNITY_E")!=null?feature.getAttributes().get("COMMUNITY_E").toString():"-";
+                                        PlotDetails.emailParam.communityEn=PlotDetails.communityEn;
+                                    }
+                                    if(field.getName().compareToIgnoreCase("COMMUNITY_A")==0){
+                                        PlotDetails.communityAr=feature.getAttributes().get("COMMUNITY_A")!=null?feature.getAttributes().get("COMMUNITY_A").toString():"-";
+                                        PlotDetails.emailParam.communityAr=PlotDetails.communityAr;
+                                    }
+                                    PlotDetails.emailParam.plotArea=PlotDetails.area;
+
+                                }
+                                hasCommunityTaskCompleted=true;
+                                break;
+                            }
+                            showSnackBar();
+                            imgNext.setVisibility(View.VISIBLE );
+                            imgNext.setEnabled(true);
+                            imgNext.startAnimation(animation);
+                            btnFind.setEnabled(true);
+                            if(progressDialog != null)
+                                if(progressDialog!=null)progressDialog.cancel();
+
+                            mMapView.setViewpointGeometryAsync(PlotDetails.plotGeometry,extentPadding).addDoneListener(new Runnable() {
+                                @Override
+                                public void run() {
+                                    getParceldetails();
+                                    createExportParams();
+                                }
+                            });
+                        } catch (InterruptedException | ExecutionException e) {
+                            Log.e(MainActivity.class.getSimpleName(), e.toString());
+                            if(progressDialog != null)
+                                if(progressDialog!=null)progressDialog.cancel();
+                            btnFind.setEnabled(true);
+                        }
+                    });
+                }
+            });
+        }
+        catch(Exception ex){
+
+        }
+    }
     public void findParcel(String parcelId){
+        if(progressDialog != null)
+            progressDialog.show();
+        if(PlotDetails.currentState.graphic!=null){
+            graphicsLayer.getGraphics().remove(PlotDetails.currentState.graphic);
+            graphicsLayer.getGraphics().remove(PlotDetails.currentState.textLabel);
+        }
+        if(dynamicLayer.getSublayers().size()>0){
+        ((ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(3)).setDefinitionExpression("");
+        ((ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(7)).setDefinitionExpression("");}
+
         btnFind.setEnabled(false);
         HashMap<Integer, String> layerDefs = new HashMap<Integer, String>();
-        layerDefs.put(Integer.valueOf(7), "PARCEL_ID ='" + parcelId + "'");
-        dynamicLayer.setLayerDefinitions(layerDefs);
+        layerDefs.put(Integer.valueOf(3), "PARCEL_ID ='" + parcelId + "'");
+
+        if(dynamicLayer.getSublayers().size()>0){
+
+            ArcGISMapImageSublayer sublayerComm= (ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(3);
+            sublayerComm.setDefinitionExpression("PARCEL_ID ='" + parcelId + "'");
+            ArcGISMapImageSublayer sublayerComm1= (ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(7);
+            sublayerComm1.setDefinitionExpression("PARCEL_ID ='" + parcelId + "'");
+            ArcGISMapImageSublayer sublayer= (ArcGISMapImageSublayer) dynamicLayer.getSublayers().get(Integer.valueOf(Constant.plot_layerid));
+
+            sublayer.addDoneLoadingListener(new Runnable() {
+                @Override
+                public void run() {
+                    ServiceFeatureTable sublayerTable = sublayer.getTable();
+                    QueryParameters query = new QueryParameters();
+                    query.setWhereClause("PARCEL_ID  = '" + parcelId + "'");
+
+                    if(sublayerTable!=null){
+                        ListenableFuture<FeatureQueryResult> sublayerQuery = sublayerTable.queryFeaturesAsync(query,ServiceFeatureTable.QueryFeatureFields.LOAD_ALL);
+
+                        sublayerQuery.addDoneListener(() -> {
+                            try {
+                                FeatureQueryResult result = sublayerQuery.get();
+                                SimpleLineSymbol sls = new SimpleLineSymbol(SimpleLineSymbol.Style.SOLID, Color.RED, 3);
+                                SimpleFillSymbol simpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbol.Style.SOLID, Color.argb(30, 243, 247, 129),
+                                        sls);
+                                simpleFillSymbol.setOutline(sls);
+
+                                for (Feature feature : result) {
+
+                                    List<Field> fields=result.getFields();
+                                    for(Field field : fields) {
+                                        if(field.getName().compareToIgnoreCase("SHAPE.AREA")==0) {
+                                            PlotDetails.area = Global.round((double)feature.getAttributes().get("SHAPE.AREA"),2);
+                                            break;
+                                        }
+
+                                    }
+
+
+                                    Graphic sublayerGraphic = new Graphic(feature.getGeometry(), simpleFillSymbol);
+                                    PlotDetails.currentState.graphic=sublayerGraphic;
+                                    PlotDetails.plotGeometry=feature.getGeometry();
+                                    graphicsLayer.getGraphics().add(sublayerGraphic);
+
+
+                                    TextSymbol txtSymbol=null;
+                                    Graphic parcelTextLabel;
+                                    if(isMakani){
+                                        txtSymbol=new TextSymbol(16,Global.makani,Color.argb(255, 0, 0, 0),TextSymbol.HorizontalAlignment.CENTER,TextSymbol.VerticalAlignment.MIDDLE);
+                                        txtSymbol.setHaloWidth(2);
+                                        txtSymbol.setHaloColor(Color.argb(255, 255, 255, 255));
+
+                                        parcelTextLabel = new Graphic(feature.getGeometry().getExtent().getCenter(), txtSymbol);
+                                        graphicsLayer.getGraphics().add(parcelTextLabel);
+
+                                        Drawable dr = getResources().getDrawable(R.drawable.makani);
+                                        Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+                                        PictureMarkerSymbol makanisymbol = new PictureMarkerSymbol(new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 96, 96, true)));
+                                        makanisymbol.setOffsetY(10);
+                                        Graphic makaniGraphic = new Graphic(feature.getGeometry().getExtent().getCenter(),makanisymbol);
+                                        graphicsLayer.getGraphics().add(makaniGraphic);
+                                    }
+                                    else{
+                                        txtSymbol=new TextSymbol(16,parcelId,Color.argb(255, 0, 0, 0),TextSymbol.HorizontalAlignment.CENTER,TextSymbol.VerticalAlignment.MIDDLE);
+                                        txtSymbol.setHaloWidth(2);
+                                        txtSymbol.setHaloColor(Color.argb(255, 255, 255, 255));
+                                        txtSymbol.setOffsetY(30);
+                                        parcelTextLabel = new Graphic(feature.getGeometry().getExtent().getCenter(), txtSymbol);
+                                        graphicsLayer.getGraphics().add(parcelTextLabel);
+                                    }
+
+                                    PlotDetails.currentState.textLabel=parcelTextLabel;
+                                    PlotDetails.parcelNo=parcelId;
+                                    Global.addToParcelHistory(parcelId,getActivity());
+                                    if(mMapView!=null && PlotDetails.currentState.graphic!=null)
+                                    {
+                                        mMapView.setViewpointGeometryAsync(PlotDetails.currentState.graphic.getGeometry(), extentPadding);
+                                        final Timer timer=new Timer();
+                                        timer.schedule(new TimerTask() {
+                                            @Override
+                                            public void run() {
+                                                ////mMapView.zoomout();
+                                                timer.cancel();
+                                                //initiateFindParcelRequest();
+                                            }
+                                        }, 1000*1);
+                                    }
+                                    //findCommunity();
+                                    showSnackBar();
+                                    imgNext.setVisibility(View.VISIBLE );
+                                    imgNext.setEnabled(true);
+                                    imgNext.startAnimation(animation);
+                                    btnFind.setEnabled(true);
+                                    if(progressDialog != null)
+                                        if(progressDialog!=null)progressDialog.cancel();
+
+                                    mMapView.setViewpointGeometryAsync(PlotDetails.plotGeometry,extentPadding).addDoneListener(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            getParceldetails();
+                                            createExportParams();
+                                        }
+                                    });
+                                    break;
+                                }
+                                //if(progressDialog != null)
+                                //    if(progressDialog!=null)progressDialog.cancel();
+                                if(!result.iterator().hasNext()){
+                                    if(progressDialog!=null)progressDialog.cancel();
+                                    AlertDialogUtil.errorAlertDialog("",getActivity().getResources().getString(R.string.plot_does_not_exist),
+                                            getActivity().getResources().getString(R.string.ok), getActivity());
+                                    imgNext.setVisibility(View.GONE);
+                                    imgNext.clearAnimation();
+                                }else{
+                                    imgNext.setVisibility(View.VISIBLE);
+                                    imgNext.setEnabled(true);
+                                }
+                                btnFind.setEnabled(true);
+
+                            } catch (InterruptedException | ExecutionException e) {
+                                Log.e(MainActivity.class.getSimpleName(), e.toString());
+                                if(progressDialog != null)
+                                    if(progressDialog!=null)progressDialog.cancel();
+                                btnFind.setEnabled(true);
+                                imgNext.setVisibility(View.GONE);
+                                imgNext.clearAnimation();
+                            }
+                        });
+                    }
+                    else{
+                        if(progressDialog != null)
+                            if(progressDialog!=null)progressDialog.cancel();
+                        btnFind.setEnabled(true);
+                        imgNext.setVisibility(View.GONE);
+                        imgNext.clearAnimation();
+                    }
+
+                }
+            });
+            sublayer.loadAsync();
+        }
+        else{
+            if(progressDialog != null)
+                if(progressDialog!=null)progressDialog.cancel();
+            btnFind.setEnabled(true);
+            imgNext.setVisibility(View.GONE);
+            dynamicLayer.retryLoadAsync();
+        }
+
+
 
         String targetLayer = Constant.GIS_LAYER_URL.concat("/" + Constant.plot_layerid);
-        String[] queryArray = { targetLayer, "PARCEL_ID  = '" + parcelId + "'" };
-        AsyncQueryTask ayncQuery = new AsyncQueryTask();
-        ayncQuery.execute(queryArray);
 
 
         hasPlotTaskCompleted=false;
+    }
+
+    public void getParceldetails(){
+        //mapNavigator.onStarted();
+        progressDialog.show();
+        String url = Constant.BASE_AUXULARY_URL_UAE_SESSION  + "getparceldetails";
+
+        SerializeGetAppRequestModel model = new SerializeGetAppRequestModel();
+
+        SerializeGetAppInputRequestModel inputModel = new SerializeGetAppInputRequestModel();
+        inputModel.setParcel_id(Integer.parseInt(PlotDetails.parcelNo.trim()));
+        inputModel.setREMARKS(Global.getPlatformRemark());
+        inputModel.setParcel_id(Integer.parseInt(PlotDetails.parcelNo));
+        if(Global.isUAE){
+            inputModel.setTOKEN(Global.uaeSessionResponse == null ? "" : Global.uaeSessionResponse.getService_response().getToken());
+            inputModel.setGuest(false);
+        } else {
+            inputModel.setTOKEN(Global.session==null?"":Global.session);
+            inputModel.setGuest(!Global.isUserLoggedIn);
+        }
+        inputModel.setREMARKS(Global.getPlatformRemark());
+
+
+        model.setInputJson(inputModel);
+
+        Disposable disposable = repository.getParcelDetails(url, model)
+                .subscribeOn(kharetatiApp.subscribeScheduler())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<SerializableParcelDetails>() {
+                    @Override public void accept(SerializableParcelDetails appResponse) throws Exception {
+
+                        //mapNavigator.onSuccess();
+                        if(progressDialog!=null)progressDialog.cancel();
+                        PlotDetails.communityAr = appResponse.getService_response().get(0).getCommNameAr();
+                        PlotDetails.communityEn = appResponse.getService_response().get(0).getCommNameEn();
+                        PlotDetails.emailParam = new EmailParam();
+                        PlotDetails.emailParam.communityEn=PlotDetails.communityEn;
+                        PlotDetails.emailParam.communityAr=PlotDetails.communityAr;
+                        PlotDetails.emailParam.locale = Global.getCurrentLanguage(getActivity());
+                        PlotDetails.emailParam.plotnumber = PlotDetails.parcelNo;
+                        PlotDetails.emailParam.plotArea = PlotDetails.area;
+
+
+
+//                        PlotDetails.area = appResponse.getService_response().get(0).getAreaInSqMt();
+
+                        /*if(Global.isSaveAsBookmark && Global.isBookmarks){
+                            saveAsBookMark(true);
+                        }
+                        else if(isBookmarks)
+                            mapNavigator.getPlotDetais(appResponse);
+                        else
+                            saveAsBookMark(true);*/
+
+
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override public void accept(Throwable throwable) throws Exception {
+                        //showErrorMessage(throwable.getMessage());
+                        if(progressDialog!=null)progressDialog.cancel();
+                    }
+                });
+
+        compositeDisposable.add(disposable);
     }
 
     private int convertToDp(double input) {
@@ -835,56 +1209,6 @@ public class MapFragment extends Fragment {
         return (int) (input * scale + 0.5f);
     }
 
-    public void findParcel(){
-
-        SpatialReference mSR = SpatialReference.create(3997);
-        //Point point = GeometryEngine.project(longitude,latitude,  mSR);
-        Point point = new Point(latitude, longitude);
-        Polygon poly = GeometryEngine.buffer(point,mSR,200,null);
-        Envelope env =new Envelope();
-        ((Geometry) poly).queryEnvelope(env);
-        mMapView.setExtent(env);
-
-        txtPlotNo.setVisibility(View.VISIBLE);
-        //Point point = new Point(latitude, longitude);
-        //SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(Color.RED, 12,SimpleMarkerSymbol.STYLE.CIRCLE); //size 12, style of circle
-        Drawable d = getResources().getDrawable(R.drawable.makani);
-        PictureMarkerSymbol symbol = new PictureMarkerSymbol(d){
-            @Override
-            protected void setWidth(float width) {
-                super.setWidth(32);
-            }
-
-            @Override
-            protected void setHeight(float height){
-                super.setHeight(32);
-            }
-        };
-        symbol.setOffsetX(8);
-        symbol.setOffsetY(8);
-
-        TextSymbol parcelLabelSym = new TextSymbol(16, Global.makani, Color.BLACK);
-        parcelLabelSym.setFontWeight(FontWeight.BOLD);
-
-        Graphic graphic = new Graphic(point, symbol);
-        graphicsLayer.addGraphic(graphic);
-
-        parcelLabelSym.setOffsetX(15);
-        parcelLabelSym.setOffsetY(15);
-
-        Graphic graphic2 = new Graphic(point, parcelLabelSym);
-        graphicsLayer.addGraphic(graphic2);
-
-        mMapView.setVisibility(View.VISIBLE);
-        mMapView.centerAt(point, true);
-
-        mMapView.zoomToScale(mMapView.getCenter(),999);
-        //mMapView.zoomTo(point,999);
-        mapToolbar.setVisibility(View.VISIBLE);
-        PlotDetails.currentState.graphic=graphic;
-        if(progressDialog!=null)progressDialog.hide();
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void showSnackBar() {
@@ -912,88 +1236,6 @@ public class MapFragment extends Fragment {
         snack.show();
     }
 
-    private void findCommunity(String parcelId)
-    {
-        if (progressDialog!=null) progressDialog.show();
-        String targetLayer = Constant.GIS_LAYER_COMMUNITY_URL;
-        String[] queryArray = { targetLayer, "COMM_NUM  = " + parcelId.substring(0,3) + "" };
-        CommunityQueryTask ayncQuery = new CommunityQueryTask();
-        ayncQuery.execute(queryArray);
-
-        hasCommunityTaskCompleted=false;
-    }
-
-    private class CommunityQueryTask extends  AsyncTask<String,Void,FeatureResult>
-    {
-
-        @Override
-        protected FeatureResult doInBackground(String... queryArray) {
-            if (queryArray == null || queryArray.length <= 1)
-                return null;
-
-            String url = queryArray[0];
-            QueryParameters qParameters = new QueryParameters();
-            String whereClause = queryArray[1];
-            qParameters.setReturnGeometry(true);
-            qParameters.setOutFields(new String[]{"*"});
-            qParameters.setWhere(whereClause);
-
-            try {
-                QueryTask qTask = new QueryTask(url,userCredentials);
-                FeatureResult results = qTask.execute(qParameters);
-                return results;
-            } catch (Exception e) {
-                EnableSearchButton();
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-        @Override
-        protected void onPostExecute(FeatureResult objects) {
-            super.onPostExecute(objects);
-            String communityEn="";
-            String communityAr="";
-
-            if(objects!=null){
-                for(Object object:objects){
-                    if(object instanceof  Feature)
-                    {
-                        Feature communityFeature=(Feature)object;
-                        if(communityFeature!=null){
-                            PlotDetails.communityEn =(String)communityFeature.getAttributeValue("COMMUNITY_E");
-                            PlotDetails.communityAr=(String)communityFeature.getAttributeValue("COMMUNITY_A");
-                            PlotDetails.emailParam=new EmailParam();
-                            PlotDetails.emailParam.communityAr=PlotDetails.communityAr;
-                            PlotDetails.emailParam.communityEn=PlotDetails.communityEn;
-                            PlotDetails.emailParam.plotArea=PlotDetails.area;
-                            showSnackBar();
-                            //findCommunity(parcelId);
-                        }
-                        hasCommunityTaskCompleted=true;
-                        //btnNextFlow.setEnabled(true);
-                        btnFind.setEnabled(true);
-                        imgNext.setEnabled(true);
-                        //imgNext.setVisibility(View.GONE);
-                        imgNext.startAnimation(animation);
-                        if(progressDialog!=null) progressDialog.hide();
-
-                        return;
-                    }
-                }
-            }
-
-            hasCommunityTaskCompleted=true;
-            //btnNextFlow.setEnabled(true);
-            imgNext.setEnabled(true);
-            //imgNext.setVisibility(View.GONE);
-            btnFind.setEnabled(true);
-            if(progressDialog!=null) progressDialog.hide();
-            imgNext.startAnimation(animation);
-//            showSnackBar();
-        }
-    }
 
     @Override
     public void onPause() {
@@ -1029,7 +1271,7 @@ public class MapFragment extends Fragment {
                 imgNext.setVisibility(View.VISIBLE);
         }
         // Start the MapView threads running again
-        mMapView.unpause();
+        mMapView.resume();
     }
 
 
@@ -1038,253 +1280,21 @@ public class MapFragment extends Fragment {
         super.onDestroyView();
 
         // Must remove our layers from MapView before calling recycle(), or we won't be able to reuse them
-        //mMapView.setExtent(initExtent);
-        dynamicLayer.cancelPendingTasks();
-        dynamicLayer.recycle();
 
-        mMapView.removeLayer(dynamicLayer);
-        mMapView.removeLayer(graphicsLayer);
-        //mMapView.removeAll();
+        //dynamicLayer.cancelPendingTasks();
+        //dynamicLayer.recycle();
+
+        //mMapView.removeLayer(dynamicLayer);
+        //mMapView.removeLayer(graphicsLayer);
+
 
         // Release MapView resources
-        mMapView.recycle();
-
+        //mMapView.recycle();
+        mMapView.dispose();
         mMapView = null;
     }
 
-
-
-    private class AsyncQueryTask extends AsyncTask<String, Void, FeatureResult> {
-
-        @Override
-        protected void onPreExecute() {
-
-        }
-
-        /**
-         * First member in string array is the query URL; second member is the
-         * where clause.
-         */
-        @Override
-        protected FeatureResult doInBackground(String... queryArray) {
-
-            if (queryArray == null || queryArray.length <= 1)
-                return null;
-
-            String url = queryArray[0];
-            QueryParameters qParameters = new QueryParameters();
-            qParameters.setOutFields(new String[]{"*"});
-            String whereClause = queryArray[1];
-            qParameters.setReturnGeometry(true);
-            qParameters.setWhere(whereClause);
-
-
-            try {
-                QueryTask qTask = new QueryTask(url,userCredentials);
-                FeatureResult results = qTask.execute(qParameters);
-                return results;
-            } catch (Exception e) {
-                EnableSearchButton();
-                e.printStackTrace();
-            }
-            return null;
-
-        }
-
-        @Override
-        protected void onPostExecute(FeatureResult results) {
-
-            String message = "No result comes back";
-            graphicsLayer.removeAll();
-            PlotDetails.plotGeometry=null;
-            if (results != null && mMapView!=null) {
-                int size = (int) results.featureCount();
-                //progress.incrementProgressBy(size / 100);
-                for (Object element : results)
-                    if (element instanceof Feature) {
-                        Feature feature = (Feature) element;
-
-                        SimpleLineSymbol sls = new SimpleLineSymbol(Color.RED, 3, SimpleLineSymbol.STYLE.SOLID);
-                        SimpleFillSymbol simpleFillSymbol = new SimpleFillSymbol(Color.argb(30, 243, 247, 129), SimpleFillSymbol.STYLE.SOLID);
-                        simpleFillSymbol.setOutline(sls);
-
-                        PlotDetails.plotGeometry=feature.getGeometry();
-                        final Graphic graphic = new Graphic(feature.getGeometry(), simpleFillSymbol, feature.getAttributes());
-                        graphicsLayer.addGraphic(graphic);
-
-                        //ADD Label graphic to the map
-                        Envelope env = new Envelope();
-                        feature.getGeometry().queryEnvelope(env);
-                        //env.getCenter();
-
-                        parcelCenter = new Point(env.getCenter().getX(), env.getCenter().getY());
-                        if(feature.getAttributeValue("SHAPE.AREA")!=null)
-                            PlotDetails.area = Global.round((double)feature.getAttributeValue("SHAPE.AREA"),2);
-
-                        feature.getAttributeValue("PARCEL_ID");
-
-                        //---------------
-
-                        if(isMakani == true){
-                            SpatialReference mSR = SpatialReference.create(3997);
-                            //Point point = GeometryEngine.project(longitude,latitude,  mSR);
-                            Point point = new Point(latitude, longitude);
-                            Polygon poly = GeometryEngine.buffer(point,mSR,200,null);
-                            Envelope envMakani =new Envelope();
-                            ((Geometry) poly).queryEnvelope(envMakani);
-                            mMapView.setExtent(envMakani);
-
-                            txtPlotNo.setVisibility(View.VISIBLE);
-                            //Point point = new Point(latitude, longitude);
-                            //SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(Color.RED, 12,SimpleMarkerSymbol.STYLE.CIRCLE); //size 12, style of circle
-                            Drawable d = getResources().getDrawable(R.drawable.makani);
-                            PictureMarkerSymbol symbol = new PictureMarkerSymbol(d){
-                                @Override
-                                protected void setWidth(float width) {
-                                    super.setWidth(32);
-                                }
-
-                                @Override
-                                protected void setHeight(float height){
-                                    super.setHeight(32);
-                                }
-                            };
-                            symbol.setOffsetX(8);
-                            symbol.setOffsetY(8);
-
-                            TextSymbol parcelLabelSym = new TextSymbol(16, Global.makani, Color.BLACK);
-                            parcelLabelSym.setFontWeight(FontWeight.BOLD);
-
-                            Graphic graphicMk = new Graphic(point, symbol);
-                            graphicsLayer.addGraphic(graphicMk);
-
-                            parcelLabelSym.setOffsetX(15);
-                            parcelLabelSym.setOffsetY(15);
-
-                            Graphic graphic2 = new Graphic(point, parcelLabelSym);
-                            graphicsLayer.addGraphic(graphic2);
-                        } else {
-                            TextSymbol parcelLabelSym = new TextSymbol(16, parcelId, Color.BLACK);
-                            parcelLabelSym.setFontWeight(FontWeight.BOLD);
-                            TextSymbol parcelLabelSym2 = new TextSymbol(16, parcelId, Color.WHITE);
-                            parcelLabelSym2.setFontWeight(FontWeight.BOLD);
-                            TextSymbol parcelLabelSym3 = new TextSymbol(16, parcelId, Color.WHITE);
-                            parcelLabelSym3.setFontWeight(FontWeight.BOLD);
-
-                            parcelLabelSym2.setOffsetX(1);
-                            parcelLabelSym2.setOffsetY(-1);
-                            Graphic textLabel2 = new Graphic(parcelCenter, parcelLabelSym2);
-
-                            parcelLabelSym3.setOffsetX(-1);
-                            parcelLabelSym3.setOffsetY(1);
-                            Graphic textLabel3 = new Graphic(parcelCenter, parcelLabelSym3);
-
-                            graphicsLayer.addGraphic(textLabel2);
-                            graphicsLayer.addGraphic(textLabel3);
-                            Graphic textLabel = new Graphic(parcelCenter, parcelLabelSym);
-                            graphicsLayer.addGraphic(textLabel);
-
-                            PlotDetails.currentState.textLabel=textLabel;
-                            PlotDetails.currentState.textLabel2=textLabel2;
-                            PlotDetails.currentState.textLabel3=textLabel3;
-                        }
-
-                        //---------------
-
-
-                        mMapView.setExtent(feature.getGeometry(), extentPadding);
-                        mMapView.setVisibility(View.VISIBLE);
-                        mapToolbar.setVisibility(View.VISIBLE);
-                        //mMapView.zoomToScale(parcelCenter, 1000);
-                        PlotDetails.parcelNo=parcelId;
-                        Global.addToParcelHistory(parcelId,getActivity());
-
-                        if(onZoomListener==null){
-                            onZoomListener=new OnZoomListener() {
-                                @Override
-                                public void preAction(float v, float v1, double v2) {
-
-                                }
-
-                                @Override
-                                public void postAction(float v, float v1, double v2) {
-                                    createExportParams();
-                                    if(PlotDetails.communityEn==null)
-                                        //invokeFindCommunity();
-                                    {
-                                        findCommunity(parcelId);
-                                    }
-                                    else
-                                    {
-                                        PlotDetails.emailParam.communityAr=PlotDetails.communityAr;
-                                        PlotDetails.emailParam.communityEn=PlotDetails.communityEn;
-                                        hasCommunityTaskCompleted=true;
-                                        //btnNextFlow.setEnabled(true);
-                                        btnFind.setEnabled(true);
-                                        imgNext.setEnabled(true);
-                                        if(progressDialog!=null)progressDialog.hide();
-                                    }
-
-                                    mMapView.setOnZoomListener(null);
-                                }
-                            };
-
-                        }
-                        mMapView.setOnZoomListener(onZoomListener);
-
-                        //mMapView.zoomout();
-
-                        PlotDetails.currentState.graphic=graphic;
-                        PlotDetails.currentState.parcelCenter=parcelCenter;
-                        PlotDetails.currentState.zoomScale=1000;
-                        /*PlotDetails.currentState.textLabel=textLabel;
-                        PlotDetails.currentState.textLabel2=textLabel2;
-                        PlotDetails.currentState.textLabel3=textLabel3;*/
-
-                        final Timer timer=new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                if(mMapView!=null)
-                                mMapView.zoomout();
-                                timer.cancel();
-                            }
-                        }, 1000*1);
-
-
-
-
-                    }
-                // update message with results
-                message = String.valueOf(results.featureCount())
-                        + " results have returned from query.";
-
-                if(size==0){
-                    btnFind.setEnabled(true);
-                    progressDialog.hide();
-                    btnBookmark.setEnabled(false);
-                    imgNext.setVisibility(View.GONE);
-                    imgNext.clearAnimation();
-                    Toast.makeText(MapFragment.this.getActivity(), R.string.plot_does_not_exist,
-                            Toast.LENGTH_LONG).show();
-                    dynamicLayer.refresh();
-                }else{
-                    btnBookmark.setEnabled(true);
-                    imgNext.setVisibility(View.VISIBLE);
-
-                }
-            }
-            else{
-                if(progressDialog!=null)progressDialog.hide();
-            }
-            hasPlotTaskCompleted=true;
-            cancel(true);
-        }
-
-
-    }
-
-    private void createExportParams(){
+    public void createExportParams(){
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int height2 = displaymetrics.heightPixels;
@@ -1296,25 +1306,36 @@ public class MapFragment extends Fragment {
         int width = 664/96*(int)displaymetrics.xdpi;//664*2;
         int height = 528/96*(int)displaymetrics.ydpi;//528*2;
 
-        Point screenCenterAgs = mMapView.toScreenPoint(mMapView.getCenter());
-        dm.sime.com.kharetati.pojo.Point screenCenter = new dm.sime.com.kharetati.pojo.Point(screenCenterAgs.getX(), screenCenterAgs.getY());
+        float centreX=mMapView.getX() + mMapView.getWidth()  / 2;
+        float centreY=mMapView.getY() + mMapView.getHeight() / 2;
+
+        //Point screenCenterAgs = mMapView.locationToScreen(mMapView.center);
+        dm.sime.com.kharetati.pojo.Point screenCenter = new dm.sime.com.kharetati.pojo.Point(centreX, centreY);
 
         int toleranceWidth = width / 2;
         int toleranceHeight = height / 2;
         //int correctionTolWidth=toleranceWidth+100;
         //int correctionTolHeight=toleranceHeight+100;
 
-        Point bottomLeft = mMapView.toMapPoint((float) screenCenter.x - toleranceWidth, (float) screenCenter.y + toleranceHeight);
-        Point topRight = mMapView.toMapPoint((float) screenCenter.x + toleranceWidth, (float) screenCenter.y - toleranceHeight);
+        Point bottomLeft = mMapView.screenToLocation(new android.graphics.Point((int)screenCenter.x - toleranceWidth,  (int)screenCenter.y + toleranceHeight));
+        Point topRight = mMapView.screenToLocation(new android.graphics.Point((int)screenCenter.x + toleranceWidth, (int) screenCenter.y - toleranceHeight));
+        //Point bottomLeft = mMapView.toMapPoint((float) screenCenter.x - toleranceWidth, (float) screenCenter.y + toleranceHeight);
+        //Point topRight = mMapView.toMapPoint((float) screenCenter.x + toleranceWidth, (float) screenCenter.y - toleranceHeight);
         AgsExtent extent = new AgsExtent(bottomLeft.getX(), bottomLeft.getY(), topRight.getX(), topRight.getY());
-        Point labelPosScreenPointTmp = mMapView.toScreenPoint(parcelCenter);
-        dm.sime.com.kharetati.pojo.Point labelPosScreenPoint = new dm.sime.com.kharetati.pojo.Point(labelPosScreenPointTmp.getX(), labelPosScreenPointTmp.getY());
+        android.graphics.Point labelPosScreenPointTmp = mMapView.locationToScreen(PlotDetails.plotGeometry.getExtent().getCenter());
+        dm.sime.com.kharetati.pojo.Point labelPosScreenPoint = new dm.sime.com.kharetati.pojo.Point(labelPosScreenPointTmp.x, labelPosScreenPointTmp.y);
         String parecelID = parcelId;
         int offsetWidth = width / 2 - (int) screenCenter.x;
         int offsetHeight = height / 2 - (int) screenCenter.y;
         Polygon polygon = (Polygon) PlotDetails.plotGeometry;
-        for (int i = 0; i < polygon.getPointCount(); i++) {
-            parcelScreenCoordinates.add(new dm.sime.com.kharetati.pojo.Point(mMapView.toScreenPoint(polygon.getPoint(i)).getX()+offsetWidth, mMapView.toScreenPoint(polygon.getPoint(i)).getY()+offsetHeight));
+        ImmutablePartCollection parts = polygon.getParts();
+        for  (ImmutablePart part : parts) {
+            for (Point pt : part.getPoints())
+            {
+                Point point=new Point((int)pt.getX(),(int)pt.getY(),mMapView.getSpatialReference());
+                android.graphics.Point screen = mMapView.locationToScreen(point);
+                parcelScreenCoordinates.add(new dm.sime.com.kharetati.pojo.Point(screen.x+offsetWidth,screen.y+offsetHeight));
+            }
         }
 
         ExportParam exportParam = new ExportParam();
@@ -1338,64 +1359,16 @@ public class MapFragment extends Fragment {
         exportParam.showCircle = false;
         exportParam.labelFontSize = 12*(int)displaymetrics.density;
         exportParam.labelPosition = new dm.sime.com.kharetati.pojo.Point(labelPosScreenPoint.x + offsetWidth, labelPosScreenPoint.y + offsetHeight);
-        exportParam.layerDefs = "3:COMM_PARCEL_ID=" + parcelId + ";6:PARCEL_ID=" + parcelId + ";7:PARCEL_ID=" + parcelId;
+        exportParam.layerDefs = "3:COMM_PARCEL_ID=" + parcelId + ";6:PARCEL_ID=" + parcelId + ";7:PARCEL_ID=" + parcelId+";10:PARCEL_ID=" + parcelId;
 
         PlotDetails.exportParam=exportParam;
+        if(PlotDetails.emailParam!=null)PlotDetails.emailParam.plotnumber=parecelID;
 
-        //Create email param
-        EmailParam emailParam=new EmailParam();
-        emailParam.plotArea=PlotDetails.area;
-        emailParam.plotnumber=parecelID;
-        PlotDetails.emailParam=emailParam;
-
-
-        //timer.cancel();
     }
-
-
-
-    private class TouchListener extends MapOnTouchListener {
-
-        public TouchListener(Context context, MapView view) {
-            super(context, view);
-            // TODO Auto-generated constructor stub
-
-            int i=0;
-        }
-        @Override
-        public boolean onSingleTap(MotionEvent event)
-        {
-            if(mMapView!=null){
-                int i=0;
-                Point mappoint= mMapView.toMapPoint(event.getX(),event.getY());
-                if(btnFind.isEnabled() && PlotDetails.plotGeometry!=null && mappoint !=null && GeometryEngine.contains(PlotDetails.plotGeometry,mappoint,mMapView.getSpatialReference()))
-                {
-                    goToNext();
-
-                }
-                return true;
-            }
-            else{
-                return false;
-            }
-        }
-    }
-
-
 
     public void goToNext(){
 
-        //mMapView.setExtent(initExtent);
-        //dynamicLayer.refresh();
-        //mMapView.destroyDrawingCache();
-        /*final Timer timer=new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                communicator.navigateToFlowSelect("");
-            }
-        },1000);*/
-        //createExportParams();
+
         if (!Global.isConnected(getActivity())) {
 
             if(Global.appMsg!=null)
@@ -1405,11 +1378,11 @@ public class MapFragment extends Fragment {
 
         }
         else{
-        Global.hideSoftKeyboard(getActivity());
-        imgNext.clearAnimation();
-        if(snack!=null)
-            snack.dismiss();
-        communicator.navigateToFlowSelect("");
+            Global.hideSoftKeyboard(getActivity());
+            imgNext.clearAnimation();
+            if(snack!=null)
+                snack.dismiss();
+            communicator.navigateToFlowSelect("");
         }
     }
     @Override
@@ -1428,7 +1401,6 @@ public class MapFragment extends Fragment {
 
         }
         super.onDestroy();
-
     }
 
 }

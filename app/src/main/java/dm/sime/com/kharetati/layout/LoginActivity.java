@@ -9,10 +9,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -39,11 +44,15 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import ae.sdg.libraryuaepass.UAEPassAccessTokenCallback;
@@ -319,9 +328,11 @@ public class LoginActivity extends AppCompatActivity {
                   return;
               }
               uaeLogin();
+
           }
       });
       ImageView imgUaePass = (ImageView) findViewById(R.id.imgUAEPass);
+
       imgUaePass.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -330,6 +341,7 @@ public class LoginActivity extends AppCompatActivity {
                   return;
               }
               uaeLogin();
+
           }
       });
 
@@ -354,7 +366,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                   try {
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     if (response != null) {
                       Gson gson = new GsonBuilder().serializeNulls().create();
                       UaePassConfig uaePassConfig = gson.fromJson(response.toString(), UaePassConfig.class);
@@ -373,7 +385,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
           if(error instanceof AuthFailureError)
             Global.logout(LoginActivity.this);
-          progressDialog.hide();
+          if(progressDialog!=null)progressDialog.cancel();
           VolleyLog.e("Error: ", error.getMessage());
           AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
         }
@@ -410,6 +422,26 @@ public class LoginActivity extends AppCompatActivity {
                         if(progressDialog!=null) progressDialog.cancel();
                         if (configResponse != null) {
                             Global.uaePassConfig =  configResponse;
+                            Constant.BASE_AUXULARY_URL_UAE_SESSION =Global.uaePassConfig.getAuxiliaryServiceUrl();
+
+                            if(Global.uaePassConfig.disableMyId){
+                                ((LinearLayout)findViewById(R.id.layoutMYId)).setVisibility(View.GONE);
+                                ((LinearLayout)findViewById(R.id.layoutUae)).setVisibility(View.VISIBLE);
+                                LinearLayout.LayoutParams params= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                params.setMargins(0,500,0,0);
+                                ((LinearLayout)findViewById(R.id.layoutUae)).setLayoutParams(params);
+                                ((LinearLayout)findViewById(R.id.layoutUae)).setGravity(Gravity.CENTER);
+                            }
+                            else{
+                                ((LinearLayout)findViewById(R.id.layoutMYId)).setVisibility(View.VISIBLE);
+                                ((LinearLayout)findViewById(R.id.layoutUae)).setVisibility(View.VISIBLE);
+                                LinearLayout.LayoutParams params= new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+                                params.setMargins(0,0,0,0);
+                                ((LinearLayout)findViewById(R.id.layoutUae)).setLayoutParams(params);
+                                ((LinearLayout)findViewById(R.id.layoutUae)).setGravity(Gravity.CENTER);
+
+                            }
+
                         } else {
                             AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
                         }
@@ -433,34 +465,49 @@ public class LoginActivity extends AppCompatActivity {
     }
   }
 
-  private void uaeLogin(){
+  public void uaeLogin() {
+     /* File cache = this.getDataDir();
+      clearApplicationData(cache);*/
+      CookieSyncManager.createInstance(this);
+      CookieManager cookieManager = CookieManager.getInstance();
+      cookieManager.removeAllCookie();
       if(!Global.isConnected(this)){
           AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.internet_connection_problem1), getString(R.string.ok), LoginActivity.this);
           return;
       } else {
           if (Global.uaePassConfig != null) {
 
+
+
               String clientId = Encryptions.decrypt(Global.uaePassConfig.UAEID_clientid);
+              String language = Global.getCurrentLanguage(this).compareToIgnoreCase("en") == 0 ? "en" : "ar";
               String secretId = Encryptions.decrypt(Global.uaePassConfig.UAEID_secret);
               String callbackUrl = Encryptions.decrypt(Global.uaePassConfig.UAEID_callback_url);
+
               if (UAEPassRequestModels.isPackageInstalled(UAEPassRequestModels.UAE_PASS_PACKAGE_ID, getPackageManager())) {
+
+
                   UAEPassAccessTokenRequestModel requestModel =
                           UAEPassRequestModels.getAuthenticationRequestModel(this,
                                   clientId, secretId, callbackUrl, Global.uaePassConfig.getUAE_PASS_ENVIRONMENT(),
-                                  Global.uaePassConfig.UAE_PASS_SCOPE, Global.uaePassConfig.UAE_PASS_ACR_VALUES_MOBILE, Global.uaePassConfig.UAE_PASS_ACR_VALUES_WEBVIEW);
+                                  Global.uaePassConfig.UAE_PASS_SCOPE, Global.uaePassConfig.UAE_PASS_ACR_VALUES_MOBILE, Global.uaePassConfig.UAE_PASS_ACR_VALUES_WEBVIEW,language);
 
                   UAEPassController.getInstance().getAccessToken(this, requestModel, new UAEPassAccessTokenCallback() {
                       @Override
                       public void getToken(String accessToken, String error) {
                           Global.accessToken = accessToken;
                           Global.uae_access_token = accessToken;
+                          if(error!=null){
+                              if(progressDialog!=null)progressDialog.cancel();
+                              AlertDialogUtil.errorAlertDialog("",getString(R.string.uaeloginfail),getString(R.string.ok),LoginActivity.this);}
+                          else if(Global.accessToken!=null)
+                              getUAESessionToken(accessToken);
 
-                          getUAESessionToken(accessToken);
                       }
                   });
 
               } else {
-                  String language = Global.getCurrentLanguage(this).compareToIgnoreCase("en") == 0 ? "en" : "ar";
+
                   String authUrl = Global.uaePassConfig.getAuthCodeUAEID_url.endsWith("?") ? Global.uaePassConfig.getAuthCodeUAEID_url : Global.uaePassConfig.getAuthCodeUAEID_url + "?";
                   String url = authUrl + "redirect_uri=" + callbackUrl + "&client_id=" + clientId + "&state=" + secretId + "&response_type=code&scope=" + Global.uaePassConfig.UAE_PASS_SCOPE + "&acr_values=" + Global.uaePassConfig.UAE_PASS_ACR_VALUES_WEBVIEW + "&ui_locales=" + language;
 
@@ -469,6 +516,7 @@ public class LoginActivity extends AppCompatActivity {
                   startActivity(intent);
               }
           }
+
       }
   }
 
@@ -487,16 +535,18 @@ public class LoginActivity extends AppCompatActivity {
                 String callbackUrl = Encryptions.decrypt(Global.uaePassConfig.UAEID_callback_url);
                 String language = Global.getCurrentLanguage(this).compareToIgnoreCase("en") == 0 ? "en" : "ar";
                 String accessTokenUrl = Global.uaePassConfig.getGetAccessTokenUAEID_url().endsWith("?") ? Global.uaePassConfig.getGetAccessTokenUAEID_url() : Global.uaePassConfig.getGetAccessTokenUAEID_url() + "?";
-                String url = accessTokenUrl + "grand_type=authorization_code&redirect_uri=" + callbackUrl + "&code=" + code + "ui_locales=" + language;
+                String url = accessTokenUrl + "grant_type=authorization_code&redirect_uri=" + callbackUrl + "&code=" + code /*+ "ui_locales=" + language*/;
                 Global.uae_code = "";
                 Global.isUAEaccessWeburl = false;
 
-                JsonObjectRequest req = new JsonObjectRequest(url, null,
+                //JsonObjectRequest req2=new JsonObjectRequest()
+
+                JsonObjectRequest req = new JsonObjectRequest(POST,url, null,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    progressDialog.hide();
+                                    if(progressDialog!=null)progressDialog.cancel();
                                     if (response != null) {
                                         Gson gson = new GsonBuilder().serializeNulls().create();
                                         UAEAccessTokenResponse uaeAccessTokenResponse = gson.fromJson(response.toString(), UAEAccessTokenResponse.class);
@@ -510,6 +560,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Global.accessToken = uaeAccessTokenResponse.getAccess_token();
                                             getUAESessionToken(uaeAccessTokenResponse.getAccess_token());
                                         } else {
+                                            if(progressDialog!=null)progressDialog.cancel();
                                             AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
                                         }
                                     }
@@ -522,7 +573,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         if (error instanceof AuthFailureError)
                             Global.logout(LoginActivity.this);
-                        progressDialog.hide();
+                        if(progressDialog!=null)progressDialog.cancel();
                         VolleyLog.e("Error: ", error.getMessage());
                         AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
                     }
@@ -530,7 +581,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public Map<String, String> getHeaders() {
                         Map<String, String> params = new HashMap<>();
-                        params.put("token", Global.accessToken);
+                        //params.put("token", Global.accessToken);
+                        String auth1=Global.clientID+":"+Global.state;
+                        String auth = "Basic " + android.util.Base64.encodeToString(auth1.getBytes(), Base64.NO_WRAP);
+                        params.put("Accept", "application/json");
+                        params.put("Content-Type", "application/x-www-form-urlencoded");
+                        params.put("Authorization", auth);
                         return params;
                     }
                 };
@@ -543,9 +599,63 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
         Global.isUAEAccessToken = false;
-        Global.clientID = "";
-        Global.state = "";
+        // Global.clientID = "";
+        // Global.state = "";
     }
+/*
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getUAEAccessToken(String code){
+        Global.isUAEAccessToken = true;
+        String clientId = Encryptions.decrypt(Global.uaePassConfig.UAEID_clientid);
+        String secretId = Encryptions.decrypt(Global.uaePassConfig.UAEID_secret);
+        Global.clientID = clientId;
+        Global.state = secretId;
+        Global.authValue = Global.clientID+":"+Global.state;
+
+        progressDialog.show();
+
+        Log.v(TAG, "UAE Pass App: getUAEAccessToken(): calling");
+
+
+        if(Global.uaePassConfig != null){
+
+            String callbackUrl = Encryptions.decrypt(Global.uaePassConfig.UAEID_callback_url);
+            String language = Global.getCurrentLanguage(this).compareToIgnoreCase("en") == 0 ? "en" : "ar";
+            String accessTokenUrl = Global.uaePassConfig.getGetAccessTokenUAEID_url().endsWith("?") ? Global.uaePassConfig.getGetAccessTokenUAEID_url() : Global.uaePassConfig.getGetAccessTokenUAEID_url() + "?";
+            String url = accessTokenUrl + "grant_type=authorization_code&redirect_uri="+callbackUrl+"&code="+ code*//*+ "ui_locales=" + language*//*;
+            Global.uae_code = "";
+            Global.isUAEaccessWeburl = false;
+
+            Disposable disposable = repository.getUAEAccessToken(url)
+                    .subscribeOn(kharetatiApp.subscribeScheduler())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<UAEAccessTokenResponse>() {
+                        @Override public void accept(UAEAccessTokenResponse accessTokenResponse) throws Exception {
+                            Log.v(TAG, "UAE Pass App: getUAEAccessToken(): success");
+                            Global.uae_code = "";
+                            Global.isUAEaccessWeburl =false;
+                            Global.uae_access_token = accessTokenResponse.getAccess_token();
+                            Log.v(TAG, "UAE Pass App: getUAEAccessToken(): Access Token:" + accessTokenResponse.getAccess_token());
+                            Global.isUAEAccessToken = false;
+                            Global.clientID = "";
+                            Global.state = "";
+                            Global.accessToken = accessTokenResponse.getAccess_token();
+                            getUAESessionToken(accessTokenResponse.getAccess_token());
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override public void accept(Throwable throwable) throws Exception {
+                            Log.v(TAG, "UAE Pass App: getUAEAccessToken(): failed:" + throwable.getMessage());
+                            showErrorMessage();
+                            if(progressDialog!=null)progressDialog.cancel();
+                        }
+                    });
+
+            compositeDisposable.add(disposable);
+        }
+        *//*Global.isUAEAccessToken = false;
+        Global.clientID = "";
+        Global.state = "";*//*
+    }*/
 
     public void getUAESessionToken(String code){
         if(!Global.isConnected(this)){
@@ -561,6 +671,7 @@ public class LoginActivity extends AppCompatActivity {
 
             String url = Constant.BASE_AUXULARY_URL_UAE_SESSION + "getsessionuaepass/" + code + "/" + Global.getPlatformRemark();
             if (!Global.isConnected(this)) {
+                if(progressDialog!=null)progressDialog.cancel();
                 if(Global.appMsg!=null)
                     AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),Constant.CURRENT_LOCALE.equals("en")?Global.appMsg.getInternetConnCheckEn():Global.appMsg.getInternetConnCheckAr() , getResources().getString(R.string.ok), this);
                 else
@@ -576,12 +687,18 @@ public class LoginActivity extends AppCompatActivity {
                             public void accept(SessionUaePassResponse uaeSessionResponse) throws Exception {
                                 Log.v(TAG, "UAE Pass App: getUAESessionToken(): success");
                                 Global.uaeSessionResponse = uaeSessionResponse;
-                                Log.v(TAG, "UAE Pass App: getUAESessionToken(): sessionToken:" + uaeSessionResponse.getService_response().getUAEPASSDetails().getUuid());
-                                login(true);
+                                //og.v(TAG, "UAE Pass App: getUAESessionToken(): sessionToken:" + uaeSessionResponse.getService_response().getUAEPASSDetails().getUuid());
+                                if(!Boolean.valueOf(uaeSessionResponse.getIs_exception()))
+                                    login(true);
+                                else{
+                                    if(progressDialog!=null)progressDialog.cancel();
+                                    Global.accessToken=null;
+                                    AlertDialogUtil.errorAlertDialog("",Global.getCurrentLanguage(LoginActivity.this).equals("en")?uaeSessionResponse.getMessage():uaeSessionResponse.getMessage_ar(),getString(R.string.ok),LoginActivity.this);}
                             }
                         }, new Consumer<Throwable>() {
                             @Override
                             public void accept(Throwable throwable) throws Exception {
+                                if(progressDialog!=null)progressDialog.cancel();
                                 Log.v(TAG, "UAE Pass App: getUAESessionToken(): failed:" + throwable.getMessage());
                                 showErrorMessage();
                             }
@@ -590,9 +707,55 @@ public class LoginActivity extends AppCompatActivity {
                 compositeDisposable.add(disposable);
             }
 
+    }
+    }
+    /*public void clearApplicationData(File cache) {
+
+        File appDir = cache;
+
+        if (appDir.exists()) {
+
+            String[] children = appDir.list();
+
+            for (String s : children) {
+
+                if (!s.equals("lib")) {
+
+                    deleteDir(new File(appDir, s));
+
+                    Log.i("TAG", "File /data/data/APP_PACKAGE/" + s + " DELETED");
+
+                }
+
+            }
+
+        }
 
     }
-    }
+
+    public static boolean deleteDir(File dir) {
+
+        if (dir != null && dir.isDirectory()) {
+
+            String[] children = dir.list();
+
+            for (int i = 0; i < children.length; i++) {
+
+                boolean success = deleteDir(new File(dir, children[i]));
+
+                if (!success) {
+
+                    return false;
+
+                }
+
+            }
+
+        }
+
+        return dir.delete();
+
+    }*/
 
   private void btnContinueAsGuest() {
     try {
@@ -600,8 +763,8 @@ public class LoginActivity extends AppCompatActivity {
       //String recentToken = FirebaseInstanceId.getInstance().getToken();
       final JSONObject jsonBody = new JSONObject();
       jsonBody.put("username", "guest");
-      jsonBody.put("DeviceID", Global.deviceId);
-      jsonBody.put("DeviceType", "Android");
+      jsonBody.put("DeviceID", Global.deviceId==null? UUID.randomUUID().toString():Global.deviceId);
+      jsonBody.put("DeviceType", Global.getPlatformRemark());
       jsonBody.put("UserType", "GUEST");
 
       JsonObjectRequest req = new JsonObjectRequest(Constant.REGISTER_GUEST_USER, jsonBody,
@@ -609,7 +772,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                   try {
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     if (response != null) {
                       Gson gson = new GsonBuilder().serializeNulls().create();
                       KharetatiUser kharetatiUser = gson.fromJson(response.toString(), KharetatiUser.class);
@@ -638,11 +801,12 @@ public class LoginActivity extends AppCompatActivity {
                         Global.terms_en_url = kharetatiUser.getTerms_en_url();
                         Global.terms_ar_url = kharetatiUser.getTerms_ar_url();
                         Global.appMsg = kharetatiUser.getAppMsg();
+                        Global.mapHiddenLayers =kharetatiUser.getMapHiddenLayers();
 
 
 
 
-
+                        LoginActivity.isGuest = true;
                         Global.saveUser(LoginActivity.this, user);
                         //Intent main = new Intent(LoginActivity.this, MainActivity.class);
                         //startActivity(main);
@@ -652,10 +816,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         finish();
                       } else {
+                          if(progressDialog!=null)progressDialog.cancel();
                         AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
                       }
                     }
                   } catch (Exception e) {
+                      if(progressDialog!=null)progressDialog.cancel();
                     e.printStackTrace();
                   }
                 }
@@ -664,7 +830,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
           if(error instanceof AuthFailureError)
             Global.logout(LoginActivity.this);
-          progressDialog.hide();
+          if(progressDialog!=null)progressDialog.cancel();
           VolleyLog.e("Error: ", error.getMessage());
           AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.generic_error_message), getString(R.string.ok), LoginActivity.this);
         }
@@ -679,6 +845,9 @@ public class LoginActivity extends AppCompatActivity {
       progressDialog.setMessage(getString(R.string.msg_loading));
       progressDialog.show();
       ApplicationController.getInstance().addToRequestQueue(req);
+        req.setRetryPolicy(new DefaultRetryPolicy(
+                (int) TimeUnit.SECONDS.toMillis(240),0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
     } catch (JSONException e) {
       e.printStackTrace();
@@ -717,15 +886,17 @@ public class LoginActivity extends AppCompatActivity {
                   @Override
                   public void onResponse(JSONObject response) {
                     try {
-                      progressDialog.hide();
+                      if(progressDialog!=null)progressDialog.cancel();
                       if (response != null) {
                         Gson gson = new GsonBuilder().serializeNulls().create();
                           AccessTokenResponse accessTokenResponse = gson.fromJson(response.toString(), AccessTokenResponse.class);
                         if (accessTokenResponse != null && accessTokenResponse.getError() == null) {
                           Global.hideSoftKeyboard(LoginActivity.this);
                           Global.isUserLoggedIn = true;
+                          if(!isUAE){
                           Global.loginDetails.username = username;
                           Global.loginDetails.pwd = pwd;
+                          }
                           //Global.loginDetails.showFormPrefilledOnRememberMe=false;
                           Global.arcgis_token =accessTokenResponse.getArcgis_token();
                           Global.accessToken=accessTokenResponse.getAccess_token();
@@ -749,6 +920,7 @@ public class LoginActivity extends AppCompatActivity {
                           Global.terms_en_url = accessTokenResponse.getTerms_en_url();
                           Global.terms_ar_url = accessTokenResponse.getTerms_ar_url();
                           Global.appMsg = accessTokenResponse.getAppMsg();
+                          Global.mapHiddenLayers =accessTokenResponse.getMapHiddenLayers();
 
 
                           AttachmentBitmap.letter_from_owner=null;
@@ -766,15 +938,20 @@ public class LoginActivity extends AppCompatActivity {
                           Constant.parcelLayerExportUrl_en=accessTokenResponse.parcelLayerExportUrl_en!=null && accessTokenResponse.parcelLayerExportUrl_en!=""?       accessTokenResponse.parcelLayerExportUrl_en + "?token=" + Global.arcgis_token:Constant.parcelLayerExportUrl_en + "?token=" + Global.arcgis_token;
                           Constant.parcelLayerExportUrl_ar=accessTokenResponse.parcelLayerExportUrl_ar!=null && accessTokenResponse.parcelLayerExportUrl_ar!=""?       accessTokenResponse.parcelLayerExportUrl_ar + "?token=" + Global.arcgis_token:Constant.parcelLayerExportUrl_ar + "?token=" + Global.arcgis_token;
                           Constant.plot_layerid=accessTokenResponse.plot_layerid!=null && accessTokenResponse.plot_layerid!=""?accessTokenResponse.plot_layerid:Constant.plot_layerid;
-                          Global.addToUserNamesHistory(username,LoginActivity.this);
-                          PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString(USER_LOGIN_DETAILS, gson.toJson(Global.loginDetails)).apply();
+
+                          if(!isUAE){
+                              Global.addToUserNamesHistory(username,LoginActivity.this);
+                              PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().putString(USER_LOGIN_DETAILS, gson.toJson(Global.loginDetails)).apply();
+                          }
                           getUserDetail(accessTokenResponse.getAccess_token(), isUAE);
                         } else {
+                            if(progressDialog!=null)progressDialog.cancel();
                           AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), getResources().getString(R.string.wrong_username_password), getResources().getString(R.string.lbl_ok), LoginActivity.this);
                         }
                       }
                     } catch (Exception e) {
                       e.printStackTrace();
+                        if(progressDialog!=null)progressDialog.cancel();
                       AlertDialogUtil.errorAlertDialog("", getResources().getString(R.string.error_response), getResources().getString(R.string.lbl_ok), LoginActivity.this);
                     }
                   }
@@ -783,7 +960,7 @@ public class LoginActivity extends AppCompatActivity {
           public void onErrorResponse(VolleyError error) {
             if(error instanceof AuthFailureError)
               Global.logout(LoginActivity.this);
-            progressDialog.hide();
+            if(progressDialog!=null)progressDialog.cancel();
             VolleyLog.e("Error: ", error.getMessage());
             Global.isUserLoggedIn = false;
             Global.loginDetails.username = null;
@@ -811,6 +988,7 @@ public class LoginActivity extends AppCompatActivity {
         Global.loginDetails.username = null;
         Global.loginDetails.pwd = null;
         e.printStackTrace();
+          if(progressDialog!=null)progressDialog.cancel();
         AlertDialogUtil.errorAlertDialog("", getResources().getString(R.string.error_response), getResources().getString(R.string.lbl_ok), LoginActivity.this);
       }
     }
@@ -827,11 +1005,35 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                   try {
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     if (response != null) {
                       JSONObject jObject = new JSONObject(response.toString());
                       User user = new User();
                       String key = "";
+
+                        if(Global.isUAE){
+                            if(CURRENT_LOCALE.equals("en")){
+
+                                if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN()!=null)
+                                    user.setFullname(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN());
+                                else if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR()!=null)
+                                    user.setFullname(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR());
+
+
+
+                            }
+                            else if(CURRENT_LOCALE.equals("ar")){
+                                if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR()!=null)
+                                    user.setFullnameAR(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR());
+                                else if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN()!=null)
+                                    user.setFullnameAR(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN());
+                            }
+                            if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getEmail()!=null)
+                                user.setEmail(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getEmail());
+                            if(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getMobile()!=null)
+                                user.setMobile(Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getMobile());
+                        }
+
                       user.setDob(jObject.getString(key + "dob"));
                       user.setPhoto(jObject.getString(key + "photo"));
                       user.setLastname(jObject.getString(key + "lastname"));
@@ -875,10 +1077,12 @@ public class LoginActivity extends AppCompatActivity {
                       registerLoggedUser(isUAE);
                       //startActivity(intent);
                     } else {
+                        if(progressDialog!=null)progressDialog.cancel();
                       AlertDialogUtil.errorAlertDialog(getString(R.string.lbl_warning), getString(R.string.user_Detail_error), getString(R.string.lbl_ok), LoginActivity.this);
                     }
                   } catch (Exception e) {
                     e.printStackTrace();
+                      if(progressDialog!=null)progressDialog.cancel();
                     AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getTryAgainEn(): Global.appMsg.getTryAgainAr(), getResources().getString(R.string.ok), LoginActivity.this);
                   }
                 }
@@ -887,7 +1091,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
           if(error instanceof AuthFailureError)
             Global.logout(LoginActivity.this);
-          progressDialog.hide();
+          if(progressDialog!=null)progressDialog.cancel();
           VolleyLog.e("Error: ", error.getMessage());
           AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok), LoginActivity.this);
         }
@@ -908,6 +1112,7 @@ public class LoginActivity extends AppCompatActivity {
 
     } catch (Exception e) {
       e.printStackTrace();
+        if(progressDialog!=null)progressDialog.cancel();
       AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok), LoginActivity.this);
     }
   }
@@ -959,7 +1164,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(JSONObject response) {
                   try {
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     if (response != null) {
                       JSONObject jObject = new JSONObject(response.toString());
                       if (!jObject.getBoolean("isError")) {
@@ -994,6 +1199,9 @@ public class LoginActivity extends AppCompatActivity {
                         if(!isUAE)
                             getSessionID();
                         else{
+                            if(progressDialog!=null)progressDialog.cancel();
+                            LoginActivity.isGuest = false;
+                            Global.isUserLoggedIn =true;
                             Global.session = Global.uaeSessionResponse.getService_response().getToken();
                             Global.LAST_TAB = 0;
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
@@ -1003,12 +1211,13 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         }
-                      } else
-                        AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok),LoginActivity.this);
+                      } else{
+                          if(progressDialog!=null)progressDialog.cancel();
+                        AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok),LoginActivity.this);}
                     }
                   } catch (Exception e) {
                     e.printStackTrace();
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok), LoginActivity.this);
                   }
                 }
@@ -1017,7 +1226,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
           if(error instanceof AuthFailureError)
             Global.logout(LoginActivity.this);
-          progressDialog.hide();
+          if(progressDialog!=null)progressDialog.cancel();
           VolleyLog.e("Error: ", error.getMessage());
           AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn(): Global.appMsg.getErrorFetchingDataAr(), getResources().getString(R.string.ok), LoginActivity.this);
         }
@@ -1044,6 +1253,7 @@ public class LoginActivity extends AppCompatActivity {
       Global.loginDetails.username = null;
       Global.loginDetails.pwd = null;
       e.printStackTrace();
+        if(progressDialog!=null)progressDialog.cancel();
     }
   }
 
@@ -1056,13 +1266,15 @@ public class LoginActivity extends AppCompatActivity {
     try {
       Map<String, Object> params = new HashMap<>();
       params.put("accessToken", Global.accessToken);
+      params.put("remarks", Global.getPlatformRemark());
+
       final JSONObject jsonBody = new JSONObject(params);
       JsonObjectRequest req = new JsonObjectRequest(POST,Constant.MYID_SESSION_ID, jsonBody,
               new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                   try {
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     if (response != null) {
                       Gson gson = new GsonBuilder().serializeNulls().create();
                       SessionResponse accessTokenResponse = gson.fromJson(response.toString(), SessionResponse.class);
@@ -1074,8 +1286,9 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                       }
-                      else if(accessTokenResponse!=null)
-                          AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? accessTokenResponse.getMessage(): accessTokenResponse.getMessage_ar(), getResources().getString(R.string.ok), LoginActivity.this);
+                      else if(accessTokenResponse!=null){
+                          if(progressDialog!=null)progressDialog.cancel();
+                          AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? accessTokenResponse.getMessage(): accessTokenResponse.getMessage_ar(), getResources().getString(R.string.ok), LoginActivity.this);}
 
 
                     }
@@ -1090,7 +1303,7 @@ public class LoginActivity extends AppCompatActivity {
         public void onErrorResponse(VolleyError error) {
           if(error instanceof AuthFailureError)
             //Global.logout(LoginActivity.this);
-            progressDialog.hide();
+            if(progressDialog!=null)progressDialog.cancel();
           VolleyLog.e("Error: ", error.getMessage());
           AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),
                   getResources().getString(R.string.server_connect_error),
@@ -1125,7 +1338,7 @@ public class LoginActivity extends AppCompatActivity {
   public void onDestroy() {
     super.onDestroy();
     if (progressDialog != null) {
-      progressDialog.dismiss();
+      progressDialog.cancel();
       progressDialog = null;
     }
   }
@@ -1137,6 +1350,15 @@ public class LoginActivity extends AppCompatActivity {
           //viewModel.getUAESessionToken(Global.uae_access_token);
           getUAEAccessToken(Global.uae_code);
       }
+      if(Global.isfromWebViewCancel && !UAEPassRequestModels.isPackageInstalled(UAEPassRequestModels.UAE_PASS_PACKAGE_ID, getPackageManager())){
+          AlertDialogUtil.errorAlertDialog("",getString(R.string.uaeloginfail),getString(R.string.ok),LoginActivity.this);
+          Global.isfromWebViewCancel=false;
+      }
+      else if(Global.sessionErrorMsg!=null && !UAEPassRequestModels.isPackageInstalled(UAEPassRequestModels.UAE_PASS_PACKAGE_ID, getPackageManager())){
+          AlertDialogUtil.errorAlertDialog("",Global.sessionErrorMsg,getString(R.string.ok),LoginActivity.this);
+          Global.sessionErrorMsg =null;
+      }
+
   }
 
 
@@ -1150,5 +1372,26 @@ public class LoginActivity extends AppCompatActivity {
 
        // authListener.onFailure(activity.getString(R.string.error_response));
     }
+
+   /* @Override
+    public void onBackPressed() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            super.finishAndRemoveTask();
+        }
+        else {
+            super.finish();
+        }
+    }*/
+    /*@Override
+    public void finish() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            super.finishAndRemoveTask();
+        }
+        else {
+            super.finish();
+        }
+    }*/
+
 }
 

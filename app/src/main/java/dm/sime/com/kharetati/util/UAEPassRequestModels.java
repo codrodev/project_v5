@@ -37,19 +37,19 @@ public class UAEPassRequestModels {
 
     public static UAEPassAccessTokenRequestModel getAuthenticationRequestModel(Context context, String clientID,
                                                                                String secretID, String redirectUrl, String environment,
-                                                                               String UAE_PASS_SCOPE, String UAE_ACR_VALUES_MOBILE, String UAE_ACR_VALUES_WEB) {
+                                                                               String UAE_PASS_SCOPE, String UAE_ACR_VALUES_MOBILE, String UAE_ACR_VALUES_WEB,String locale) {
         final UAEPassAccessTokenRequestModel requestModel = new UAEPassAccessTokenRequestModel();
         if (isPackageInstalled(UAE_PASS_PACKAGE_ID, context.getPackageManager())) {
             requestModel.setAcrValues(UAE_ACR_VALUES_MOBILE);
         } else {
             requestModel.setAcrValues(UAE_ACR_VALUES_WEB);
         }
-
         requestModel.setClientId(clientID);
         requestModel.setClientSecret(secretID);
         requestModel.setRedirectUrl(redirectUrl);
         requestModel.setScope(UAE_PASS_SCOPE);
         requestModel.setResponseType(RESPONSE_TYPE);
+        requestModel.setUiLocale(locale);
         if(environment.equals("PRODUCTION")) {
             requestModel.setEnvironment(Environment.PRODUCTION);
         } else {
@@ -61,9 +61,9 @@ public class UAEPassRequestModels {
     public static UAEPassDocumentSigningRequestModel getDocumentRequestModel(File file, DocumentSigningRequestParams documentSigningParams) {
 
         UAEPassDocumentSigningRequestModel requestModel = new UAEPassDocumentSigningRequestModel();
-        requestModel.setClientId(UAE_PASS_CLIENT_ID);
-        requestModel.setClientSecret(UAE_PASS_CLIENT_SECRET);
-        requestModel.setScope(DOCUMENT_SIGNING_SCOPE);
+        requestModel.setClientId(Global.uaePassConfig.getUAEID_clientid());
+        requestModel.setClientSecret(Global.uaePassConfig.getUAEID_secret());
+        requestModel.setScope(Global.uaePassConfig.getUAE_PASS_SCOPE());
         requestModel.setEnvironment(UAE_PASS_ENVIRONMENT);
         requestModel.setDocument(file);
         requestModel.setRequestObject(documentSigningParams);

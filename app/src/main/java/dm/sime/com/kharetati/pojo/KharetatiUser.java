@@ -1,5 +1,8 @@
 package dm.sime.com.kharetati.pojo;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Hasham on 8/27/2017.
  */
@@ -29,6 +32,17 @@ public class KharetatiUser {
   public String terms_ar_url;
   public String terms_en_url;
   public AppMsg appMsg;
+  @SerializedName("map_hidden_layers")
+  @Expose
+  private String[] mapHiddenLayers;
+
+  public String[] getMapHiddenLayers() {
+    return mapHiddenLayers;
+  }
+
+  public void setMapHiddenLayers(String[] mapHiddenLayers) {
+    this.mapHiddenLayers = mapHiddenLayers;
+  }
 
   public AppMsg getAppMsg() {
     return appMsg;

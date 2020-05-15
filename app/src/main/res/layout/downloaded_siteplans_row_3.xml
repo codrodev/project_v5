@@ -251,7 +251,7 @@
                     android:textAllCaps="false"
                     android:contentDescription="@string/pay"
                     android:scaleType="centerInside"
-                    android:src="@drawable/makani"/>
+                    />
             </LinearLayout>
 
         </LinearLayout>

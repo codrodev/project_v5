@@ -34,7 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.esri.core.geometry.Line;
+
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
@@ -564,26 +564,26 @@ public class MakaniFragment extends Fragment implements EditText.OnEditorActionL
         Global.makani = getMakaniNumber();
         //Global.makani = "٠١٢٣٤ ٥٦٧٨٩";
         Global.hideSoftKeyboard(getActivity());
-        if(Global.isValidTrimedString(Global.makani) && Global.makani.trim().length() == 11){
+        if (Global.isValidTrimedString(Global.makani) && Global.makani.trim().length() == 11) {
             if (!Global.isConnected(getActivity())) {
 
-                if(Global.appMsg!=null)
-                    AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),locale.equals("en")?Global.appMsg.getInternetConnCheckEn():Global.appMsg.getInternetConnCheckAr() , getResources().getString(R.string.ok), getActivity());
+                if (Global.appMsg != null)
+                    AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getInternetConnCheckEn() : Global.appMsg.getInternetConnCheckAr(), getResources().getString(R.string.ok), getActivity());
                 else
                     AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning), getResources().getString(R.string.internet_connection_problem1), getResources().getString(R.string.ok), getActivity());
                 return;
             }
             try {
-                if(Global.isProbablyArabic(Global.makani)){
+                if (Global.isProbablyArabic(Global.makani)) {
                     Global.makani = Global.arabicNumberToDecimal(Global.makani);
                 }
 
                 Map<String, Object> params = new HashMap<>();
                 params.put("MAKANI", Global.makani);
-                params.put("SESSION", Global.session);
+                params.put("SESSION", Global.session==null?"": Global.session);
                 params.put("REMARKS", Global.getPlatformRemark());
                 final JSONObject jsonBody = new JSONObject(params);
-                JsonObjectRequest req = new JsonObjectRequest(POST,Constant.MYID_MAKANI_TO_DLTM, jsonBody,
+                JsonObjectRequest req = new JsonObjectRequest(POST, Constant.MYID_MAKANI_TO_DLTM, jsonBody,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -595,45 +595,46 @@ public class MakaniFragment extends Fragment implements EditText.OnEditorActionL
                                         if (makaniToDLTMResponse != null && !Boolean.valueOf(makaniToDLTMResponse.getIs_exception())) {
                                             String dltm = makaniToDLTMResponse.getDLTMContainer().getDLTM();
                                             String parcelId = makaniToDLTMResponse.getDLTMContainer().getPARCEL_ID();
-                                            PlotDetails.parcelNo=parcelId;
+                                            PlotDetails.parcelNo = parcelId;
 
 
-                                            if(Global.isValidTrimedString(dltm)){
+                                            if (Global.isValidTrimedString(dltm)) {
                                                 Global.landNumber = null;
                                                 Global.area = null;
                                                 Global.area_ar = null;
-                                                communicator.navigateToMap(parcelId,dltm);
+                                                communicator.navigateToMap(parcelId, dltm);
                                             } else {
                                                 AlertDialogUtil.errorAlertDialog("",
-                                                        locale.equals("en")? Global.appMsg.getInvalidmakaniEn():Global.appMsg.getInvalidmakaniAr(),
+                                                        locale.equals("en") ? Global.appMsg.getInvalidmakaniEn() : Global.appMsg.getInvalidmakaniAr(),
                                                         getResources().getString(R.string.lbl_ok), getContext());
                                             }
                                         } else {
                                             AlertDialogUtil.errorAlertDialog("",
-                                                    locale.equals("en")? Global.appMsg.getInvalidmakaniEn():Global.appMsg.getInvalidmakaniAr(),
+                                                    locale.equals("en") ? Global.appMsg.getInvalidmakaniEn() : Global.appMsg.getInvalidmakaniAr(),
                                                     getResources().getString(R.string.lbl_ok), getContext());
                                         }
                                     } else {
                                         AlertDialogUtil.errorAlertDialog("",
-                                                locale.equals("en")? Global.appMsg.getInvalidmakaniEn():Global.appMsg.getInvalidmakaniAr(),
+                                                locale.equals("en") ? Global.appMsg.getInvalidmakaniEn() : Global.appMsg.getInvalidmakaniAr(),
                                                 getResources().getString(R.string.lbl_ok), getContext());
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
+                                    if (progressDialog != null) progressDialog.cancel();
                                 }
                             }
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if(error instanceof AuthFailureError)
+                        if (error instanceof AuthFailureError)
                             //Global.logout(LoginActivity.this);
-                            progressDialog.cancel();
+                            if (progressDialog != null) progressDialog.cancel();
                         VolleyLog.e("Error: ", error.getMessage());
-                        AlertDialogUtil.errorAlertDialog("",
-                                locale.equals("en")? Global.appMsg.getErrorFetchingDataEn():Global.appMsg.getErrorFetchingDataAr(),
+                        AlertDialogUtil.warningAlertDialog("",
+                                locale.equals("en") ? Global.appMsg.getErrorFetchingDataEn() : Global.appMsg.getErrorFetchingDataAr(),
                                 getResources().getString(R.string.lbl_ok), getContext());
                     }
-                }){    //this is the part, that adds the header to the request
+                }) {    //this is the part, that adds the header to the request
                     @Override
                     public Map<String, String> getHeaders() {
                         Map<String, String> params = new HashMap<>();
@@ -641,7 +642,8 @@ public class MakaniFragment extends Fragment implements EditText.OnEditorActionL
                         //params.put("SESSION", Global.session);
                         params.put("REMARKS", Global.getPlatformRemark());
                         return params;
-                    }};
+                    }
+                };
 
                 progressDialog.setMessage(getString(R.string.msg_loading));
                 progressDialog.show();
@@ -653,11 +655,11 @@ public class MakaniFragment extends Fragment implements EditText.OnEditorActionL
                 Global.loginDetails.username = null;
                 Global.loginDetails.pwd = null;
                 e.printStackTrace();
-                if(progressDialog!=null)progressDialog.cancel();
-            } finally{
-                //progressDialog.hide();
+                if (progressDialog != null) progressDialog.cancel();
+            } finally {
+
             }
-        } else if(Global.makani.trim().length() == 0) {
+        } else if (Global.makani.trim().length() == 0) {
             AlertDialogUtil.errorAlertDialog("",
                     getResources().getString(R.string.please_enter_makani),
                     getResources().getString(R.string.lbl_ok), getContext());

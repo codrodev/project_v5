@@ -1,13 +1,14 @@
+<?xml version="1.0"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mapFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="dm.sime.com.kharetati.fragment.MapFragment">
 
-    <com.esri.android.map.MapView
+    <com.esri.arcgisruntime.mapping.view.MapView
         android:id="@+id/map"
         mapoptions.ZoomLevel="16"
         mapoptions.center="25.276987, 55.296249"
@@ -20,8 +21,8 @@
         android:id="@+id/fragment_mapToolBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="55dp"
         android:orientation="horizontal">
 
@@ -36,65 +37,68 @@
             android:padding="5dp"
             android:paddingRight="5dp"
             android:scaleType="fitXY"
-            android:src="@drawable/layers_480x480"/>
+            android:src="@drawable/layers_480x480" />
 
         <ImageButton
             android:id="@+id/btnMakani"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="left|top"
-            android:contentDescription="@string/app_makani"
-            android:layout_weight="1"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:background="@null"
+            android:contentDescription="@string/app_makani"
             android:padding="5dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/makani_512x512"
-            android:layout_marginStart="10dp" />
+            app:srcCompat="@drawable/makani_512x512" />
 
         <ImageButton
             android:id="@+id/btnReset"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="left|top"
-            android:layout_weight="1"
-            android:contentDescription="@string/reload"
-            android:background="@null"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:contentDescription="@string/reload"
             android:padding="5dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/reset_512x512"
-            android:layout_marginStart="10dp" />
+            app:srcCompat="@drawable/reset_512x512" />
+
         <ImageButton
             android:id="@+id/btnBookmark"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_gravity="left|top"
-            android:layout_weight="1"
+            android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:background="@null"
             android:contentDescription="@string/bookmark"
             android:padding="5dp"
             android:scaleType="fitXY"
-            app:srcCompat="@drawable/favourites_512x512"
-            android:layout_marginStart="10dp" />
+            app:srcCompat="@drawable/favourites_512x512" />
 
     </LinearLayout>
 
     <Button
-      android:id="@+id/btnNextFlow"
-      android:layout_width="wrap_content"
-      android:layout_height="40dp"
+        android:id="@+id/btnNextFlow"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_edittext_gradient"
         android:minWidth="48dp"
         android:minHeight="48dp"
-      android:layout_gravity="bottom|center"
-      android:layout_marginBottom="10dp"
-      android:background="@drawable/rounded_edittext_gradient"
-      android:padding="10dp"
-      android:text="@string/next"
-      android:textColor="#fff"
-      android:visibility="gone" />
+        android:padding="10dp"
+        android:text="@string/next"
+        android:textColor="#fff"
+        android:visibility="gone" />
 
+
+    -
 
     <LinearLayout
         android:id="@+id/fragment_map_layoutSearch"
@@ -102,8 +106,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
 
+        -
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -129,22 +135,21 @@
                 android:background="@color/white"
                 android:digits="0123456789١٢٣٤٥٦٧٨٩١٠"
                 android:gravity="center_vertical|center_horizontal"
-                android:hint="-  -  -  -  -  -  -"
+                android:hint="- - - - - - -"
                 android:inputType="number"
-                android:textSize="16sp"
-                android:maxLength="20"/>
+                android:maxLength="20"
+                android:textSize="16sp" />
 
             <ImageButton
                 android:id="@+id/fragment_map_btnSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_weight="1"
-                android:contentDescription="@string/menu_search"
                 android:background="@color/white"
+                android:contentDescription="@string/menu_search"
                 mask:srcCompat="@android:drawable/ic_menu_search" />
-
 
         </LinearLayout>
 
@@ -156,8 +161,11 @@
             android:alpha=".9"
             android:background="@android:color/white"
             android:visibility="gone" />
+
     </LinearLayout>
 
+
+    -
 
     <LinearLayout
         android:id="@+id/fragment_map_layout_network_connection"
@@ -191,6 +199,7 @@
             android:background="@drawable/rounded_edittext_gradient"
             android:contentDescription="@string/next"
             android:text="@string/retry" />
+
     </LinearLayout>
 
 </FrameLayout>

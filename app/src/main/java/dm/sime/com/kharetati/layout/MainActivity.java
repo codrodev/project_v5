@@ -1,6 +1,7 @@
 package dm.sime.com.kharetati.layout;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -38,6 +39,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -61,8 +63,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.esri.core.io.OnSelfSignedCertificateListener;
-import com.esri.core.io.SelfSignedCertificateHandler;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
@@ -258,6 +258,8 @@ public class MainActivity extends AppCompatActivity
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
         Typeface face= Typeface.createFromAsset(getAssets(),"Dubai-Regular.ttf");
 
+       if( Global.getCurrentLanguage(this).equals("ar"))((ImageButton)findViewById(R.id.btnBack)).setRotationY(180); else ((ImageButton)findViewById(R.id.btnBack)).setRotationY(0);
+
 
             ViewGroup vg = (ViewGroup) tabLayout.getChildAt(0);
             int tabsCount = vg.getChildCount();
@@ -381,7 +383,7 @@ public class MainActivity extends AppCompatActivity
                 fullnameTxt = (TextView) findViewById(R.id.nav_header_fullname);
                 Menu menu = (Menu) navigationView.getMenu();
 
-                if(LoginActivity.isGuest){
+                if(!Global.isUserLoggedIn){
                     navigationView.getMenu().findItem(R.id.nav_profile).setVisible(false);
                     navigationView.getMenu().findItem(R.id.nav_sitePlan).setVisible(false);
                     //navigationView.getMenu().findItem(R.id.nav_bookmark).setVisible(false);
@@ -466,12 +468,13 @@ public class MainActivity extends AppCompatActivity
 
                 //Reset the menu to scroll to top
                 //((NavigationMenuView)drawerView.findViewById(R.id.grp1)).getChildAt(3).setVisibility(View.GONE);
-                if(LoginActivity.isGuest)
+                if(!Global.isUserLoggedIn)
                 ((NavigationMenuView)((NavigationView)drawerView).getChildAt(0)).scrollToPosition(0);
 
 
                 //This workflow allows users to trust a server using self-signed certificates without pre-loading the server certificate, for arcgis map services
-                SelfSignedCertificateHandler.setOnSelfSignedCertificateListener(new OnSelfSignedCertificateListener() {
+                //todo
+                /*SelfSignedCertificateHandler.setOnSelfSignedCertificateListener(new OnSelfSignedCertificateListener() {
                     @Override
                     public boolean checkServerTrusted(X509Certificate[] x509Certificates, String s) {
                         try {
@@ -483,7 +486,7 @@ public class MainActivity extends AppCompatActivity
                         return true;
                     }
                 });
-
+*/
 
             }
 
@@ -549,7 +552,7 @@ public class MainActivity extends AppCompatActivity
 
 
         MenuItem menuSignIn = (MenuItem) menu.findItem(R.id.nav_sign_in);
-        if (!LoginActivity.isGuest)
+        if (Global.isUserLoggedIn)
             menuSignIn.setTitle(R.string.logout);
         else
             menuSignIn.setTitle(R.string.login);
@@ -723,7 +726,9 @@ public class MainActivity extends AppCompatActivity
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                Global.hideSoftKeyboard(MainActivity.this);
                 if(tabLayout.getSelectedTabPosition() == 0) {
+
                     Global.LAST_TAB = tabLayout.getSelectedTabPosition();
                     tvPlot.setTypeface(face, Typeface.BOLD);
                     tvLand.setTypeface(face, Typeface.NORMAL);
@@ -1346,7 +1351,7 @@ public class MainActivity extends AppCompatActivity
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response != null) {
-                                    progressDialog.hide();
+                                    if(progressDialog!=null)progressDialog.cancel();
                                     if (!response.getBoolean("isError")) {
                                         if(showMessage){
                                             if(response.getBoolean("isExisting"))
@@ -1363,7 +1368,7 @@ public class MainActivity extends AppCompatActivity
                                     }
                                 }
                             } catch (Exception e) {
-                                progressDialog.hide();
+                                if(progressDialog!=null)progressDialog.cancel();
                                 e.printStackTrace();
                             }
                         }
@@ -1372,7 +1377,7 @@ public class MainActivity extends AppCompatActivity
                 public void onErrorResponse(VolleyError error) {
                     if(error instanceof AuthFailureError)
                         Global.logout(MainActivity.this);
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     VolleyLog.e("Error: ", error.getMessage());
                 }
             }){    //this is the part, that adds the header to the request
@@ -1425,7 +1430,7 @@ public class MainActivity extends AppCompatActivity
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response != null) {
-                                    progressDialog.hide();
+                                    if(progressDialog!=null)progressDialog.cancel();
                                     ObjectMapper mapper = new ObjectMapper();
                                     mapper.configure(DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                                     NotificationResponse notificationResponse=mapper.readValue(response.toString(),NotificationResponse.class);
@@ -1449,7 +1454,7 @@ public class MainActivity extends AppCompatActivity
 
                                 }
                             } catch (Exception e) {
-                                progressDialog.hide();
+                                if(progressDialog!=null)progressDialog.cancel();
                                 e.printStackTrace();
                             }
                         }
@@ -1458,7 +1463,7 @@ public class MainActivity extends AppCompatActivity
                 public void onErrorResponse(VolleyError error) {
                     if(error instanceof AuthFailureError)
                         Global.logout(MainActivity.this);
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                     VolleyLog.e("Error: ", error.getMessage());
                 }
             }){    //this is the part, that adds the header to the request
@@ -1491,7 +1496,7 @@ public class MainActivity extends AppCompatActivity
                         public void onResponse(JSONObject response) {
                             try {
                                 if (response != null) {
-                                    progressDialog.hide();
+                                    if(progressDialog!=null)progressDialog.cancel();
                                     if (response.getString("message").compareToIgnoreCase("success")==0) {
                                         if(response.has("totalUnRead"))
                                             setUnreadNotificationCount(response.getInt("totalUnRead"));
@@ -1563,7 +1568,7 @@ public class MainActivity extends AppCompatActivity
         }
         else if(id==R.id.nav_profile)
         {
-            if(!LoginActivity.isGuest){
+            if(Global.isUserLoggedIn){
                 if (!Global.isConnected(this)) {
                     if(Global.appMsg!=null)
                         AlertDialogUtil.errorAlertDialog(getResources().getString(R.string.lbl_warning),locale.equals("en")?Global.appMsg.getInternetConnCheckEn():Global.appMsg.getInternetConnCheckAr() , getResources().getString(R.string.ok), this);
@@ -2022,7 +2027,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onDownloadFinish(Object data) {
-        progressDialog.hide();
+        if(progressDialog!=null)progressDialog.cancel();
     }
 
 
@@ -2186,7 +2191,7 @@ public class MainActivity extends AppCompatActivity
         PlotDetails.exportParam.url=Global.getCurrentLanguage(MainActivity.this).compareToIgnoreCase("en")==0?Constant.parcelLayerExportUrl_en:Constant.parcelLayerExportUrl_ar;
         if(!Global.isConnected(this.getBaseContext())){
             AlertDialogUtil.errorAlertDialog(this.getString(R.string.lbl_warning), this.getString(R.string.internet_connection_problem1), this.getString(R.string.ok), this);
-            progressDialog.hide();
+            if(progressDialog!=null)progressDialog.cancel();
 
         }
 
@@ -2225,8 +2230,9 @@ public class MainActivity extends AppCompatActivity
 
                         String absolutePath = response.getString("absolutePath");
                         if (isEmail) {
+                            if(PlotDetails.emailParam!=null){
                             PlotDetails.emailParam.imagePath = absolutePath;
-                            PlotDetails.emailParam.locale = lang;
+                            PlotDetails.emailParam.locale = lang;}
                             Email email = new Email(getBaseContext(), activity);
                             email.openDialog();
 
@@ -2239,9 +2245,9 @@ public class MainActivity extends AppCompatActivity
                         // } else {
                         //dialog.setMessage("Export process could not create image");
                         // }
-                        progressDialog.hide();
+                        if(progressDialog!=null)progressDialog.cancel();
                     } catch (JSONException ex) {
-                        progressDialog.hide();
+                        if(progressDialog!=null)progressDialog.cancel();
                     }
 
                 }
@@ -2253,7 +2259,7 @@ public class MainActivity extends AppCompatActivity
                     if(error instanceof AuthFailureError)
                         Global.logout(MainActivity.this);
                     System.out.println("");
-                    progressDialog.hide();
+                    if(progressDialog!=null)progressDialog.cancel();
                 }
             }){    //this is the part, that adds the header to the request
                 @Override
@@ -2271,6 +2277,7 @@ public class MainActivity extends AppCompatActivity
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            if(progressDialog!=null)progressDialog.cancel();
         }
 
     }
@@ -2290,7 +2297,7 @@ public class MainActivity extends AppCompatActivity
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             dataCallback.onDownloadFinish(dataExecution);
-            progressDialog.hide();
+            if(progressDialog!=null)progressDialog.cancel();
         }
 
         @Override
@@ -2340,7 +2347,7 @@ public class MainActivity extends AppCompatActivity
             try {
 
                 startActivity(pdfIntent);
-                if(progressDialog!=null)progressDialog.dismiss();
+                if(progressDialog!=null)progressDialog.cancel();
             } catch (Exception e) {
                 dataExecution = e.getMessage();
                 genericException=e.getMessage();
@@ -2353,7 +2360,7 @@ public class MainActivity extends AppCompatActivity
     protected void onPause() {
         super.onPause();
         if(progressDialog!=null)
-            progressDialog.dismiss();
+            progressDialog.cancel();
         ((ApplicationController)this.getApplication()).startActivityTransitionTimer();
     }
 
@@ -2398,7 +2405,7 @@ public class MainActivity extends AppCompatActivity
         try{
             if (progressDialog != null)
             {
-                progressDialog.dismiss();
+                progressDialog.cancel();
                 progressDialog = null;
             }
             countDownTimer.cancel();
@@ -2459,5 +2466,17 @@ public class MainActivity extends AppCompatActivity
             toolbar.setNavigationIcon(R.drawable.arrow_white_32);
         }
     }
+   /* @Override
+    public void finish() {
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            recreate();
+            super.finishAndRemoveTask();
+        }
+        else {
+            super.finish();
+        }
+    }*/
+
 
 }

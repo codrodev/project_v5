@@ -13,6 +13,15 @@ public class Bookmark {
     public String Area;
     public boolean isParcelExistInSitePlan;
     public Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public String descriptionEn;
     public String descriptionAr;
 }

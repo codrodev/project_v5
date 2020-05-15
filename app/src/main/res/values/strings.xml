@@ -196,10 +196,10 @@ Google play:<br></br>
     <string name="High">High</string>
     <string name="MAXCLASSROOMS">Max Classrooms</string>
     <string name="MAXSTUDENTS">Max students</string>
-    <string name="GROSSFLOORAREA">Gross Floor Area</string>
-    <string name="MINOSANDPGA">Minimum Open Space and Playground Area / student</string>
+    <string name="GROSSFLOORAREA">Coverage Limit</string>
+    <string name="MINOSANDPGA">The open spaces and stadiums, including the covered areas</string>
     <string name="ALLOCATEDAREA">Allocated Area</string>
-    <string name="TOTAL">Total</string>
+    <string name="TOTAL">TOTAL</string>
     <string name="PartDetails">PARTIAL FROZEN DETAILS</string>
     <string name="ZONE_REGULATIONS">ZONE REGULATIONS</string>
     <string name="COMMUNITY">COMMUNITY</string>
@@ -581,6 +581,9 @@ Google play:<br></br>
     <string name="deed_hint">Eg: 123</string>
     <string name="sub_deed_hint">Eg: 12</string>
     <string name="login_uaepass">Login with UAE PASS</string>
+    <string name="uaeloginfail">Failed With UAE Pass Login, Please try Again</string>
+    <string name="login_with">Login with</string>
+    <string name="with_uaepass"> UAE Pass</string>
     <!--<string name="deed_hint">237</string>
     <string name="sub_deed_hint">12</string>-->
 </resources>

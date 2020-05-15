@@ -34,7 +34,8 @@ import dm.sime.com.kharetati.util.Constant;
 import dm.sime.com.kharetati.util.FontChangeCrawler;
 import dm.sime.com.kharetati.util.Global;
 
-public class LandRegistrationWebFragment extends Fragment {
+public class
+LandRegistrationWebFragment extends Fragment {
 
     private Communicator communicator;
     private ProgressDialog progressDialog;

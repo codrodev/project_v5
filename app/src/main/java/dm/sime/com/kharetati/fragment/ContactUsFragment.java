@@ -2,6 +2,7 @@ package dm.sime.com.kharetati.fragment;
 
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -23,28 +24,31 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.esri.android.map.GraphicsLayer;
-import com.esri.android.map.MapOnTouchListener;
-import com.esri.android.map.MapView;
-import com.esri.android.map.ags.ArcGISDynamicMapServiceLayer;
-import com.esri.android.map.ags.ArcGISLayerInfo;
-import com.esri.android.map.event.OnStatusChangedListener;
-import com.esri.android.runtime.ArcGISRuntime;
-import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.GeometryEngine;
-import com.esri.core.geometry.Point;
-import com.esri.core.geometry.SpatialReference;
-import com.esri.core.io.UserCredentials;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.PictureMarkerSymbol;
+
+import com.esri.arcgisruntime.ArcGISRuntimeEnvironment;
+import com.esri.arcgisruntime.geometry.Envelope;
+import com.esri.arcgisruntime.geometry.Point;
+import com.esri.arcgisruntime.geometry.SpatialReference;
+import com.esri.arcgisruntime.layers.ArcGISMapImageLayer;
+import com.esri.arcgisruntime.layers.ArcGISSublayer;
+import com.esri.arcgisruntime.loadable.LoadStatus;
+import com.esri.arcgisruntime.mapping.ArcGISMap;
+import com.esri.arcgisruntime.mapping.Basemap;
+import com.esri.arcgisruntime.mapping.view.Graphic;
+import com.esri.arcgisruntime.mapping.view.GraphicsOverlay;
+import com.esri.arcgisruntime.mapping.view.MapView;
+import com.esri.arcgisruntime.security.UserCredential;
+import com.esri.arcgisruntime.symbology.PictureMarkerSymbol;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -92,9 +96,10 @@ public class ContactUsFragment extends Fragment implements PhoneCallPermissionIn
   private Communicator communicator;
   private Tracker mTracker;
   private MapView mMapView;
-  private ArcGISDynamicMapServiceLayer dynamicLayer;
+  private ArcGISMapImageLayer dynamicLayer;
   private View layoutMap;
   private String locale;
+  private ProgressDialog progressDialog;
 
   public ContactUsFragment() {
     // Required empty public constructor
@@ -152,6 +157,9 @@ public class ContactUsFragment extends Fragment implements PhoneCallPermissionIn
     TVDMPhoneNumber.setText(DM_PHONE_NUMBER + "");
     TVDMEmail.setText(DM_EMAIL);
     TVDMWebsite.setText(DM_WEB_SITE + "");
+    progressDialog= new ProgressDialog(getActivity());
+    progressDialog.setCancelable(false);
+    progressDialog.setMessage(getActivity().getString(R.string.loading));
 
     v.findViewById(R.id.LLPhoneContainer).setOnClickListener(new View.OnClickListener() {
       @Override
@@ -322,33 +330,153 @@ public class ContactUsFragment extends Fragment implements PhoneCallPermissionIn
   }
 
   public void initMap(View v){
-    ArcGISRuntime.setClientId(Constant.ESRI_SDK_CLIENTID);
-    UserCredentials userCredentials = new UserCredentials();
-    userCredentials.setUserAccount(Constant.GIS_LAYER_USERNAME,Constant.GIS_LAYER_PASSWORD);
-    userCredentials.setTokenServiceUrl(Constant.GIS_LAYER_TOKEN_URL);
-
-    int[] visible={5};
-    dynamicLayer  = new ArcGISDynamicMapServiceLayer(Constant.GIS_LAYER_URL,visible,userCredentials);
-
+    ArcGISRuntimeEnvironment.setLicense("runtimelite,1000,rud3984007683,none,GB2PMD17J0YJ2J7EZ071");
+    UserCredential userCredentials = new UserCredential(Constant.GIS_LAYER_USERNAME,Constant.GIS_LAYER_PASSWORD);
+    /*userCredentials.setUserAccount(Constant.GIS_LAYER_USERNAME,Constant.GIS_LAYER_PASSWORD);*/
+    if(progressDialog!=null) progressDialog.show();
     mMapView = (MapView)v.findViewById(R.id.mapContactUs);
-    mMapView.addLayer(dynamicLayer);
+    ArcGISMap map = new ArcGISMap();
+    dynamicLayer  = new ArcGISMapImageLayer(Constant.GIS_LAYER_URL);
+    dynamicLayer.setCredential(userCredentials);
+
+
+    mMapView.setAttributionTextVisible(false);
+
 
     SpatialReference mSR = SpatialReference.create(3997);
-    Point p1 = GeometryEngine.project(55.31,25.263,  mSR);
-    Point p2 = GeometryEngine.project(55.313,25.266 , mSR);
-    Envelope initExtent = new Envelope(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-    mMapView.setExtent(initExtent);
+    Envelope env = new Envelope(497649.53668657254, 2795188.158731632, 497951.78945724847, 2795520.440117718, mSR);
 
-    mMapView.setOnTouchListener(new View.OnTouchListener() {
+    mMapView.setViewpointGeometryAsync(env,-200);
+    Drawable dr = getResources().getDrawable(R.drawable.makani);
+    Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+    //Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 32, 32, true));
+
+    PictureMarkerSymbol symbol = new PictureMarkerSymbol(new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 96, 96, true)));
+    final Point graphicPoint = new Point(497818.691, 2795353.692,mSR);
+
+    Graphic graphic = new Graphic(graphicPoint,symbol);
+
+    //Add makani Icon to the map
+    GraphicsOverlay graphicsLayer = new GraphicsOverlay();
+    // mMapView.getGraphicsOverlays().add(graphicsLayer);
+
+    dynamicLayer.addDoneLoadingListener(() -> {
+      if (dynamicLayer.getLoadStatus() == LoadStatus.LOADED) {
+        List<ArcGISSublayer> layers=dynamicLayer.getSublayers();
+        for(int i=0;i<layers.size();i++){
+          ArcGISSublayer layer=layers.get(i);
+          if(layer.getName().equals("Imagery")){
+            layer.setVisible(true);
+            graphicsLayer.getGraphics().add(graphic);
+            if(progressDialog!=null) progressDialog.cancel();
+
+          }
+          else
+            layer.setVisible(false);
+        }
+      }
+    });
+
+    map.getOperationalLayers().add(dynamicLayer);
+    mMapView.getGraphicsOverlays().add(graphicsLayer);
+
+    map.setBasemap(Basemap.createImagery());
+    mMapView.setMap(map);
+
+
+
+    mMapView.setOnTouchListener(new MapView.OnTouchListener (){
+
+      @Override
+      public boolean onScale(ScaleGestureDetector detector) {
+        return false;
+      }
+
+      @Override
+      public boolean onScaleBegin(ScaleGestureDetector detector) {
+        return false;
+      }
+
+      @Override
+      public void onScaleEnd(ScaleGestureDetector detector) {
+
+      }
+
+      @Override
+      public boolean onSingleTapConfirmed(MotionEvent e) {
+        return false;
+      }
+
+      @Override
+      public boolean onDoubleTap(MotionEvent e) {
+        return false;
+      }
+
+      @Override
+      public boolean onDoubleTapEvent(MotionEvent e) {
+        return false;
+      }
+
+      @Override
+      public boolean onMultiPointerTap(MotionEvent motionEvent) {
+        return false;
+      }
+
+      @Override
+      public boolean onDoubleTouchDrag(MotionEvent motionEvent) {
+        return false;
+      }
+
+      @Override
+      public boolean onUp(MotionEvent motionEvent) {
+        return false;
+      }
+
+      @Override
+      public boolean onRotate(MotionEvent motionEvent, double v) {
+        return false;
+      }
+
+      @Override
+      public boolean onDown(MotionEvent e) {
+        return false;
+      }
+
+      @Override
+      public void onShowPress(MotionEvent e) {
+
+      }
+
+      @Override
+      public boolean onSingleTapUp(MotionEvent e) {
+        if(mMapView!=null){
+          return Global.openMakani("1190353",getActivity());
+        }
+        return false;
+      }
+
+      @Override
+      public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+      }
+
+      @Override
+      public void onLongPress(MotionEvent e) {
+
+      }
+
+      @Override
+      public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        return false;
+      }
+
       @Override
       public boolean onTouch(View v, MotionEvent event) {
         if(mMapView!=null) {
-          mMapView.setOnPanListener(null);
-          mMapView.setOnZoomListener(null);
+          //mMapView.setOnPanListener(null);
+          //mMapView.addMapScaleChangedListener(null);
           if(event.getAction()==MotionEvent.ACTION_DOWN){
-
             return Global.openMakani("1190353",getActivity());
-
           }
         }
         return false;
@@ -357,61 +485,53 @@ public class ContactUsFragment extends Fragment implements PhoneCallPermissionIn
 
 
     //Resize image
-    Drawable dr = getResources().getDrawable(R.drawable.makani);
-    Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-    Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, 32, 32, true));
 
-    PictureMarkerSymbol symbol = new PictureMarkerSymbol(d);
-    Point graphicPoint = new Point(497818.691, 2795353.692);
-    Graphic graphic = new Graphic(graphicPoint,symbol);
-
-    //Add makani Icon to the map
-    GraphicsLayer graphicsLayer = new GraphicsLayer();
-    mMapView.addLayer(graphicsLayer);
-    graphicsLayer.addGraphic(graphic);
-    mMapView.addLayer(graphicsLayer);
-
-    mMapView.setOnStatusChangedListener(new OnStatusChangedListener() {
+    mMapView.addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
       @Override
+      public void onViewAttachedToWindow(View v){
+        final Timer timer=new Timer();
+        timer.schedule(new TimerTask() {
+          @Override
+          public void run() {
+            //mMapView.setViewpointCenterAsync(graphicPoint);
+            //mMapView.setViewpointGeometryAsync(new Point(497818.691, 2795353.692),100);
+            final Timer timer=new Timer();
+            timer.schedule(new TimerTask() {
+              @Override
+              public void run() {
+                mMapView.setViewpointScaleAsync(2000);
+                timer.cancel();
+              }
+            }, 1000*1);
+
+            timer.cancel();
+          }
+        }, 1000*1);
+      }
+
+      @Override
+      public void onViewDetachedFromWindow(View v){
+
+      }
+
+     /* @Override
       public void onStatusChanged(Object o, STATUS status) {
         if( o instanceof ArcGISDynamicMapServiceLayer && status==STATUS.LAYER_LOADED)
         {
-          final Timer timer=new Timer();
-          timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-              mMapView.zoomin();
-              timer.cancel();
-            }
-          }, 1000*1);
+
         }
         if( o instanceof ArcGISDynamicMapServiceLayer && status==STATUS.LAYER_LOADING_FAILED)
         {
           layoutMap.setVisibility(View.GONE);
         }
-      }
+      }*/
     });
 
-
-
   }
 
 
 
-  private class TouchListener extends MapOnTouchListener {
 
-    public TouchListener(Context context, MapView view) {
-      super(context, view);
-    }
-    @Override
-    public boolean onSingleTap(MotionEvent event)
-    {
-      if(mMapView!=null){
-        return Global.openMakani("1190353",getActivity());
-      }
-      return false;
-    }
-  }
 
   private void openURL(String link) {
     Intent i = new Intent(Intent.ACTION_VIEW);

@@ -3036,7 +3036,7 @@ public class AttachmentFragment extends Fragment implements CameraPermissionInte
                                                 if(oldDoc != null) {
                                                     if (oldDoc.size() == Global.docArr.length) {
                                                         if (progressDialog != null)
-                                                            progressDialog.hide();
+                                                            progressDialog.cancel();
                                                     }
                                                 }
                                             }
@@ -3046,8 +3046,8 @@ public class AttachmentFragment extends Fragment implements CameraPermissionInte
                                     }
 
                                 } else {
-                                    if (progressDialog != null)
-                                        progressDialog.hide();
+
+                                        if(progressDialog!=null)progressDialog.cancel();
                                 }
                             } catch (Exception e) {
                                 if(progressDialog != null)

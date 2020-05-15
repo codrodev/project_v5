@@ -238,7 +238,7 @@ public class AlertDialogUtil {
                         if(Global.current_fragment_id==FR_PAYMENT)
                             ((Activity) context).onBackPressed();
                         else
-                            ((Activity) context).finish();
+                            ((MainActivity) context).finish();
 
 
 
@@ -283,7 +283,7 @@ public class AlertDialogUtil {
                         Gson gson = new GsonBuilder().serializeNulls().create();
                         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(USER_LOGIN_DETAILS, gson.toJson(Global.loginDetails)).apply();
                         Intent intent = new Intent(context, LoginActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         context.startActivity(intent);
 
 
@@ -476,7 +476,7 @@ public class AlertDialogUtil {
 
                         alert.setView(input);
 
-*/
+*/                      Global.hideSoftKeyboard((MainActivity) context);
 
                         String chatURL="";
                         if (Constant.CURRENT_LOCALE=="ar") {

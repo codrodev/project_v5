@@ -1,9 +1,13 @@
 package dm.sime.com.kharetati.network;
 
 
+import dm.sime.com.kharetati.pojo.SerializableParcelDetails;
+import dm.sime.com.kharetati.pojo.SerializeGetAppRequestModel;
 import dm.sime.com.kharetati.pojo.SessionUaePassResponse;
+import dm.sime.com.kharetati.pojo.UAEAccessTokenResponse;
 import dm.sime.com.kharetati.pojo.UaePassConfig;
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
 
@@ -14,6 +18,10 @@ public interface MyApiService {
     Observable<UaePassConfig> uaePassConfig(@Url String url);
     @POST
     Observable<SessionUaePassResponse> getSessionUAEPass(@Url String url);
+    @POST
+    Observable<SerializableParcelDetails> getParcelDetails(@Url String url, @Body SerializeGetAppRequestModel model);
+    @POST
+    Observable<UAEAccessTokenResponse> getUAEAccessToken(@Url String url);
 
 
     /*//to get accessToken

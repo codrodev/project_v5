@@ -113,6 +113,7 @@ public class Email {
             public void onClick(View view) {
                 email = input.getText().toString();
                 if(isEmailValid(email)){
+                    if(PlotDetails.emailParam!=null)
                     PlotDetails.emailParam.emailid=email;
                     sendEmail();
                     alertDialog.dismiss();
@@ -172,14 +173,14 @@ public class Email {
         try {
             progressDialog.show();
             final JSONObject jsonBody = new JSONObject();
-            jsonBody.put("communityAr",PlotDetails.emailParam.communityAr==null?"":PlotDetails.emailParam.communityAr);
-            jsonBody.put("communityEn",PlotDetails.emailParam.communityEn==null?"":PlotDetails.emailParam.communityEn);
-            jsonBody.put("emailid",PlotDetails.emailParam.emailid);
-            jsonBody.put("imagePath",PlotDetails.emailParam.imagePath);
-            jsonBody.put("plotArea",String.valueOf(PlotDetails.emailParam.plotArea));
-            jsonBody.put("locale",PlotDetails.emailParam.locale);
-            jsonBody.put("plotnumber",PlotDetails.parcelNo);
-            jsonBody.put("zoneReport",PlotDetails.emailParam.zoneReport);
+            jsonBody.put("communityAr",PlotDetails.emailParam==null?"":PlotDetails.emailParam.communityAr);
+            jsonBody.put("communityEn",PlotDetails.emailParam==null?"":PlotDetails.emailParam.communityEn);
+            jsonBody.put("emailid",PlotDetails.emailParam==null?"":PlotDetails.emailParam.emailid);
+            jsonBody.put("imagePath",PlotDetails.emailParam==null?"":PlotDetails.emailParam.imagePath);
+            jsonBody.put("plotArea",PlotDetails.emailParam==null?"":String.valueOf(PlotDetails.emailParam.plotArea));
+            jsonBody.put("locale",PlotDetails.emailParam==null?"":PlotDetails.emailParam.locale);
+            jsonBody.put("plotnumber",PlotDetails.parcelNo ==null?"":PlotDetails.parcelNo);
+            jsonBody.put("zoneReport",PlotDetails.emailParam==null?"":PlotDetails.emailParam.zoneReport);
 
             RequestQueue mRequestQueue = Volley.newRequestQueue(context);
 
@@ -191,8 +192,10 @@ public class Email {
                 @Override
                 public void onResponse(JSONObject response) {
                     try{
+                        progressDialog.cancel();
                         String status=response.getString("message2");
                         if(status.compareToIgnoreCase("success")==0){
+
                             AlertDialogUtil.errorAlertDialog(activity.getResources().getString(R.string.lbl_warning), locale.equals("en") ? Global.appMsg.getEmailSuccessEn(): Global.appMsg.getEmailSuccessAr(), activity.getResources().getString(R.string.ok), activity);
 
                         }
@@ -204,8 +207,9 @@ public class Email {
                     catch(JSONException ex)
                     {
                         ex.printStackTrace();
+                        progressDialog.cancel();
                     }
-                    progressDialog.hide();
+
 
                 }
             }, new Response.ErrorListener() {
@@ -214,7 +218,8 @@ public class Email {
 
                     Toast.makeText(activity.getApplicationContext(),
                             error.getMessage(), Toast.LENGTH_LONG).show();
-                    progressDialog.hide();
+                    progressDialog.cancel();
+
                 }
             }) {
 

@@ -108,9 +108,15 @@ public class DownloadedSitePlanAdapter extends BaseAdapter implements Filterable
         if(Boolean.parseBoolean(filteredData.get(i).getIsPaymentPending()) == true){
             payButton.setEnabled(true);
             payButton.setText(R.string.pay);
+            payButton.setAlpha(1f);
         } else {
             payButton.setEnabled(false);
             payButton.setText(R.string.paid);
+
+        }
+        if(filteredData.get(i).getRequestStatus().toLowerCase().equals("cancelled")||filteredData.get(i).getRequestStatus().toLowerCase().equals("Rejected")){
+            payButton.setEnabled(false);
+
         }
 
         if(filteredData.get(i).getReqCreatedDate()!=null){

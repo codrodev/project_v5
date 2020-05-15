@@ -257,8 +257,9 @@ public class LandActivitiesFragment extends Fragment implements EditText.OnEdito
             params.put("PARCEL_ID", PlotDetails.parcelNo);
             params.put("LANG", lang);
             params.put("DESC", Global.desc);
-            //params.put("SESSION", Global.session);
+            params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
             params.put("REMARKS", Global.getPlatformRemark());
+            params.put("IsGuest", !Global.isUserLoggedIn);
             final JSONObject jsonBody = new JSONObject(params);
             JsonObjectRequest req = new JsonObjectRequest(POST,Constant.MYID_LAND_ACTIVITY, jsonBody,
                     new Response.Listener<JSONObject>() {
@@ -298,6 +299,7 @@ public class LandActivitiesFragment extends Fragment implements EditText.OnEdito
                                     populateLandActivity(activitiesList);
                                 }
                             } catch (Exception e) {
+                                if(progressDialog!=null)progressDialog.cancel();
                                 e.printStackTrace();
                             }
                         }

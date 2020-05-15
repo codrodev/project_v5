@@ -92,6 +92,10 @@ public class Global {
     public static AppMsg appMsg;
     public static boolean isLoginActivity;
     public static boolean isUAE;
+    public static String[] mapHiddenLayers;
+    public static boolean isfromWebViewCancel;
+    public static String sessionErrorMsg;
+    public static String authValue;
     private static Context context;
     public static boolean isLanguageChanged=false;
     public static String noctemplateUrl;
@@ -199,11 +203,13 @@ public class Global {
 //            else return false;
 //        } else
 //            return false;
+        NetworkInfo activeNetworkInfo=null;
 
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        if(activeNetworkInfo==null)  return false;
+        if(context!=null){
+            ConnectivityManager connectivityManager
+                    = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            activeNetworkInfo = connectivityManager.getActiveNetworkInfo();}
+        if (activeNetworkInfo == null) return false;
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
@@ -574,12 +580,15 @@ public class Global {
         AttachmentFragment.deliveryByCourier=false;
         Global.requestId=null;
         AttachmentFragment.isDeliveryDetails=false;
+        Global.accessToken =null;
+        Global.uae_access_token =null;
 
         //Global.loginDetails.showFormPrefilledOnRememberMe=true;
+        ((MainActivity)context).finish();
         Gson gson = new GsonBuilder().serializeNulls().create();
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(Constant.USER_LOGIN_DETAILS, gson.toJson(Global.loginDetails)).apply();
         Intent intent = new Intent(context, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         context.startActivity(intent);
     }
 

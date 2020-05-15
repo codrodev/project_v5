@@ -26,8 +26,8 @@ public class ApiFactory {
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
 
-                .addInterceptor(networkConnectionInterceptor).connectTimeout(100, TimeUnit.SECONDS)
-                .readTimeout(200, TimeUnit.SECONDS)
+                .addInterceptor(networkConnectionInterceptor).connectTimeout(240, TimeUnit.SECONDS)
+                .readTimeout(240, TimeUnit.SECONDS)
                 .sslSocketFactory(tlsSocketFactory, Objects.requireNonNull(tlsSocketFactory.getTrustManager()))
                 .build();
         Gson gson = new GsonBuilder()

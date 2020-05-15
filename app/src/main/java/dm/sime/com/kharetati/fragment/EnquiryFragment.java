@@ -189,8 +189,8 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
                 params.put("PARCEL_ID", PlotDetails.parcelNo);
                 params.put("MESSAGE", enquiryMessage.getText().toString());
                 params.put("SUBJECT", enquirySubject.getText().toString());
-                params.put("USER_ID", Global.getUser(getActivity()).getEmail());
-                params.put("USER_NAME", Global.getUser(getActivity()).getUsername());
+                params.put("USER_ID", Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getEmail():Global.getUser(getActivity()).getEmail());
+                params.put("USER_NAME", Global.isUAE?(lang.equals("en")?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN():Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFirstnameAR()):Global.getUser(getActivity()).getUsername());
                 params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
                 params.put("REMARKS", Global.getPlatformRemark());
                 params.put("LANGUAGE", lang);
@@ -207,6 +207,9 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
                                         if (basicResponse != null && !Boolean.valueOf(basicResponse.getIsException())) {
                                             AlertDialogUtil.submitEnquiryAlert(getResources().getString(R.string.submit_enquiry_success),getResources().getString(R.string.ok),getActivity());
                                         }
+                                        else if(basicResponse!=null && Boolean.valueOf(basicResponse.getIsException()))
+                                            AlertDialogUtil.submitEnquiryAlert(basicResponse.getMessage(),getResources().getString(R.string.ok),getActivity());
+
                                     }
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -232,8 +235,8 @@ public class EnquiryFragment extends Fragment implements View.OnClickListener {
                         params.put("PARCEL_ID", PlotDetails.parcelNo);
                         params.put("MESSAGE", enquiryMessage.getText().toString());
                         params.put("SUBJECT", enquirySubject.getText().toString());
-                        params.put("USER_ID", Global.getUser(getActivity()).getEmail());
-                        params.put("USER_NAME", Global.getUser(getActivity()).getUsername());
+                        params.put("USER_ID", Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getEmail():Global.getUser(getActivity()).getEmail());
+                        params.put("USER_NAME", Global.isUAE?(lang.equals("en")?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN():Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFirstnameAR()):Global.getUser(getActivity()).getUsername());
                         params.put("SESSION", Global.isUAE?Global.uaeSessionResponse.getService_response().getToken():Global.session);
                         params.put("REMARKS", Global.getPlatformRemark());
                         params.put("LANGUAGE", lang);

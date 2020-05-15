@@ -182,14 +182,14 @@
   <string name="GFA">المساحة الطابقية</string>
   <string name="FullyAffDetails">تفاصيل التأثير الكلي</string>
   <string name="GRADE">الصفوف</string>
-  <string name="GROSSFLOORAREA">المساحة الطابقية</string>
+  <string name="GROSSFLOORAREA">ﺍﻟﺤﺪ ﺍﻷﻋﻠﻰ ﻟﻨﺴﺒﺔ ﺍﻟﺘﻐﻄﻴﺔ ﺍﻟﺒﻨﺎﺋﻴﺔ</string>
   <string name="HEIGHT_REG">الإرتفاع</string>
   <string name="High">ثانوي</string>
   <string name="KinderGarden">رياض االاطفال</string>
   <string name="LANDUSE_REG">تفاصيل استعمالات الأرض</string>
   <string name="MAXCLASSROOMS">الحد الأعلى لعدد الصفوف</string>
   <string name="MAXSTUDENTS">الحد الأعلى لعدد التلاميذ</string>
-  <string name="MINOSANDPGA">الحد الأدنى للمناطق المفتوحة والملاعب\ لكل طالب</string>
+  <string name="MINOSANDPGA">ﺍﻟﻤﺴﺎﺣﺎﺕ ﺍﻟﻤﻔﺘﻮﺣﺔ ﻭﺍﻟﻤﻼﻋﺐ ﺑﻤﺎ ﻓﻴﻬﺎ ﺍﻟﻤﺴﺎﺣﺎﺕ ﺍﻟﻤﻐﻄﺎﺓ ﻣﻨﻬﺎﺎ</string>
   <string name="MetroDetails">تفاصيل المترو</string>
   <string name="Middle">متوسط</string>
   <string name="PARKING_REG">تفاصيل موقف السيارات</string>
@@ -578,6 +578,9 @@
     <string name="deed_hint">مثال: 123</string>
     <string name="sub_deed_hint">مثال: 12</string>
   <string name="login_uaepass">تسجيل الدخول بالهوية الرقمية</string>
-    <!--<string name="deed_hint">237</string>
-    <string name="sub_deed_hint">12</string>-->
+    <string name="uaeloginfail">فشل في تسجيل الدخول بالهوية الرقمية، الرجاء المحاولة مرة أخرى</string>
+    <string name="login_with">الدخول</string>
+  <string name="with_uaepass">بالهوية الرقمية</string>
+  <!--<string name="deed_hint">237</string>
+  <string name="sub_deed_hint">12</string>-->
 </resources>

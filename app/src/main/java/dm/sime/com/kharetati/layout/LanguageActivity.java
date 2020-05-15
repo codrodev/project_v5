@@ -50,10 +50,10 @@ public class LanguageActivity extends AppCompatActivity {
     mTracker = application.getDefaultTracker();
     mTracker.setScreenName(LANGUAGE_ACTIVITY);
     mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-    if(DeviceUtils.isDeviceRooted()){
+    /*if(DeviceUtils.isDeviceRooted()){
         //Toast.makeText(application, "Device is rooted", Toast.LENGTH_SHORT).show();
         AlertDialogUtil.rootDetectionAlert(getResources().getString(R.string.root_alert),getResources().getString(R.string.lbl_ok),LanguageActivity.this);
-    }
+    }*/
 
 
   }

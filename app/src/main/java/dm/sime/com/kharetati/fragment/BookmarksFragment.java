@@ -3,7 +3,9 @@ package dm.sime.com.kharetati.fragment;
 
 import android.app.AuthenticationRequiredException;
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.text.Editable;
@@ -42,6 +44,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import dm.sime.com.kharetati.Adapter.BookmarksAdapter;
@@ -102,10 +105,11 @@ public class BookmarksFragment extends Fragment {
         fontChanger.replaceFonts((ViewGroup) this.getView());
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Global.current_fragment_id=Constant.FR_BOOKMARK;
+        Global.current_fragment_id= FR_BOOKMARK;
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_bookmarks, container, false);
         txtMsg=(TextView) v.findViewById(R.id.fragment_bookmarks_msg);
@@ -206,6 +210,8 @@ public class BookmarksFragment extends Fragment {
 
 
                 }
+                if(bookmarksAdapter!=null)
+                    bookmarksAdapter.notifyDataSetChanged();
             }
         });
 
@@ -218,11 +224,15 @@ public class BookmarksFragment extends Fragment {
 
 
         if(Constant.CURRENT_LOCALE=="en"){
-            txtHeading.setPaddingRelative(55,0,0,0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                txtHeading.setPaddingRelative(55,0,0,0);
+            }
 
         }
         else{
-            txtHeading.setPaddingRelative(0,0,48,0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                txtHeading.setPaddingRelative(0,0,48,0);
+            }
         }
 
         ViewCompat.setLayoutDirection(txtParcelNumber, ViewCompat.LAYOUT_DIRECTION_LTR);
@@ -231,14 +241,20 @@ public class BookmarksFragment extends Fragment {
         return v;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
     public void sortBoomarks(boolean descending){
+        Locale locale;
+        SimpleDateFormat format;
+        locale=Locale.ENGLISH;
+        format= new SimpleDateFormat("dd/MM/yyyy",locale);
         if(descending)
         {
+
              Collections.sort(bookmarkList, new Comparator<Bookmark>() {
                 @Override
                 public int compare(Bookmark bookmark1, Bookmark bookmark2) {
-                    if(bookmark1.date==null || bookmark2.date==null) return 0;
-                    return bookmark1.date.compareTo(bookmark2.date);
+                    if(bookmark1.getDate()==null || bookmark2.getDate()==null) return 0;
+                    return format.format(bookmark1.getDate()).compareTo(format.format(bookmark2.getDate()));
                 }
             });
         }
@@ -247,8 +263,8 @@ public class BookmarksFragment extends Fragment {
             Collections.sort(bookmarkList, new Comparator<Bookmark>() {
                 @Override
                 public int compare(Bookmark bookmark1, Bookmark bookmark2) {
-                    if(bookmark1.date==null || bookmark2.date==null) return 0;
-                    return bookmark1.date.compareTo(bookmark2.date)>=0?-1:0;
+                    if(bookmark1.getDate()==null || bookmark2.getDate()==null) return 0;
+                    return format.format(bookmark1.getDate()).compareTo(format.format(bookmark2.getDate()))>=0?-1:0;
                 }
             });
         }

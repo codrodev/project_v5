@@ -81,7 +81,7 @@ public class LandRegistrationFragment extends Fragment {
 
                 }
                 else {
-                    registrationUrl = String.format(Constant.MY_LAND_REG_URL, Global.landregUrl, local, Global.session);
+                    registrationUrl = String.format(Constant.MY_LAND_REG_URL, Global.landregUrl, local,Global.session);
                     //openLandBrowser.setData(Uri.parse(registrationUrl));
                     //((MainActivity)getActivity()).startActivity(openLandBrowser);
                     ((MainActivity) getActivity()).createAndLoadFragment(Constant.FR_LAND_REGISTRATION_WEB, true, null);

@@ -170,12 +170,12 @@ public class BookmarksAdapter extends BaseAdapter implements Filterable {
         }
 
         TextView txtDate = (TextView) view.findViewById(R.id.bookmark_txtDate);
-        if(filteredData.get(i).date!=null){
+        if(filteredData.get(i).getDate()!=null){
             Locale locale;
             SimpleDateFormat format;
             locale=Locale.ENGLISH;
             format= new SimpleDateFormat("dd/MM/yyyy",locale);
-            txtDate.setText(format.format(filteredData.get(i).date));
+            txtDate.setText(format.format(filteredData.get(i).getDate()));
         }
 
 

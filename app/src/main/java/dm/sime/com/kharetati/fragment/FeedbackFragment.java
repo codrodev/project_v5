@@ -87,15 +87,15 @@ public class FeedbackFragment extends Fragment {
       User user=Global.getUser(getActivity());
       if(Global.getCurrentLanguage(getActivity()).compareToIgnoreCase("en")==0) {
         if(user.getFullname() != null && user.getFullname().length() > 0) {
-          txtName.setText(user.getFullname());
+           txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN():user.getFullname());
         } else {
-          txtName.setText(user.getFullnameAR());
+          txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR():user.getFullnameAR());
         }
       } else {
         if(user.getFullnameAR() != null && user.getFullnameAR().length() > 0) {
-          txtName.setText(user.getFullnameAR());
+          txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR():user.getFullnameAR());
         } else {
-          txtName.setText(user.getFullname());
+          txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN():user.getFullname());
         }
       }
     }
@@ -153,24 +153,24 @@ public class FeedbackFragment extends Fragment {
       }
       else{
         User user=Global.getUser(getActivity());
-        if(user!=null){
+
           if(Global.getCurrentLanguage(getActivity()).compareToIgnoreCase("en")==0) {
             if(user.getFullname() != null && user.getFullname().length() > 0) {
-              txtName.setText(user.getFullname());
+              txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN():user.getFullname());
             } else {
-              txtName.setText(user.getFullnameAR());
+              txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR():user.getFullnameAR());
             }
           } else {
             if(user.getFullnameAR() != null && user.getFullnameAR().length() > 0) {
-              txtName.setText(user.getFullnameAR());
+              txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameAR():user.getFullnameAR());
             } else {
-              txtName.setText(user.getFullname());
+              txtName.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getFullnameEN():user.getFullname());
             }
           }
-          txtEmail.setText(user.getEmail());
-          txtPhone.setText(user.getMobile());
+          txtEmail.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getEmail():user.getEmail());
+          txtPhone.setText(Global.isUAE?Global.uaeSessionResponse.getService_response().getUAEPASSDetails().getMobile():user.getMobile());
         }
-      }
+
     }
     catch (Exception ex){
 
