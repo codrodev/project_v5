@@ -62,7 +62,7 @@ public class HappinessFragment extends Fragment {
     WITHOUT_MICROAPP
   }
 
-  private static final String SECRET = "E4917C5A1CCC0FA3";
+  private static final String SECRET = "C2951281B5A8B11D";
   private static final String SERVICE_PROVIDER = "DM";
   private static final String CLIENT_ID = "dmbeatuser";
   private TYPE currentType = TRANSACTION;
@@ -176,8 +176,8 @@ public class HappinessFragment extends Fragment {
     /**
      *This is QA URL. Replace it with production once it is ready for production.
      */
-    VotingManager.setHappinessUrl("https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService");  //staging
-   // VotingManager.setHappinessUrl("https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService");//production
+//    VotingManager.setHappinessUrl("https://happinessmeterqa.dubai.gov.ae/HappinessMeter2/MobilePostDataService");  //staging
+    VotingManager.setHappinessUrl("https://happinessmeter.dubai.gov.ae/HappinessMeter2/MobilePostDataService");//production
 
     //For arabic pass lang "ar"
     String lang;

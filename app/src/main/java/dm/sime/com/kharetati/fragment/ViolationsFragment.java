@@ -18,6 +18,8 @@ import android.widget.TextView;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
+import java.util.Objects;
+
 import dm.sime.com.kharetati.Adapter.ViolationsRecyclerViewAdapter;
 import dm.sime.com.kharetati.R;
 import dm.sime.com.kharetati.layout.MainActivity;
@@ -67,7 +69,7 @@ public class ViolationsFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        FontChangeCrawler fontChanger = new FontChangeCrawler(getActivity().getAssets(), "Dubai-Regular.ttf");
+        FontChangeCrawler fontChanger = new FontChangeCrawler(Objects.requireNonNull(getActivity()).getAssets(), "Dubai-Regular.ttf");
         fontChanger.replaceFonts((ViewGroup) this.getView());
     }
 
@@ -119,7 +121,7 @@ public class ViolationsFragment extends Fragment {
     }
 
     void populateViolations() {
-         violationsAdapter=new ViolationsRecyclerViewAdapter(getActivity().getBaseContext(),getActivity(), PlotDetails.buildingViolationResponse.violationsArray,ViolationsFragment.this);
+         violationsAdapter=new ViolationsRecyclerViewAdapter(Objects.requireNonNull(getActivity()).getBaseContext(),getActivity(), PlotDetails.buildingViolationResponse.violationsArray,ViolationsFragment.this);
         listViolations.setAdapter(violationsAdapter);
         listViolations.setHasFixedSize(true);
         listViolations.setLayoutManager(new LinearLayoutManager(getActivity()));

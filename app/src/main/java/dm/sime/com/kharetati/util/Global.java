@@ -93,7 +93,7 @@ public class Global {
     public static boolean isLoginActivity;
     public static boolean isUAE;
     public static String[] mapHiddenLayers;
-    public static boolean isfromWebViewCancel;
+    public static boolean isfromWebViewCancel= false;
     public static String sessionErrorMsg;
     public static String authValue;
     private static Context context;

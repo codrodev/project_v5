@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Kharetati.iml" filepath="$PROJECT_DIR$/Kharetati.iml" group="Kharetati" />
+      <module fileurl="file://$PROJECT_DIR$/ProjectV5.iml" filepath="$PROJECT_DIR$/ProjectV5.iml" group="ProjectV5" />
+      <module fileurl="file://$PROJECT_DIR$/app/ProjectV5-app.iml" filepath="$PROJECT_DIR$/app/ProjectV5-app.iml" group="ProjectV5/app" />
+      <module fileurl="file://$PROJECT_DIR$/libraryuaepass/ProjectV5-libraryuaepass.iml" filepath="$PROJECT_DIR$/libraryuaepass/ProjectV5-libraryuaepass.iml" group="ProjectV5/libraryuaepass" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="Kharetati/app" />
       <module fileurl="file://$PROJECT_DIR$/libraryuaepass/libraryuaepass.iml" filepath="$PROJECT_DIR$/libraryuaepass/libraryuaepass.iml" group="Kharetati/libraryuaepass" />
     </modules>

@@ -43,9 +43,9 @@ public class Constant {
 // public static final String BASE_URL="https://www.smartgis.ae/kharetativ2/"; //production
 
 
- //public static final String BASE_URL="https://smart.gis.gov.ae/kharetativ4_2/"; //staging
+ public static final String BASE_URL="https://smart.gis.gov.ae/kharetativ4_2/"; //staging
 // public static final String BASE_URL="https://www.smartgis.ae/kharetativ5/"; //production
- public static final String BASE_URL="https://www.smartgis.ae/kharetativ5_2/"; //new production
+// public static final String BASE_URL="https://www.smartgis.ae/kharetativ5_2/"; //new production
 
 
 

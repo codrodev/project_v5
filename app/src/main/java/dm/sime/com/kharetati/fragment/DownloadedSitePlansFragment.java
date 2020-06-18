@@ -300,16 +300,18 @@ public class DownloadedSitePlansFragment extends Fragment {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         if(descending)
         {
+            if(sitePlanList!=null){
             Collections.sort(sitePlanList, new Comparator<MyMapResults>() {
                 @Override
                 public int compare(MyMapResults siteplan1, MyMapResults siteplan2) {
                     if(siteplan1.getReqCreatedDate()==null || siteplan2.getReqCreatedDate()==null) return 0;
                     return siteplan1.getReqCreatedDate().compareTo(siteplan2.getReqCreatedDate());
                 }
-            });
+            });}
         }
         else{
             txtHeading.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.asc, 0);
+            if(sitePlanList!=null){
             Collections.sort(sitePlanList, new Comparator<MyMapResults>() {
                 @Override
                 public int compare(MyMapResults siteplan1, MyMapResults siteplan2) {
@@ -317,6 +319,7 @@ public class DownloadedSitePlansFragment extends Fragment {
                     return siteplan1.getReqCreatedDate().compareTo(siteplan2.getReqCreatedDate())>=0?-1:0;
                 }
             });
+            }
         }
     }
     public void search(String plotno){

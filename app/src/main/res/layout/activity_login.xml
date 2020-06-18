@@ -185,7 +185,7 @@
           android:gravity="center"
           android:layout_weight="1"
           android:id="@+id/layoutUae"
-          android:visibility="gone"
+          android:visibility="visible"
           android:orientation="vertical">
         <LinearLayout
             android:id="@+id/layoutUAEPass"

@@ -581,6 +581,7 @@
     <string name="uaeloginfail">فشل في تسجيل الدخول بالهوية الرقمية، الرجاء المحاولة مرة أخرى</string>
     <string name="login_with">الدخول</string>
   <string name="with_uaepass">بالهوية الرقمية</string>
+
   <!--<string name="deed_hint">237</string>
   <string name="sub_deed_hint">12</string>-->
 </resources>

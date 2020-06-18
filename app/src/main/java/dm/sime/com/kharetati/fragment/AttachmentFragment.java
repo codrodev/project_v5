@@ -101,6 +101,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -649,7 +650,7 @@ public class AttachmentFragment extends Fragment implements CameraPermissionInte
                     chk_deliveryByCourier.setChecked(false);
                 }
                 if((AttachmentSelectionFragment.applicantMailId!=null||AttachmentSelectionFragment.applicantMailId!="")
-                        &&(AttachmentSelectionFragment.applicantMobileNo!=null||AttachmentSelectionFragment.applicantMobileNo.length()>0))
+                        &&(AttachmentSelectionFragment.applicantMobileNo!=null|| Objects.requireNonNull(AttachmentSelectionFragment.applicantMobileNo).length()>0))
                 {
                     if(isValidEmailId()==true&& isValidMobile()==true){
                         AttachmentSelectionFragment.applicantMailId = emailAddress.getText().toString().trim();
@@ -1188,7 +1189,7 @@ public class AttachmentFragment extends Fragment implements CameraPermissionInte
         User user=Global.getUser(getActivity());
 
         if((AttachmentSelectionFragment.applicantMailId!=null||AttachmentSelectionFragment.applicantMailId!="")
-                &&(AttachmentSelectionFragment.applicantMobileNo!=null||AttachmentSelectionFragment.applicantMobileNo.length()>0))
+                &&(AttachmentSelectionFragment.applicantMobileNo!=null|| Objects.requireNonNull(AttachmentSelectionFragment.applicantMobileNo).length()>0))
         {
             if(isValidEmailId()==true&& isValidMobile()==true){
                 AttachmentSelectionFragment.applicantMailId = emailAddress.getText().toString().trim();

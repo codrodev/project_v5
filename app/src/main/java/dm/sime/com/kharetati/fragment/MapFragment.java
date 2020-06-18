@@ -464,7 +464,8 @@ public class MapFragment extends Fragment {
                     } else {
                         if(parcelId!=null && parcelId.trim().length()!=0)
                         {
-                            mMapView.setVisibility(View.VISIBLE);
+                            if(mMapView!=null)
+                                mMapView.setVisibility(View.VISIBLE);
                             mapToolbar.setVisibility(View.VISIBLE);
                             findParcel(parcelId);
 
@@ -1141,7 +1142,7 @@ public class MapFragment extends Fragment {
 
     public void getParceldetails(){
         //mapNavigator.onStarted();
-        progressDialog.show();
+        if(progressDialog!=null)progressDialog.show();
         String url = Constant.BASE_AUXULARY_URL_UAE_SESSION  + "getparceldetails";
 
         SerializeGetAppRequestModel model = new SerializeGetAppRequestModel();
