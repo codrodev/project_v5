@@ -96,6 +96,9 @@ public class Global {
     public static boolean isfromWebViewCancel= false;
     public static String sessionErrorMsg;
     public static String authValue;
+    public static String clientId;
+    public static String secretId;
+    public static String callbackUrl;
     private static Context context;
     public static boolean isLanguageChanged=false;
     public static String noctemplateUrl;

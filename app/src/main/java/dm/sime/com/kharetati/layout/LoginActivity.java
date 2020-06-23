@@ -91,6 +91,9 @@ import static dm.sime.com.kharetati.util.Constant.IS_FIRST_TIME_LAUNCH;
 import static dm.sime.com.kharetati.util.Constant.LOGIN_ACTIVITY;
 import static dm.sime.com.kharetati.util.Constant.USER_LANGUAGE;
 import static dm.sime.com.kharetati.util.Constant.USER_LOGIN_DETAILS;
+import static dm.sime.com.kharetati.util.Global.callbackUrl;
+import static dm.sime.com.kharetati.util.Global.clientId;
+import static dm.sime.com.kharetati.util.Global.secretId;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -479,20 +482,18 @@ public class LoginActivity extends AppCompatActivity {
 
 
 
-              String clientId = Encryptions.decrypt(Global.uaePassConfig.UAEID_clientid);
+              clientId = Encryptions.decrypt(Global.uaePassConfig.UAEID_clientid);
               String language = Global.getCurrentLanguage(this).compareToIgnoreCase("en") == 0 ? "en" : "ar";
-              String secretId = Encryptions.decrypt(Global.uaePassConfig.UAEID_secret);
-              String callbackUrl = Encryptions.decrypt(Global.uaePassConfig.UAEID_callback_url);
+              secretId = Encryptions.decrypt(Global.uaePassConfig.UAEID_secret);
+              callbackUrl = Encryptions.decrypt(Global.uaePassConfig.UAEID_callback_url);
 
-              if (UAEPassRequestModels.isPackageInstalled(UAEPassRequestModels.UAE_PASS_PACKAGE_ID, getPackageManager())) {
+              if (UAEPassRequestModels.isPackageInstalled( getPackageManager())) {
 
 
                   UAEPassAccessTokenRequestModel requestModel =
-                          UAEPassRequestModels.getAuthenticationRequestModel(this,
-                                  clientId, secretId, callbackUrl, Global.uaePassConfig.getUAE_PASS_ENVIRONMENT(),
-                                  Global.uaePassConfig.UAE_PASS_SCOPE, Global.uaePassConfig.UAE_PASS_ACR_VALUES_MOBILE, Global.uaePassConfig.UAE_PASS_ACR_VALUES_WEBVIEW,language);
+                          UAEPassRequestModels.getAuthenticationRequestModel(this);
 
-                  UAEPassController.getInstance().getAccessToken(this, requestModel, new UAEPassAccessTokenCallback() {
+                  UAEPassController.INSTANCE.getAccessToken(this, requestModel, new UAEPassAccessTokenCallback() {
                       @Override
                       public void getToken(String accessToken, String error) {
                           Global.accessToken = accessToken;
@@ -1350,11 +1351,11 @@ public class LoginActivity extends AppCompatActivity {
           //viewModel.getUAESessionToken(Global.uae_access_token);
           getUAEAccessToken(Global.uae_code);
       }
-      if(Global.isfromWebViewCancel && !UAEPassRequestModels.isPackageInstalled(UAEPassRequestModels.UAE_PASS_PACKAGE_ID, getPackageManager())){
+      if(Global.isfromWebViewCancel && !UAEPassRequestModels.isPackageInstalled(getPackageManager())){
           AlertDialogUtil.errorAlertDialog("",getString(R.string.uaeloginfail),getString(R.string.ok),LoginActivity.this);
           Global.isfromWebViewCancel=false;
       }
-      else if(Global.sessionErrorMsg!=null && !UAEPassRequestModels.isPackageInstalled(UAEPassRequestModels.UAE_PASS_PACKAGE_ID, getPackageManager())){
+      else if(Global.sessionErrorMsg!=null && !UAEPassRequestModels.isPackageInstalled( getPackageManager())){
           AlertDialogUtil.errorAlertDialog("",Global.sessionErrorMsg,getString(R.string.ok),LoginActivity.this);
           Global.sessionErrorMsg =null;
       }
